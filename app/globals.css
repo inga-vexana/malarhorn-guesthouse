@@ -55,6 +55,7 @@ button {
 }
 
 .logo {
+  background: transparent;
   cursor: pointer;
   line-height: 0;
 }
@@ -688,6 +689,169 @@ button {
   padding: 1rem 1.5rem;
 }
 
+.booking {
+  background: var(--l);
+  border-bottom: 1px solid var(--l3);
+  padding: 4rem 2.5rem;
+}
+
+.bookingCompact {
+  padding: 2.4rem 2.5rem;
+}
+
+.bookingInner {
+  margin: 0 auto;
+  max-width: 1060px;
+}
+
+.bookingIntro {
+  max-width: 620px;
+}
+
+.bookingIntro p {
+  color: var(--t2);
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.bookingForm {
+  align-items: end;
+  background: var(--w);
+  border: 1px solid var(--l3);
+  border-radius: 6px;
+  box-shadow: 0 1px 8px rgb(0 0 0 / 6%);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) 1.2fr auto;
+  margin-top: 1.7rem;
+  padding: 1.2rem;
+}
+
+.bookingField label {
+  color: var(--bm);
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+}
+
+.bookingField input {
+  background: var(--w);
+  border: 1.5px solid var(--l3);
+  border-radius: 3px;
+  color: var(--tx);
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  min-height: 44px;
+  outline: none;
+  padding: 0.65rem 0.75rem;
+  width: 100%;
+}
+
+.bookingForm .bp {
+  min-height: 44px;
+  padding: 0.75rem 1.5rem;
+}
+
+.bookingForm .bp:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.bookingNotice {
+  background: #eceae6;
+  border-left: 3px solid var(--sg);
+  color: var(--t2);
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+}
+
+.bookingNotice.error {
+  border-left-color: #9b4a3a;
+}
+
+.bookingResults {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+
+.bookingRoom {
+  background: var(--w);
+  border: 1px solid var(--l3);
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  overflow: hidden;
+}
+
+.bookingRoomImage {
+  background: var(--l2);
+  background-position: center;
+  background-size: cover;
+  min-height: 180px;
+}
+
+.bookingRoomBody {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: space-between;
+  padding: 1.2rem;
+}
+
+.bookingRoomBody h3 {
+  color: var(--br);
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 0.55rem;
+}
+
+.bookingRoomBody p {
+  color: var(--t2);
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-bottom: 0.8rem;
+}
+
+.bookingPrice {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 0.8rem;
+  justify-content: center;
+  min-width: 150px;
+  text-align: right;
+}
+
+.bookingPrice span {
+  color: var(--tc);
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.bookingFallback {
+  align-items: center;
+  border-top: 1px solid var(--l3);
+  color: var(--t2);
+  display: flex;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 1.4rem;
+  padding-top: 1rem;
+}
+
 .ib,
 .cf {
   background: var(--w);
@@ -1019,8 +1183,26 @@ footer {
   .ab,
   .hp,
   .sd2,
-  .ph {
+  .ph,
+  .booking,
+  .bookingCompact {
     padding: 3rem 1.2rem;
+  }
+
+  .bookingForm,
+  .bookingRoom {
+    grid-template-columns: 1fr;
+  }
+
+  .bookingRoomBody,
+  .bookingFallback {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .bookingPrice {
+    align-items: flex-start;
+    text-align: left;
   }
 
   .ht {
@@ -1045,5 +1227,15 @@ footer {
   .il,
   .gst-lbl {
     min-width: 0;
+  }
+}
+
+@media (max-width: 1120px) {
+  .nl {
+    display: none;
+  }
+
+  .nav {
+    padding: 0 1.2rem;
   }
 }

@@ -1,15 +1,39 @@
 "use client";
 
+import type { FormEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
 
 const BK =
   "https://online.bookvisit.com/accommodation?channelId=5780d487-02bc-4988-8121-30c65f421168";
+const CHANNEL_ID = "5780d487-02bc-4988-8121-30c65f421168";
 const LOGO =
   "https://malarhornguesthouse.is/wp-content/uploads/Untitled-200-x-200-px.png";
 const MENU = "https://malarhornguesthouse.is/wp-content/uploads/Matsedill-Malarhorn.pdf";
 
 type Lang = "en" | "is";
-type Page = "home" | "accommodation" | "restaurant" | "sailing" | "contact" | "about" | "guest";
+type Page = "home" | "accommodation" | "restaurant" | "sailing" | "contact" | "about" | "guest" | "booking";
+
+type BookingRoom = {
+  id: string;
+  name: string;
+  description: string;
+  image?: string;
+  available: number;
+  price: number | null;
+  currency: string;
+  rateName?: string | null;
+  size?: string | null;
+  maxGuests?: number | null;
+};
+
+type BookingSearchResponse = {
+  configured?: boolean;
+  bookingUrl: string;
+  message?: string;
+  error?: string;
+  alerts?: string[];
+  rooms: BookingRoom[];
+};
 
 const translations = {
   en: {
@@ -181,6 +205,8 @@ export default function MalarhornPage() {
         return <About lang={lang} />;
       case "guest":
         return <GuestInfo lang={lang} />;
+      case "booking":
+        return <BookingPage lang={lang} />;
       default:
         return <Home lang={lang} goTo={goTo} />;
     }
@@ -245,9 +271,9 @@ export default function MalarhornPage() {
               IS
             </button>
           </div>
-          <a href={BK} className="bkbtn" target="_blank" rel="noreferrer">
+          <button className="bkbtn" onClick={() => goTo("booking")}>
             {t.book}
-          </a>
+          </button>
         </div>
       </nav>
 
@@ -347,6 +373,8 @@ function Home({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
         </div>
       </section>
 
+      <BookingPanel lang={lang} compact />
+
       <section className="sv">
         <div className="sg">
           {[
@@ -418,6 +446,160 @@ function Home({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
         </div>
       </section>
     </>
+  );
+}
+
+function addDays(days: number) {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+function makeBookvisitUrl(arrival: string, departure: string, adults: number, children: number, promoCode: string) {
+  const params = new URLSearchParams({
+    channelId: CHANNEL_ID,
+    startDate: arrival,
+    endDate: departure,
+    adults: String(adults),
+  });
+
+  if (children > 0) params.set("children", String(children));
+  if (promoCode.trim()) params.set("promoCode", promoCode.trim());
+
+  return `https://online.bookvisit.com/accommodation?${params.toString()}`;
+}
+
+function BookingPage({ lang }: { lang: Lang }) {
+  const is = lang === "is";
+
+  return (
+    <>
+      <PageHeader
+        eyebrow={is ? "Live booking" : "Live booking"}
+        title={is ? "Book your stay" : "Book your stay"}
+        text={
+          is
+            ? "Search dates and guests, then continue securely in Bookvisit."
+            : "Search dates and guests, compare available options, then continue securely in Bookvisit."
+        }
+      />
+      <BookingPanel lang={lang} />
+    </>
+  );
+}
+
+function BookingPanel({ lang, compact = false }: { lang: Lang; compact?: boolean }) {
+  const is = lang === "is";
+  const [arrival, setArrival] = useState(addDays(14));
+  const [departure, setDeparture] = useState(addDays(15));
+  const [adults, setAdults] = useState(2);
+  const [children, setChildren] = useState(0);
+  const [promoCode, setPromoCode] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [result, setResult] = useState<BookingSearchResponse | null>(null);
+
+  const directUrl = useMemo(
+    () => makeBookvisitUrl(arrival, departure, adults, children, promoCode),
+    [arrival, departure, adults, children, promoCode],
+  );
+
+  async function searchAvailability(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStatus("loading");
+    setResult(null);
+
+    try {
+      const response = await fetch("/api/bookvisit/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ arrival, departure, adults, children, promoCode }),
+      });
+      const data = (await response.json()) as BookingSearchResponse;
+      setResult(data);
+      setStatus(response.ok ? "done" : "error");
+    } catch {
+      setResult({ bookingUrl: directUrl, rooms: [], error: "Could not reach the booking service." });
+      setStatus("error");
+    }
+  }
+
+  return (
+    <section className={`booking ${compact ? "bookingCompact" : ""}`}>
+      <div className="bookingInner">
+        <div className="bookingIntro">
+          <p className="ey">{is ? "Availability" : "Availability"}</p>
+          <h2 className="st">{is ? "Find your room" : "Find your room"}</h2>
+          <p>
+            {is
+              ? "Choose your dates and guests. Live Bookvisit availability appears here when API credentials are configured."
+              : "Choose your dates and guests. Live Bookvisit availability appears here when API credentials are configured."}
+          </p>
+        </div>
+
+        <form className="bookingForm" onSubmit={searchAvailability}>
+          <div className="bookingField">
+            <label htmlFor="arrival">{is ? "Arrival" : "Arrival"}</label>
+            <input id="arrival" type="date" min={addDays(0)} value={arrival} onChange={(event) => setArrival(event.target.value)} required />
+          </div>
+          <div className="bookingField">
+            <label htmlFor="departure">{is ? "Departure" : "Departure"}</label>
+            <input id="departure" type="date" min={arrival} value={departure} onChange={(event) => setDeparture(event.target.value)} required />
+          </div>
+          <div className="bookingField">
+            <label htmlFor="adults">{is ? "Adults" : "Adults"}</label>
+            <input id="adults" type="number" min="1" max="8" value={adults} onChange={(event) => setAdults(Number(event.target.value))} required />
+          </div>
+          <div className="bookingField">
+            <label htmlFor="children">{is ? "Children" : "Children"}</label>
+            <input id="children" type="number" min="0" max="6" value={children} onChange={(event) => setChildren(Number(event.target.value))} />
+          </div>
+          <div className="bookingField promo">
+            <label htmlFor="promoCode">{is ? "Promo code" : "Promo code"}</label>
+            <input id="promoCode" value={promoCode} onChange={(event) => setPromoCode(event.target.value)} placeholder={is ? "Optional" : "Optional"} />
+          </div>
+          <button className="bp" type="submit" disabled={status === "loading"}>
+            {status === "loading" ? (is ? "Searching..." : "Searching...") : is ? "Search" : "Search"}
+          </button>
+        </form>
+
+        {result?.message ? <div className="bookingNotice">{result.message}</div> : null}
+        {result?.error ? <div className="bookingNotice error">{result.error}</div> : null}
+
+        {result?.rooms?.length ? (
+          <div className="bookingResults">
+            {result.rooms.map((room) => (
+              <article className="bookingRoom" key={room.id}>
+                <div className="bookingRoomImage" style={{ backgroundImage: room.image ? `url("${room.image}")` : undefined }} />
+                <div className="bookingRoomBody">
+                  <div>
+                    <div className="rty">{room.available > 0 ? `${room.available} available` : "Available"}</div>
+                    <h3>{room.name}</h3>
+                    <p>{room.description || room.rateName || "Room details from Bookvisit."}</p>
+                    <div className="chs">
+                      {room.size ? <span className="ch">{room.size}</span> : null}
+                      {room.maxGuests ? <span className="ch">Up to {room.maxGuests} guests</span> : null}
+                    </div>
+                  </div>
+                  <div className="bookingPrice">
+                    <span>{room.price ? `${Math.round(room.price).toLocaleString()} ${room.currency}` : "Price on request"}</span>
+                    <a href={result.bookingUrl} className="rl" target="_blank" rel="noreferrer">
+                      {is ? "Continue" : "Continue"}
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : null}
+
+        <div className="bookingFallback">
+          <span>{is ? "Secure checkout is handled by Bookvisit." : "Secure checkout is handled by Bookvisit."}</span>
+          <a href={result?.bookingUrl ?? directUrl} className="rl" target="_blank" rel="noreferrer">
+            {is ? "Open Bookvisit" : "Open Bookvisit"}
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }
 
