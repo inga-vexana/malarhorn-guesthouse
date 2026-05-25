@@ -1,0 +1,8 @@
+.next/
+node_modules/
+.playwright-mcp/
+malarhorn-home.png
+malarhorn-mobile.png
+npm-debug.log*
+
+.vercel
