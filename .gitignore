@@ -6,3 +6,4 @@ malarhorn-mobile.png
 npm-debug.log*
 
 .vercel
+.env*.local
