@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { bookvisitHtmlToText } from "../../../lib/bookvisitText";
 
 const BOOKVISIT_BASE_URL = "https://restapi.bookvisit.com";
 const DEFAULT_CHANNEL_ID = "5780d487-02bc-4988-8121-30c65f421168";
@@ -154,7 +155,7 @@ export async function POST(request: Request) {
       return {
         id: room.roomId,
         name: details?.name ?? room.name ?? "Accommodation",
-        description: details?.shortDescription ?? details?.description ?? "",
+        description: bookvisitHtmlToText(details?.shortDescription ?? details?.description),
         image,
         available: room.nrAvailable ?? 0,
         price: room.cheapestPrice ?? room.cheapestPriceNoLock ?? null,

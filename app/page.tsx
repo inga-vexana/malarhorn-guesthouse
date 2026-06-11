@@ -2,6 +2,7 @@
 
 import type { FormEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
+import { bookvisitHtmlToText } from "./lib/bookvisitText";
 
 const BK =
   "https://online.bookvisit.com/accommodation?channelId=5780d487-02bc-4988-8121-30c65f421168";
@@ -574,7 +575,9 @@ function BookingPanel({ lang, compact = false }: { lang: Lang; compact?: boolean
                   <div>
                     <div className="rty">{room.available > 0 ? `${room.available} available` : "Available"}</div>
                     <h3>{room.name}</h3>
-                    <p>{room.description || room.rateName || "Room details from Bookvisit."}</p>
+                    <p className="bookingRoomDescription">
+                      {bookvisitHtmlToText(room.description || room.rateName) || "Room details from Bookvisit."}
+                    </p>
                     <div className="chs">
                       {room.size ? <span className="ch">{room.size}</span> : null}
                       {room.maxGuests ? <span className="ch">Up to {room.maxGuests} guests</span> : null}

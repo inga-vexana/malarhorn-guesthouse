@@ -821,6 +821,10 @@ button {
   margin-bottom: 0.8rem;
 }
 
+.bookingRoomDescription {
+  white-space: pre-line;
+}
+
 .bookingPrice {
   align-items: flex-end;
   display: flex;
