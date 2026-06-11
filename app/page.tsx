@@ -1,12 +1,6 @@
 "use client";
 
-import type { FormEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
-import { bookvisitHtmlToText } from "./lib/bookvisitText";
-
-const BK =
-  "https://online.bookvisit.com/accommodation?channelId=5780d487-02bc-4988-8121-30c65f421168";
-const CHANNEL_ID = "5780d487-02bc-4988-8121-30c65f421168";
 const LOGO =
   "https://malarhornguesthouse.is/wp-content/uploads/Untitled-200-x-200-px.png";
 const MENU = "https://malarhornguesthouse.is/wp-content/uploads/Matsedill-Malarhorn.pdf";
@@ -23,6 +17,7 @@ type BookingRoom = {
   price: number | null;
   currency: string;
   rateName?: string | null;
+  hitKey?: string | null;
   size?: string | null;
   maxGuests?: number | null;
 };
@@ -30,10 +25,29 @@ type BookingRoom = {
 type BookingSearchResponse = {
   configured?: boolean;
   bookingUrl: string;
+  resultId?: string;
   message?: string;
   error?: string;
   alerts?: string[];
   rooms: BookingRoom[];
+};
+
+type BookingStep = "search" | "rooms" | "guest" | "paying";
+
+type SearchParams = {
+  arrival: string;
+  departure: string;
+  adults: number;
+  children: number;
+  promoCode: string;
+};
+
+type GuestInfo = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  requests: string;
 };
 
 const translations = {
@@ -195,7 +209,7 @@ export default function MalarhornPage() {
   const content = useMemo(() => {
     switch (page) {
       case "accommodation":
-        return <Accommodation lang={lang} />;
+        return <Accommodation lang={lang} goTo={goTo} />;
       case "restaurant":
         return <Restaurant lang={lang} />;
       case "sailing":
@@ -203,9 +217,9 @@ export default function MalarhornPage() {
       case "contact":
         return <Contact lang={lang} />;
       case "about":
-        return <About lang={lang} />;
+        return <About lang={lang} goTo={goTo} />;
       case "guest":
-        return <GuestInfo lang={lang} />;
+        return <GuestInfo lang={lang} goTo={goTo} />;
       case "booking":
         return <BookingPage lang={lang} />;
       default:
@@ -336,9 +350,9 @@ function Home({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
               : "A peaceful retreat where the ocean, mountains and nature create a truly unique experience in the Strandir region."}
           </p>
           <div className="ctas">
-            <a href={BK} className="bp" target="_blank" rel="noreferrer">
+            <button className="bp" onClick={() => goTo("booking")}>
               {is ? "Bóka gistingu" : "Book your stay"}
-            </a>
+            </button>
             <button className="bs" onClick={() => goTo("about")}>
               {is ? "Um Malarhorn" : "Discover more"}
             </button>
@@ -373,8 +387,6 @@ function Home({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
           </div>
         </div>
       </section>
-
-      <BookingPanel lang={lang} compact />
 
       <section className="sv">
         <div className="sg">
@@ -419,9 +431,9 @@ function Home({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <a href={BK} className="bp" target="_blank" rel="noreferrer">
+            <button className="bp" onClick={() => goTo("booking")}>
               {is ? "Bóka gistingu" : "Book your stay"}
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -439,9 +451,9 @@ function Home({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
                 ? "Heitu pottarnir á Drangsnesi bjóða upp á einstaka slökun við sjávarsíðuna með útsýni yfir hafið og Grímsey."
                 : "The hot pots in Drangsnes are set right on the shoreline with uninterrupted views of the ocean and Grimsey island."}
             </p>
-            <a href={BK} className="bp" target="_blank" rel="noreferrer">
+            <button className="bp" onClick={() => goTo("booking")}>
               {is ? "Bóka gistingu" : "Book your stay"}
-            </a>
+            </button>
           </div>
           <Photo src={images.hotPots} />
         </div>
@@ -456,157 +468,514 @@ function addDays(days: number) {
   return date.toISOString().slice(0, 10);
 }
 
-function makeBookvisitUrl(arrival: string, departure: string, adults: number, children: number, promoCode: string) {
-  const params = new URLSearchParams({
-    channelId: CHANNEL_ID,
-    startDate: arrival,
-    endDate: departure,
-    adults: String(adults),
-  });
-
-  if (children > 0) params.set("children", String(children));
-  if (promoCode.trim()) params.set("promoCode", promoCode.trim());
-
-  return `https://online.bookvisit.com/accommodation?${params.toString()}`;
-}
 
 function BookingPage({ lang }: { lang: Lang }) {
   const is = lang === "is";
+  const [step, setStep] = useState<BookingStep>("search");
+  const [searchParams, setSearchParams] = useState<SearchParams>({
+    arrival: addDays(14),
+    departure: addDays(15),
+    adults: 2,
+    children: 0,
+    promoCode: "",
+  });
+  const [rooms, setRooms] = useState<BookingRoom[]>([]);
+  const [resultId, setResultId] = useState<string>("");
+  const [bookingUrl, setBookingUrl] = useState<string>("");
+  const [selectedRoom, setSelectedRoom] = useState<BookingRoom | null>(null);
+  const [searchStatus, setSearchStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [searchError, setSearchError] = useState<string>("");
+  const [payStatus, setPayStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [payError, setPayError] = useState<string>("");
 
-  return (
-    <>
-      <PageHeader
-        eyebrow={is ? "Live booking" : "Live booking"}
-        title={is ? "Book your stay" : "Book your stay"}
-        text={
-          is
-            ? "Search dates and guests, then continue securely in Bookvisit."
-            : "Search dates and guests, compare available options, then continue securely in Bookvisit."
-        }
-      />
-      <BookingPanel lang={lang} />
-    </>
-  );
-}
-
-function BookingPanel({ lang, compact = false }: { lang: Lang; compact?: boolean }) {
-  const is = lang === "is";
-  const [arrival, setArrival] = useState(addDays(14));
-  const [departure, setDeparture] = useState(addDays(15));
-  const [adults, setAdults] = useState(2);
-  const [children, setChildren] = useState(0);
-  const [promoCode, setPromoCode] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
-  const [result, setResult] = useState<BookingSearchResponse | null>(null);
-
-  const directUrl = useMemo(
-    () => makeBookvisitUrl(arrival, departure, adults, children, promoCode),
-    [arrival, departure, adults, children, promoCode],
-  );
-
-  async function searchAvailability(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setStatus("loading");
-    setResult(null);
-
+  async function handleSearch(params: SearchParams) {
+    setSearchStatus("loading");
+    setSearchError("");
+    setSearchParams(params);
     try {
       const response = await fetch("/api/bookvisit/search", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ arrival, departure, adults, children, promoCode }),
+        body: JSON.stringify(params),
       });
       const data = (await response.json()) as BookingSearchResponse;
-      setResult(data);
-      setStatus(response.ok ? "done" : "error");
+      if (!response.ok) {
+        setSearchError(data.error ?? (is ? "Villa við leit" : "Search failed"));
+        setSearchStatus("error");
+        return;
+      }
+      setRooms(data.rooms);
+      setResultId(data.resultId ?? "");
+      setBookingUrl(data.bookingUrl);
+      setStep("rooms");
+      setSearchStatus("idle");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch {
-      setResult({ bookingUrl: directUrl, rooms: [], error: "Could not reach the booking service." });
-      setStatus("error");
+      setSearchError(is ? "Tenging mistókst" : "Connection failed");
+      setSearchStatus("error");
     }
   }
 
-  return (
-    <section className={`booking ${compact ? "bookingCompact" : ""}`}>
-      <div className="bookingInner">
-        <div className="bookingIntro">
-          <p className="ey">{is ? "Availability" : "Availability"}</p>
-          <h2 className="st">{is ? "Find your room" : "Find your room"}</h2>
-          <p>
-            {is
-              ? "Choose your dates and guests. Live Bookvisit availability appears here when API credentials are configured."
-              : "Choose your dates and guests. Live Bookvisit availability appears here when API credentials are configured."}
-          </p>
-        </div>
+  function handleSelectRoom(room: BookingRoom) {
+    setSelectedRoom(room);
+    setPayError("");
+    setPayStatus("idle");
+    setStep("guest");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
-        <form className="bookingForm" onSubmit={searchAvailability}>
-          <div className="bookingField">
-            <label htmlFor="arrival">{is ? "Arrival" : "Arrival"}</label>
-            <input id="arrival" type="date" min={addDays(0)} value={arrival} onChange={(event) => setArrival(event.target.value)} required />
+  async function handleCheckout(guest: GuestInfo) {
+    if (!selectedRoom?.hitKey || !resultId) {
+      window.location.href = bookingUrl;
+      return;
+    }
+    setPayStatus("loading");
+    setPayError("");
+    try {
+      const response = await fetch("/api/bookvisit/basket", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resultId, hitKey: selectedRoom.hitKey }),
+      });
+      const data = (await response.json()) as {
+        paymentUrl?: string;
+        thirdPartyHtml?: string;
+        paymentAction?: string;
+        error?: string;
+      };
+      if (!response.ok || data.error) {
+        setPayError(data.error ?? (is ? "Bókun mistókst" : "Booking failed"));
+        setPayStatus("error");
+        return;
+      }
+      if (data.paymentUrl) {
+        window.location.href = data.paymentUrl;
+      } else {
+        setPayError(is ? "Engin greiðslutengill fékkst" : "No payment URL received");
+        setPayStatus("error");
+      }
+    } catch {
+      setPayError(is ? "Tenging mistókst" : "Connection failed");
+      setPayStatus("error");
+    }
+  }
+
+  const nights =
+    step !== "search" && searchParams.arrival && searchParams.departure
+      ? Math.max(
+          1,
+          Math.round(
+            (new Date(searchParams.departure).getTime() - new Date(searchParams.arrival).getTime()) /
+              86400000,
+          ),
+        )
+      : 0;
+
+  return (
+    <>
+      <BookingProgressBar step={step} is={is} />
+
+      {step === "search" && (
+        <BookingSearchStep
+          lang={lang}
+          initial={searchParams}
+          status={searchStatus}
+          error={searchError}
+          onSearch={handleSearch}
+        />
+      )}
+
+      {step === "rooms" && (
+        <BookingRoomsStep
+          lang={lang}
+          rooms={rooms}
+          nights={nights}
+          searchParams={searchParams}
+          bookingUrl={bookingUrl}
+          onSelect={handleSelectRoom}
+          onBack={() => setStep("search")}
+        />
+      )}
+
+      {step === "guest" && selectedRoom && (
+        <BookingGuestStep
+          lang={lang}
+          room={selectedRoom}
+          nights={nights}
+          searchParams={searchParams}
+          status={payStatus}
+          error={payError}
+          onSubmit={handleCheckout}
+          onBack={() => setStep("rooms")}
+        />
+      )}
+
+      {step === "paying" && (
+        <div className="bkPaying">
+          <div className="bkPayingSpinner" />
+          <p>{is ? "Tengist greiðslukerfi..." : "Connecting to payment..."}</p>
+        </div>
+      )}
+    </>
+  );
+}
+
+function BookingProgressBar({ step, is }: { step: BookingStep; is: boolean }) {
+  const steps = [
+    { key: "search", label: is ? "Dagsetningar" : "Dates" },
+    { key: "rooms", label: is ? "Herbergi" : "Rooms" },
+    { key: "guest", label: is ? "Upplýsingar" : "Details" },
+    { key: "paying", label: is ? "Greiðsla" : "Payment" },
+  ] as const;
+  const current = steps.findIndex((s) => s.key === step);
+  return (
+    <div className="bkProgress">
+      {steps.map((s, i) => (
+        <div key={s.key} className={`bkProgressStep ${i <= current ? "bkProgressActive" : ""}`}>
+          <div className="bkProgressDot">{i < current ? "✓" : i + 1}</div>
+          <span>{s.label}</span>
+          {i < steps.length - 1 && <div className="bkProgressLine" />}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function BookingSearchStep({
+  lang,
+  initial,
+  status,
+  error,
+  onSearch,
+}: {
+  lang: Lang;
+  initial: SearchParams;
+  status: "idle" | "loading" | "error";
+  error: string;
+  onSearch: (p: SearchParams) => void;
+}) {
+  const is = lang === "is";
+  const [arrival, setArrival] = useState(initial.arrival);
+  const [departure, setDeparture] = useState(initial.departure);
+  const [adults, setAdults] = useState(initial.adults);
+  const [children, setChildren] = useState(initial.children);
+  const [promoCode, setPromoCode] = useState(initial.promoCode);
+
+  return (
+    <section className="bkSection">
+      <div className="bkInner">
+        <p className="ey">{is ? "Bóka gistingu" : "Book your stay"}</p>
+        <h1 className="st">{is ? "Veldu dagsetningar" : "Choose your dates"}</h1>
+        <div className="dv" />
+        <form
+          className="bkSearchForm"
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSearch({ arrival, departure, adults, children, promoCode });
+          }}
+        >
+          <div className="bkField">
+            <label htmlFor="bk-arrival">{is ? "Koma" : "Arrival"}</label>
+            <input
+              id="bk-arrival"
+              type="date"
+              min={addDays(0)}
+              value={arrival}
+              onChange={(e) => setArrival(e.target.value)}
+              required
+            />
           </div>
-          <div className="bookingField">
-            <label htmlFor="departure">{is ? "Departure" : "Departure"}</label>
-            <input id="departure" type="date" min={arrival} value={departure} onChange={(event) => setDeparture(event.target.value)} required />
+          <div className="bkField">
+            <label htmlFor="bk-departure">{is ? "Brottför" : "Departure"}</label>
+            <input
+              id="bk-departure"
+              type="date"
+              min={arrival}
+              value={departure}
+              onChange={(e) => setDeparture(e.target.value)}
+              required
+            />
           </div>
-          <div className="bookingField">
-            <label htmlFor="adults">{is ? "Adults" : "Adults"}</label>
-            <input id="adults" type="number" min="1" max="8" value={adults} onChange={(event) => setAdults(Number(event.target.value))} required />
+          <div className="bkField">
+            <label htmlFor="bk-adults">{is ? "Fullorðnir" : "Adults"}</label>
+            <input
+              id="bk-adults"
+              type="number"
+              min="1"
+              max="8"
+              value={adults}
+              onChange={(e) => setAdults(Number(e.target.value))}
+              required
+            />
           </div>
-          <div className="bookingField">
-            <label htmlFor="children">{is ? "Children" : "Children"}</label>
-            <input id="children" type="number" min="0" max="6" value={children} onChange={(event) => setChildren(Number(event.target.value))} />
+          <div className="bkField">
+            <label htmlFor="bk-children">{is ? "Börn" : "Children"}</label>
+            <input
+              id="bk-children"
+              type="number"
+              min="0"
+              max="6"
+              value={children}
+              onChange={(e) => setChildren(Number(e.target.value))}
+            />
           </div>
-          <div className="bookingField promo">
-            <label htmlFor="promoCode">{is ? "Promo code" : "Promo code"}</label>
-            <input id="promoCode" value={promoCode} onChange={(event) => setPromoCode(event.target.value)} placeholder={is ? "Optional" : "Optional"} />
+          <div className="bkField bkFieldWide">
+            <label htmlFor="bk-promo">{is ? "Kynningarkóði" : "Promo code"}</label>
+            <input
+              id="bk-promo"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value)}
+              placeholder={is ? "Valfrjálst" : "Optional"}
+            />
           </div>
-          <button className="bp" type="submit" disabled={status === "loading"}>
-            {status === "loading" ? (is ? "Searching..." : "Searching...") : is ? "Search" : "Search"}
+          <button className="bp bkSubmit" type="submit" disabled={status === "loading"}>
+            {status === "loading"
+              ? is ? "Leitar..." : "Searching..."
+              : is ? "Leita að herbergjum" : "Search rooms"}
           </button>
         </form>
-
-        {result?.message ? <div className="bookingNotice">{result.message}</div> : null}
-        {result?.error ? <div className="bookingNotice error">{result.error}</div> : null}
-
-        {result?.rooms?.length ? (
-          <div className="bookingResults">
-            {result.rooms.map((room) => (
-              <article className="bookingRoom" key={room.id}>
-                <div className="bookingRoomImage" style={{ backgroundImage: room.image ? `url("${room.image}")` : undefined }} />
-                <div className="bookingRoomBody">
-                  <div>
-                    <div className="rty">{room.available > 0 ? `${room.available} available` : "Available"}</div>
-                    <h3>{room.name}</h3>
-                    <p className="bookingRoomDescription">
-                      {bookvisitHtmlToText(room.description || room.rateName) || "Room details from Bookvisit."}
-                    </p>
-                    <div className="chs">
-                      {room.size ? <span className="ch">{room.size}</span> : null}
-                      {room.maxGuests ? <span className="ch">Up to {room.maxGuests} guests</span> : null}
-                    </div>
-                  </div>
-                  <div className="bookingPrice">
-                    <span>{room.price ? `${Math.round(room.price).toLocaleString()} ${room.currency}` : "Price on request"}</span>
-                    <a href={result.bookingUrl} className="rl" target="_blank" rel="noreferrer">
-                      {is ? "Continue" : "Continue"}
-                    </a>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        ) : null}
-
-        <div className="bookingFallback">
-          <span>{is ? "Secure checkout is handled by Bookvisit." : "Secure checkout is handled by Bookvisit."}</span>
-          <a href={result?.bookingUrl ?? directUrl} className="rl" target="_blank" rel="noreferrer">
-            {is ? "Open Bookvisit" : "Open Bookvisit"}
-          </a>
-        </div>
+        {error && <p className="bkError">{error}</p>}
       </div>
     </section>
   );
 }
 
-function Accommodation({ lang }: { lang: Lang }) {
+function BookingRoomsStep({
+  lang,
+  rooms,
+  nights,
+  searchParams,
+  bookingUrl,
+  onSelect,
+  onBack,
+}: {
+  lang: Lang;
+  rooms: BookingRoom[];
+  nights: number;
+  searchParams: SearchParams;
+  bookingUrl: string;
+  onSelect: (room: BookingRoom) => void;
+  onBack: () => void;
+}) {
+  const is = lang === "is";
+  return (
+    <section className="bkSection">
+      <div className="bkInner">
+        <button className="bkBack" onClick={onBack}>
+          ← {is ? "Breyta dagsetningum" : "Change dates"}
+        </button>
+        <p className="ey">
+          {nights} {is ? (nights === 1 ? "nótt" : "nætur") : nights === 1 ? "night" : "nights"} ·{" "}
+          {new Date(searchParams.arrival).toLocaleDateString(is ? "is-IS" : "en-GB", { day: "numeric", month: "short" })}
+          {" – "}
+          {new Date(searchParams.departure).toLocaleDateString(is ? "is-IS" : "en-GB", { day: "numeric", month: "short" })}
+          {" · "}
+          {searchParams.adults} {is ? "fullorðnir" : "adults"}
+          {searchParams.children ? `, ${searchParams.children} ${is ? "börn" : "children"}` : ""}
+        </p>
+        <h1 className="st">{is ? "Veldu herbergi" : "Choose your room"}</h1>
+        <div className="dv" />
+
+        {rooms.length === 0 ? (
+          <div className="bkEmpty">
+            <p>{is ? "Engin herbergi laus á völdum dagsetningum." : "No rooms available for the selected dates."}</p>
+            <a href={bookingUrl} className="rl" target="_blank" rel="noreferrer">
+              {is ? "Skoða á Bookvisit" : "View on Bookvisit"}
+            </a>
+          </div>
+        ) : (
+          <div className="bkRooms">
+            {rooms.map((room) => (
+              <article className="bkRoom" key={room.id}>
+                {room.image && (
+                  <div className="bkRoomImg" style={{ backgroundImage: `url("${room.image}")` }} />
+                )}
+                <div className="bkRoomBody">
+                  <div className="bkRoomMeta">
+                    {room.maxGuests && (
+                      <span className="ch">
+                        {is ? `Allt að ${room.maxGuests} gestir` : `Up to ${room.maxGuests} guests`}
+                      </span>
+                    )}
+                    {room.size && <span className="ch">{room.size}</span>}
+                    {room.available > 1 && (
+                      <span className="ch">
+                        {room.available} {is ? "laus" : "available"}
+                      </span>
+                    )}
+                  </div>
+                  <h2 className="bkRoomName">{room.name}</h2>
+                  {room.description && <p className="bkRoomDesc">{room.description}</p>}
+                  <div className="bkRoomFooter">
+                    <div className="bkRoomPrice">
+                      {room.price ? (
+                        <>
+                          <span className="bkPriceAmount">
+                            {Math.round(room.price).toLocaleString()} {room.currency}
+                          </span>
+                          <span className="bkPriceLabel">
+                            {is ? `/ ${nights} nætur` : `/ ${nights} nights`}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="bkPriceAmount">{is ? "Verð á eftir" : "Price on request"}</span>
+                      )}
+                    </div>
+                    <button className="bp" onClick={() => onSelect(room)}>
+                      {is ? "Velja herbergi" : "Select room"}
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function BookingGuestStep({
+  lang,
+  room,
+  nights,
+  searchParams,
+  status,
+  error,
+  onSubmit,
+  onBack,
+}: {
+  lang: Lang;
+  room: BookingRoom;
+  nights: number;
+  searchParams: SearchParams;
+  status: "idle" | "loading" | "error";
+  error: string;
+  onSubmit: (g: GuestInfo) => void;
+  onBack: () => void;
+}) {
+  const is = lang === "is";
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [requests, setRequests] = useState("");
+
+  return (
+    <section className="bkSection">
+      <div className="bkInner">
+        <button className="bkBack" onClick={onBack}>
+          ← {is ? "Velja annað herbergi" : "Choose different room"}
+        </button>
+
+        <div className="bkSummaryCard">
+          {room.image && (
+            <div className="bkSummaryImg" style={{ backgroundImage: `url("${room.image}")` }} />
+          )}
+          <div className="bkSummaryInfo">
+            <p className="ey">{is ? "Valið herbergi" : "Selected room"}</p>
+            <h3>{room.name}</h3>
+            <p className="bkSummaryDates">
+              {new Date(searchParams.arrival).toLocaleDateString(is ? "is-IS" : "en-GB", { day: "numeric", month: "long" })}
+              {" – "}
+              {new Date(searchParams.departure).toLocaleDateString(is ? "is-IS" : "en-GB", { day: "numeric", month: "long" })}
+              {" · "}
+              {nights} {is ? (nights === 1 ? "nótt" : "nætur") : nights === 1 ? "night" : "nights"}
+              {" · "}
+              {searchParams.adults} {is ? "fullorðnir" : "adults"}
+            </p>
+            {room.price && (
+              <p className="bkSummaryPrice">
+                {Math.round(room.price).toLocaleString()} {room.currency}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <h1 className="st" style={{ marginTop: "2rem" }}>
+          {is ? "Upplýsingar um gesti" : "Guest details"}
+        </h1>
+        <div className="dv" />
+
+        <form
+          className="bkGuestForm"
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSubmit({ firstName, lastName, email, phone, requests });
+          }}
+        >
+          <div className="bkGuestRow">
+            <div className="bkField">
+              <label htmlFor="bk-fname">{is ? "Fornafn" : "First name"}</label>
+              <input
+                id="bk-fname"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder={is ? "Fornafnið þitt" : "Your first name"}
+                required
+              />
+            </div>
+            <div className="bkField">
+              <label htmlFor="bk-lname">{is ? "Eftirnafn" : "Last name"}</label>
+              <input
+                id="bk-lname"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder={is ? "Eftirnafnið þitt" : "Your last name"}
+                required
+              />
+            </div>
+          </div>
+          <div className="bkField bkFieldWide">
+            <label htmlFor="bk-email">{is ? "Tölvupóstur" : "Email"}</label>
+            <input
+              id="bk-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your@email.com"
+              required
+            />
+          </div>
+          <div className="bkField bkFieldWide">
+            <label htmlFor="bk-phone">{is ? "Sími" : "Phone"}</label>
+            <input
+              id="bk-phone"
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="+354..."
+              required
+            />
+          </div>
+          <div className="bkField bkFieldWide">
+            <label htmlFor="bk-requests">{is ? "Sérstakar óskir" : "Special requests"}</label>
+            <textarea
+              id="bk-requests"
+              value={requests}
+              onChange={(e) => setRequests(e.target.value)}
+              placeholder={is ? "Valfrjálst" : "Optional"}
+              rows={3}
+            />
+          </div>
+
+          {error && <p className="bkError">{error}</p>}
+
+          <button className="bp bkSubmit" type="submit" disabled={status === "loading"}>
+            {status === "loading"
+              ? is ? "Tengist greiðslukerfi..." : "Connecting to payment..."
+              : is ? "Halda áfram í greiðslu →" : "Continue to payment →"}
+          </button>
+          <p className="bkSecureNote">
+            🔒 {is ? "Örugg greiðsla í gegnum Bookvisit" : "Secure payment via Bookvisit"}
+          </p>
+        </form>
+      </div>
+    </section>
+  );
+}
+
+function Accommodation({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
   const is = lang === "is";
   return (
     <>
@@ -636,9 +1005,9 @@ function Accommodation({ lang }: { lang: Lang }) {
                       </span>
                     ))}
                   </div>
-                  <a href={BK} className="rl" target="_blank" rel="noreferrer">
+                  <button className="rl" onClick={() => goTo("booking")}>
                     {is ? "Bóka →" : "Book now →"}
-                  </a>
+                  </button>
                 </div>
               </article>
             ))}
@@ -818,7 +1187,7 @@ function Contact({ lang }: { lang: Lang }) {
   );
 }
 
-function About({ lang }: { lang: Lang }) {
+function About({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
   const is = lang === "is";
   return (
     <>
@@ -876,9 +1245,9 @@ function About({ lang }: { lang: Lang }) {
                 ? "Hvort sem það er í heitu pottunum, á veröndinni eða í göngu um Steingrímsfjörð, Malarhorn er staður til að hægja á sér."
                 : "Malarhorn is a place to truly slow down and enjoy the natural surroundings."}
             </p>
-            <a href={BK} className="bp" target="_blank" rel="noreferrer">
+            <button className="bp" onClick={() => goTo("booking")}>
               {is ? "Bóka gistingu" : "Book your stay"}
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -886,7 +1255,7 @@ function About({ lang }: { lang: Lang }) {
   );
 }
 
-function GuestInfo({ lang }: { lang: Lang }) {
+function GuestInfo({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
   const is = lang === "is";
   return (
     <>
@@ -943,9 +1312,9 @@ function GuestInfo({ lang }: { lang: Lang }) {
             {is ? "Opna í Google Maps" : "Open in Google Maps"}
           </a>
         </section>
-        <a href={BK} className="gst-bk" target="_blank" rel="noreferrer">
+        <button className="gst-bk bp" onClick={() => goTo("booking")}>
           {is ? "Bóka næstu gistingu" : "Book your next stay"}
-        </a>
+        </button>
       </div>
     </>
   );

@@ -21,6 +21,12 @@ type BookvisitRoomResult = {
   rateAlternatives?: {
     currency?: string | null;
     displayName?: string | null;
+    ratesPerRoomConfig?: {
+      hitKey?: string | null;
+      totalPrice?: { amount?: number | null } | null;
+      lastFreeCancellationDate?: string | null;
+      nonRefundableCancellationPolicy?: boolean;
+    }[] | null;
   }[] | null;
 };
 
@@ -151,6 +157,7 @@ export async function POST(request: Request) {
       const details = content.get(String(room.roomId));
       const image = details?.images?.slice().sort((a, b) => (a.rank ?? 999) - (b.rank ?? 999))[0]?.uri;
       const firstRate = room.rateAlternatives?.[0];
+      const hitKey = firstRate?.ratesPerRoomConfig?.[0]?.hitKey ?? null;
 
       return {
         id: room.roomId,
@@ -161,6 +168,7 @@ export async function POST(request: Request) {
         price: room.cheapestPrice ?? room.cheapestPriceNoLock ?? null,
         currency: firstRate?.currency ?? result.currencyCode ?? "ISK",
         rateName: firstRate?.displayName ?? null,
+        hitKey,
         size: details?.roomDetailedContent?.size ?? null,
         maxGuests: details?.roomDetailedContent?.maxGuests ?? null,
       };
