@@ -644,8 +644,6 @@ function BookingPage({ lang, initialSearch, onSearchConsumed }: { lang: Lang; in
 
   return (
     <>
-      {step !== "widget" && <BookingProgressBar step={step} is={is} />}
-
       {step === "search" && (
         <BookingSearchStep
           lang={lang}
@@ -700,26 +698,6 @@ function BookingPage({ lang, initialSearch, onSearchConsumed }: { lang: Lang; in
   );
 }
 
-function BookingProgressBar({ step, is }: { step: BookingStep; is: boolean }) {
-  const steps = [
-    { key: "search", label: is ? "Dagsetningar" : "Dates" },
-    { key: "rooms", label: is ? "Herbergi" : "Rooms" },
-    { key: "guest", label: is ? "Upplýsingar" : "Details" },
-    { key: "paying", label: is ? "Greiðsla" : "Payment" },
-  ] as const;
-  const current = steps.findIndex((s) => s.key === step);
-  return (
-    <div className="bkProgress">
-      {steps.map((s, i) => (
-        <div key={s.key} className={`bkProgressStep ${i <= current ? "bkProgressActive" : ""}`}>
-          <div className="bkProgressDot">{i < current ? "✓" : i + 1}</div>
-          <span>{s.label}</span>
-          {i < steps.length - 1 && <div className="bkProgressLine" />}
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function HeroBookingBar({ lang, onSearch }: { lang: Lang; onSearch: (p: SearchParams) => void }) {
   const is = lang === "is";
@@ -810,20 +788,7 @@ function BookingWidgetStep({
         </p>
         <h1 className="st">{is ? "Veldu herbergi og bókaðu" : "Choose a room & book"}</h1>
         <div className="dv" />
-        <div className="bkWidget">
-          <iframe
-            src={embedUrl}
-            title={is ? "Bókunarvél Malarhorn" : "Malarhorn booking engine"}
-            className="bkWidgetFrame"
-            loading="lazy"
-            allow="payment"
-          />
-        </div>
-        <p className="bkWidgetNote">
-          <a href={embedUrl} className="rl" target="_blank" rel="noreferrer">
-            {is ? "Opna bókunarvélina í nýjum glugga" : "Open the booking engine in a new window"}
-          </a>
-        </p>
+
       </div>
     </section>
   );

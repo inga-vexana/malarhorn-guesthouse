@@ -947,53 +947,6 @@ button {
 
 /* ── Booking wizard ── */
 
-.bkProgress {
-  align-items: center;
-  background: var(--w);
-  border-bottom: 1px solid var(--l3);
-  display: flex;
-  gap: 0;
-  justify-content: center;
-  padding: 1.1rem 1.5rem;
-}
-
-.bkProgressStep {
-  align-items: center;
-  color: var(--t3);
-  display: flex;
-  font-size: 0.82rem;
-  gap: 0.5rem;
-}
-
-.bkProgressStep.bkProgressActive {
-  color: var(--t1);
-  font-weight: 600;
-}
-
-.bkProgressDot {
-  align-items: center;
-  background: var(--l3);
-  border-radius: 50%;
-  color: var(--t2);
-  display: flex;
-  font-size: 0.75rem;
-  font-weight: 700;
-  height: 1.6rem;
-  justify-content: center;
-  width: 1.6rem;
-}
-
-.bkProgressActive .bkProgressDot {
-  background: var(--t1);
-  color: var(--w);
-}
-
-.bkProgressLine {
-  background: var(--l3);
-  height: 1px;
-  margin: 0 0.6rem;
-  width: 2.5rem;
-}
 
 .bkSection {
   min-height: calc(100vh - 120px);
@@ -1090,32 +1043,6 @@ button {
   margin-top: 2rem;
 }
 
-.bkWidgetInner {
-  margin: 0 auto;
-  max-width: 1040px;
-  width: 100%;
-}
-
-.bkWidget {
-  background: var(--w);
-  border: 1px solid var(--l3);
-  border-radius: 12px;
-  margin-top: 2rem;
-  overflow: hidden;
-}
-
-.bkWidgetFrame {
-  border: 0;
-  display: block;
-  height: 80vh;
-  min-height: 720px;
-  width: 100%;
-}
-
-.bkWidgetNote {
-  margin-top: 1.2rem;
-  text-align: center;
-}
 
 .bkRooms {
   display: flex;
@@ -2104,15 +2031,6 @@ footer {
     min-height: 140px;
   }
 
-  .bkProgress {
-    gap: 0;
-    overflow-x: auto;
-    padding: 0.8rem 1rem;
-  }
-
-  .bkProgressLine {
-    width: 1.5rem;
-  }
 
   .ht {
     padding: 3rem 1.2rem;
