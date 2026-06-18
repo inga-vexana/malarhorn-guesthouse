@@ -1125,45 +1125,47 @@ button {
 }
 
 .bkRoom {
-  background: var(--w);
-  border: 1px solid var(--l3);
-  border-radius: 10px;
+  background: var(--l2);
+  border-radius: 6px;
+  box-shadow: 0 1px 8px rgb(0 0 0 / 7%);
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 360px 1fr;
   overflow: hidden;
 }
 
 .bkRoomImg {
   background-position: center;
   background-size: cover;
-  min-height: 200px;
+  min-height: 340px;
 }
 
 .bkRoomBody {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1.4rem 1.6rem;
+  padding: 2rem 2.2rem;
 }
 
 .bkRoomMeta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
 }
 
 .bkRoomName {
-  font-size: 1.2rem;
+  color: var(--br);
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
 }
 
 .bkRoomDesc {
   color: var(--t2);
-  font-size: 0.92rem;
-  line-height: 1.5;
-  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
 }
 
 .bkRoomFooter {
@@ -1171,7 +1173,7 @@ button {
   border-top: 1px solid var(--l3);
   display: flex;
   justify-content: space-between;
-  padding-top: 1rem;
+  padding-top: 1.25rem;
 }
 
 .bkRoomPrice {
@@ -1181,13 +1183,13 @@ button {
 }
 
 .bkPriceAmount {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
 }
 
 .bkPriceLabel {
   color: var(--t2);
-  font-size: 0.82rem;
+  font-size: 0.85rem;
 }
 
 .bkSummaryCard {
