@@ -1264,7 +1264,7 @@ function BookingRoomsStep({
                         </div>
                         {room.price ? (
                           <button className="bp hrChooseBtn" onClick={toggle}>
-                            {is ? "VELJA" : "CHOOSE"} <span aria-hidden="true">▾</span>
+                            {is ? "VELJA" : "CHOOSE"}
                           </button>
                         ) : null}
                       </div>
