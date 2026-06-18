@@ -928,6 +928,48 @@ function BookingSearchStep({
   );
 }
 
+function CollapsedCarousel({ images, name, available, is }: { images: string[]; name: string; available: number; is: boolean }) {
+  const [idx, setIdx] = useState(0);
+  if (images.length === 0) return null;
+  return (
+    <div className="hrCardImg">
+      <div
+        className="hrCardImgInner"
+        style={{ backgroundImage: `url("${images[idx]}")` }}
+        role="img"
+        aria-label={name}
+      />
+      {available === 1 && (
+        <span className="hrBadge">{is ? "Aðeins eitt eftir" : "Only one left"}</span>
+      )}
+      {images.length > 1 && (
+        <>
+          <button className="hrCarPrev" onClick={(e) => { e.stopPropagation(); setIdx((i) => (i - 1 + images.length) % images.length); }} aria-label="Previous image">&#8249;</button>
+          <button className="hrCarNext" onClick={(e) => { e.stopPropagation(); setIdx((i) => (i + 1) % images.length); }} aria-label="Next image">&#8250;</button>
+          <div className="hrCarDots">
+            {images.map((_, i) => (
+              <button key={i} className={`hrCarDot${i === idx ? " hrCarDotActive" : ""}`} onClick={(e) => { e.stopPropagation(); setIdx(i); }} aria-label={`Image ${i + 1}`} />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function humanizeBedType(b: string, is: boolean): string {
+  const map: Record<string, [string, string]> = {
+    Twin:    ["Tvíbreið rúm", "Twin beds"],
+    Double:  ["Tvíbreið rúm", "Double bed"],
+    Single:  ["Einslegs rúm", "Single bed"],
+    SofaBed: ["Sófabekkur",   "Sofa bed"],
+    BunkBed: ["Köngulóarúm",  "Bunk bed"],
+    King:    ["King-size rúm","King bed"],
+    Queen:   ["Queen-size rúm","Queen bed"],
+  };
+  return (map[b] ?? [b, b])[is ? 0 : 1];
+}
+
 function RoomDetailPanel({
   room, allImgs, is, nights, searchParams, arrivalDate, departureDate, onSelect,
 }: {
@@ -976,18 +1018,18 @@ function RoomDetailPanel({
       {/* Room name */}
       <h2 className="hrDetailName">{room.name}</h2>
 
-      {/* Icon meta row — bed type + max guests */}
+      {/* Icon meta row — individual bed type per icon + max persons in regular beds */}
       <div className="hrIconRow">
-        {room.bedTypes && room.bedTypes.length > 0 && (
-          <div className="hrIconItem">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 20v-6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6"/><path d="M2 14v-4a2 2 0 0 1 2-2h4v6"/><rect x="10" y="8" width="4" height="6" rx="1"/><path d="M18 8h-2v6"/></svg>
-            <span>{room.bedTypes.join(", ")} {is ? (room.ordinaryBeds === 1 ? "rúm" : "rúm") : room.ordinaryBeds === 1 ? "bed" : "beds"}</span>
+        {(room.bedTypes ?? []).map((b) => (
+          <div key={b} className="hrIconItem">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 20v-6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6"/><path d="M2 14V10a2 2 0 0 1 2-2h4v6"/><rect x="10" y="8" width="4" height="6" rx="1"/><path d="M18 8h-2v6"/></svg>
+            <span>{humanizeBedType(b, is)}</span>
           </div>
-        )}
-        {room.maxGuests && (
+        ))}
+        {room.ordinaryBeds != null && room.ordinaryBeds > 0 && (
           <div className="hrIconItem">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/></svg>
-            <span>{is ? `Hámark ${room.maxGuests} pers.` : `Max ${room.maxGuests} pers.`}</span>
+            <span>{is ? `Hámark ${room.ordinaryBeds} pers.` : `Max ${room.ordinaryBeds} pers.`}</span>
           </div>
         )}
       </div>
@@ -1045,7 +1087,7 @@ function RoomDetailPanel({
                   </td>
                   <td className="hrRatePrice">
                     <strong>{Math.round(rate.price).toLocaleString()} {rate.currency}</strong>
-                    <span>{is ? `fyrir ${searchParams.adults} gesti` : `for ${searchParams.adults} guests`}</span>
+                    <span>{is ? `fyrir ${searchParams.adults} fullorðna` : `for ${searchParams.adults} adults`}</span>
                   </td>
                   <td className="hrRateAction">
                     <button
@@ -1062,13 +1104,13 @@ function RoomDetailPanel({
         </div>
       )}
 
-      {/* Capacity */}
-      {(room.maxGuests || room.ordinaryBeds != null) && (
+      {/* Capacity — labels match Bookvisit reference exactly */}
+      {(room.ordinaryBeds != null || room.maxGuests != null) && (
         <div className="hrCapacity">
           <h3 className="hrSectionTitle">{is ? "Rými" : "Capacity"}</h3>
           <div className="hrCapGrid">
             {room.ordinaryBeds != null && (
-              <span>{is ? `Fjöldi rúma í venjulegum rúmum: ${room.ordinaryBeds}` : `No. of persons in regular beds: ${room.ordinaryBeds}`}</span>
+              <span>{is ? `Fjöldi í venjulegum rúmum: ${room.ordinaryBeds}` : `No. of persons in regular beds: ${room.ordinaryBeds}`}</span>
             )}
             {room.extraBeds != null && (
               <span>{is ? `Hámark auka rúm: ${room.extraBeds}` : `Max no. of x-beds: ${room.extraBeds}`}</span>
@@ -1076,11 +1118,11 @@ function RoomDetailPanel({
             {room.minGuests != null && (
               <span>{is ? `Lágmark gesta: ${room.minGuests}` : `Min no. of persons: ${room.minGuests}`}</span>
             )}
-            {room.maxGuests != null && (
-              <span>{is ? `Hámark gesta: ${room.maxGuests}` : `Max no. of persons: ${room.maxGuests}`}</span>
+            {room.ordinaryBeds != null && (
+              <span>{is ? `Hámark gesta: ${room.ordinaryBeds}` : `Max no. of persons: ${room.ordinaryBeds}`}</span>
             )}
             {room.bedTypes && room.bedTypes.length > 0 && (
-              <span>{room.bedTypes.join(", ")}</span>
+              <span>{room.bedTypes.map((b) => humanizeBedType(b, is)).join(", ")}</span>
             )}
           </div>
         </div>
@@ -1155,45 +1197,77 @@ function BookingRoomsStep({
               const arrivalDate = new Date(searchParams.arrival).toLocaleDateString(is ? "is-IS" : "en-GB", { weekday: "short", day: "numeric", month: "short" });
               const departureDate = new Date(searchParams.departure).toLocaleDateString(is ? "is-IS" : "en-GB", { weekday: "short", day: "numeric", month: "short" });
 
+              // Humanize bed type labels to match reference ("Twin" → "Twin beds", "SofaBed" → "Sofa bed" etc.)
+              const humanizeBed = (b: string) => {
+                const map: Record<string, string> = {
+                  Twin: is ? "Tvíbreið rúm" : "Twin beds",
+                  Double: is ? "Tvíbreið rúm" : "Double bed",
+                  Single: is ? "Einslegs rúm" : "Single bed",
+                  SofaBed: is ? "Sófabekkur" : "Sofa bed",
+                  BunkBed: is ? "Köngulóarúm" : "Bunk bed",
+                  King: is ? "King-size rúm" : "King bed",
+                  Queen: is ? "Queen-size rúm" : "Queen bed",
+                };
+                return map[b] ?? b;
+              };
+
               return (
                 <article key={room.id} className={`hrRow${isOpen ? " hrRowOpen" : ""}`}>
 
-                  {/* Collapsed row — image + text + price */}
-                  <div
-                    className="hrHeader"
-                    onClick={toggle}
-                    role="button"
-                    tabIndex={0}
-                    aria-expanded={isOpen}
-                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") toggle(); }}
-                  >
-                    {room.image && (
-                      <div className="hrThumb" style={{ backgroundImage: `url("${room.image}")` }} aria-hidden="true" />
-                    )}
-                    <div className="hrHeaderLeft">
-                      <h2 className="hrName">{room.name}</h2>
-                      <p className="hrShort">
-                        {room.description
-                          ? room.description.length > 120
-                            ? room.description.slice(0, room.description.lastIndexOf(" ", 120)) + "…"
-                            : room.description
-                          : ""}
-                      </p>
-                      <div className="hrMeta">
-                        {room.maxGuests && <span>{is ? `Allt að ${room.maxGuests} gestir` : `Up to ${room.maxGuests} guests`}</span>}
-                        {room.size && <span>{room.size}</span>}
+                  {/* Collapsed card — matches reference: image left + details right */}
+                  <div className="hrCard">
+                    {/* Left: image carousel */}
+                    <CollapsedCarousel images={room.images ?? (room.image ? [room.image] : [])} name={room.name} available={room.available} is={is} />
+
+                    {/* Right: details */}
+                    <div className="hrCardBody">
+                      <h2 className="hrName">{room.name.toUpperCase()}</h2>
+
+                      {/* "More information" toggle */}
+                      <button
+                        className="hrMoreInfo"
+                        onClick={toggle}
+                        aria-expanded={isOpen}
+                      >
+                        {is ? "Nánari upplýsingar" : "More information"} <span aria-hidden="true">›</span>
+                      </button>
+
+                      {/* Bed types + max persons icon row */}
+                      <div className="hrBedRow">
+                        {(room.bedTypes ?? []).map((b) => (
+                          <span key={b} className="hrBedItem">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 20v-6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6"/><path d="M2 14V10a2 2 0 0 1 2-2h4v6"/><rect x="10" y="8" width="4" height="6" rx="1"/><path d="M18 8h-2v6"/></svg>
+                            {humanizeBed(b)}
+                          </span>
+                        ))}
                         {room.ordinaryBeds != null && room.ordinaryBeds > 0 && (
-                          <span>{room.ordinaryBeds} {is ? (room.ordinaryBeds === 1 ? "rúm" : "rúm") : room.ordinaryBeds === 1 ? "bed" : "beds"}</span>
+                          <span className="hrBedItem">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/></svg>
+                            {is ? `Hámark ${room.ordinaryBeds} pers.` : `Max ${room.ordinaryBeds} pers.`}
+                          </span>
                         )}
                       </div>
-                    </div>
-                    <div className="hrHeaderRight">
-                      {room.price ? (
-                        <p className="hrPrice">
-                          {is ? "Frá" : "From"} {Math.round(room.price).toLocaleString()} <span>{room.currency}</span>
-                        </p>
-                      ) : null}
-                      <span className="hrToggle" aria-hidden="true">{isOpen ? "▲" : "▼"}</span>
+
+                      <div className="hrCardDivider" />
+
+                      {/* Price + choose */}
+                      <div className="hrCardPriceRow">
+                        <div className="hrCardPriceLeft">
+                          {room.price ? (
+                            <>
+                              <p className="hrPrice">{is ? "Frá" : "From"} {Math.round(room.price).toLocaleString()} {room.currency}</p>
+                              <p className="hrPriceSub">{is ? `fyrir ${nights} ${nights === 1 ? "nótt" : "nætur"}, ${searchParams.adults} gestir` : `for ${nights} ${nights === 1 ? "night" : "nights"}, ${searchParams.adults} guests`}</p>
+                            </>
+                          ) : (
+                            <p className="hrUnavailable">{is ? "Ekki laust á völdum dagsetningum" : "Not available for selected dates"}</p>
+                          )}
+                        </div>
+                        {room.price ? (
+                          <button className="bp hrChooseBtn" onClick={toggle}>
+                            {is ? "VELJA" : "CHOOSE"} <span aria-hidden="true">▾</span>
+                          </button>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
 
