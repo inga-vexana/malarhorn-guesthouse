@@ -34,7 +34,7 @@ function getSessionIdFromToken(token: string): string | null {
 }
 
 export async function POST(request: Request) {
-  const apiKey = process.env.BOOKVISIT_API_KEY;
+  const apiKey = process.env.BOOKVISIT_API_KEY ?? process.env.API_KEY;
   const channelId = process.env.BOOKVISIT_CHANNEL_ID ?? DEFAULT_CHANNEL_ID;
 
   if (!apiKey) {
