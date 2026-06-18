@@ -929,6 +929,16 @@ function BookingRoomsStep({
   onBack: () => void;
 }) {
   const is = lang === "is";
+  const [activeRoom, setActiveRoom] = useState<BookingRoom | null>(null);
+
+  // Close drawer on Escape
+  useEffect(() => {
+    if (!activeRoom) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setActiveRoom(null); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [activeRoom]);
+
   return (
     <section className="bkSection">
       <div className="bkInner">
@@ -969,7 +979,15 @@ function BookingRoomsStep({
               const isFeatured = i === 0;
 
               return (
-                <article className={`rc ${isFeatured ? "ft" : "sm"}`} key={room.id}>
+                <article
+                  className={`rc ${isFeatured ? "ft" : "sm"} rcClickable`}
+                  key={room.id}
+                  onClick={() => setActiveRoom(room)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setActiveRoom(room); }}
+                  aria-label={room.name}
+                >
                   {(!isFeatured && room.image) && (
                     <div className="rp" style={{ backgroundImage: `url("${room.image}")` }} />
                   )}
@@ -989,9 +1007,7 @@ function BookingRoomsStep({
                       ))}
                     </div>
                     <p className="bkCardPrice">{priceLabel}</p>
-                    <button className="rl bkCardBook" onClick={() => onSelect(room)}>
-                      {is ? "Bóka →" : "Book now →"}
-                    </button>
+                    <span className="rl bkCardBook">{is ? "Skoða herbergi →" : "View room →"}</span>
                   </div>
                 </article>
               );
@@ -999,6 +1015,49 @@ function BookingRoomsStep({
           </div>
         )}
       </div>
+
+      {/* Room detail drawer */}
+      {activeRoom && (() => {
+        const r = activeRoom;
+        const chips: string[] = [];
+        if (r.maxGuests) chips.push(is ? `Allt að ${r.maxGuests} gestir` : `Up to ${r.maxGuests} guests`);
+        if (r.size) chips.push(r.size);
+        if (r.available > 1) chips.push(`${r.available} ${is ? "laus" : "available"}`);
+        const priceLabel = r.price
+          ? `${Math.round(r.price).toLocaleString()} ${r.currency} / ${nights} ${is ? (nights === 1 ? "nótt" : "nætur") : nights === 1 ? "night" : "nights"}`
+          : is ? "Verð á eftir" : "Price on request";
+        return (
+          <>
+            <div className="rdOverlay" onClick={() => setActiveRoom(null)} aria-hidden="true" />
+            <div className="rdDrawer" role="dialog" aria-modal="true" aria-label={r.name}>
+              <button className="rdClose" onClick={() => setActiveRoom(null)} aria-label={is ? "Loka" : "Close"}>
+                ✕
+              </button>
+              {r.image && (
+                <div className="rdImg" style={{ backgroundImage: `url("${r.image}")` }} />
+              )}
+              <div className="rdBody">
+                {r.type && <div className="rty">{r.type}</div>}
+                <h2 className="rn">{r.name}</h2>
+                {r.description && <p className="rd rdFull">{r.description}</p>}
+                <div className="chs" style={{ marginBottom: "1.5rem" }}>
+                  {chips.map((chip) => (
+                    <span className="ch" key={chip}>{chip}</span>
+                  ))}
+                </div>
+                <div className="rdFooter">
+                  <div>
+                    <p className="bkPriceAmount">{priceLabel}</p>
+                  </div>
+                  <button className="bp" onClick={() => { setActiveRoom(null); onSelect(r); }}>
+                    {is ? "Bóka herbergi" : "Book room"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      })()}
     </section>
   );
 }
