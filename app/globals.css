@@ -1303,8 +1303,19 @@ button {
 .hrRateTable {
   border: 1px solid var(--l3);
   border-collapse: collapse;
+  table-layout: fixed;
   width: 100%;
 }
+
+/* Rate | Terms | Today's price | Choose */
+.hrRateTable th:nth-child(1),
+.hrRateTable td:nth-child(1) { width: 40%; }
+.hrRateTable th:nth-child(2),
+.hrRateTable td:nth-child(2) { width: 28%; }
+.hrRateTable th:nth-child(3),
+.hrRateTable td:nth-child(3) { width: 18%; }
+.hrRateTable th:nth-child(4),
+.hrRateTable td:nth-child(4) { width: 14%; }
 
 .hrRateTable thead {
   background: var(--br);
@@ -1317,6 +1328,14 @@ button {
   letter-spacing: 0.04em;
   padding: 0.65rem 0.9rem;
   text-align: left;
+}
+
+.hrRateTable thead th:nth-child(3) {
+  text-align: right;
+}
+
+.hrRateTable thead th:nth-child(4) {
+  text-align: right;
 }
 
 .hrRateTable tbody tr {
@@ -1364,7 +1383,6 @@ button {
   flex-direction: column;
   gap: 0.15rem;
   text-align: right;
-  white-space: nowrap;
 }
 
 .hrRatePrice strong {
