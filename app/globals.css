@@ -226,12 +226,101 @@ button {
   color: var(--sd);
 }
 
+.heroWrap {
+  position: relative;
+}
+
 .hero {
   align-items: stretch;
   background: var(--l2);
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 88vh;
+  padding-bottom: 5rem;
+}
+
+.hbBar {
+  bottom: 0;
+  left: 50%;
+  padding: 0 2.5rem;
+  position: absolute;
+  transform: translate(-50%, 50%);
+  width: 100%;
+  max-width: 900px;
+  z-index: 10;
+}
+
+.hbForm {
+  align-items: center;
+  background: var(--w);
+  border-radius: 60px;
+  box-shadow: 0 8px 40px rgb(0 0 0 / 0.14);
+  display: flex;
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
+}
+
+.hbField {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.55rem 1rem 0.55rem 0;
+}
+
+.hbFieldNarrow {
+  flex: 0 0 90px;
+}
+
+.hbField label {
+  color: var(--sd);
+  font-family: Arial, sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hbField input {
+  background: transparent;
+  border: none;
+  color: var(--br);
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  padding: 0;
+  width: 100%;
+}
+
+.hbSep {
+  background: var(--l3);
+  flex-shrink: 0;
+  height: 32px;
+  margin: 0 0.5rem;
+  width: 1px;
+}
+
+.hbBtn {
+  background: var(--br);
+  border-radius: 60px;
+  color: var(--w);
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: Arial, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  transition: opacity 0.2s;
+}
+
+.hbBtn:hover {
+  opacity: 0.82;
+}
+
+/* Push the .sv section down to make room for the bar overlap */
+.heroWrap + .sv {
+  margin-top: 3rem;
 }
 
 .ht {

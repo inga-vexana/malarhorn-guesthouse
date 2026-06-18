@@ -197,6 +197,7 @@ function Photo({ src, className = "" }: { src: string; className?: string }) {
 export default function MalarhornPage() {
   const [lang, setLang] = useState<Lang>("en");
   const [page, setPage] = useState<Page>("home");
+  const [heroSearch, setHeroSearch] = useState<SearchParams | null>(null);
 
   useEffect(() => {
     if (window.location.hash === "#guest") setPage("guest");
@@ -205,6 +206,12 @@ export default function MalarhornPage() {
   const t = translations[lang];
   const goTo = (nextPage: Page) => {
     setPage(nextPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const goToBookingWithSearch = (params: SearchParams) => {
+    setHeroSearch(params);
+    setPage("booking");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -223,11 +230,11 @@ export default function MalarhornPage() {
       case "guest":
         return <GuestInfo lang={lang} goTo={goTo} />;
       case "booking":
-        return <BookingPage lang={lang} />;
+        return <BookingPage lang={lang} initialSearch={heroSearch} onSearchConsumed={() => setHeroSearch(null)} />;
       default:
-        return <Home lang={lang} goTo={goTo} />;
+        return <Home lang={lang} goTo={goTo} onHeroSearch={goToBookingWithSearch} />;
     }
-  }, [lang, page]);
+  }, [lang, page, heroSearch]);
 
   return (
     <>
@@ -354,10 +361,11 @@ export default function MalarhornPage() {
   );
 }
 
-function Home({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
+function Home({ lang, goTo, onHeroSearch }: { lang: Lang; goTo: (page: Page) => void; onHeroSearch: (p: SearchParams) => void }) {
   const is = lang === "is";
   return (
     <>
+      <div className="heroWrap">
       <section className="hero">
         <div className="ht">
           <span className="htag">{is ? "Vestfirðir, Ísland" : "Westfjords, Iceland"}</span>
@@ -411,6 +419,8 @@ function Home({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
           </div>
         </div>
       </section>
+      <HeroBookingBar lang={lang} onSearch={onHeroSearch} />
+      </div>
 
       <section className="sv">
         <div className="sg">
@@ -493,16 +503,26 @@ function addDays(days: number) {
 }
 
 
-function BookingPage({ lang }: { lang: Lang }) {
+function BookingPage({ lang, initialSearch, onSearchConsumed }: { lang: Lang; initialSearch?: SearchParams | null; onSearchConsumed?: () => void }) {
   const is = lang === "is";
   const [step, setStep] = useState<BookingStep>("search");
-  const [searchParams, setSearchParams] = useState<SearchParams>({
-    arrival: addDays(14),
-    departure: addDays(15),
-    adults: 2,
-    children: 0,
-    promoCode: "",
-  });
+  const [searchParams, setSearchParams] = useState<SearchParams>(
+    initialSearch ?? {
+      arrival: addDays(14),
+      departure: addDays(15),
+      adults: 2,
+      children: 0,
+      promoCode: "",
+    }
+  );
+
+  useEffect(() => {
+    if (initialSearch) {
+      onSearchConsumed?.();
+      handleSearch(initialSearch);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [rooms, setRooms] = useState<BookingRoom[]>([]);
   const [resultId, setResultId] = useState<string>("");
   const [bookingUrl, setBookingUrl] = useState<string>("");
@@ -680,6 +700,67 @@ function BookingProgressBar({ step, is }: { step: BookingStep; is: boolean }) {
           {i < steps.length - 1 && <div className="bkProgressLine" />}
         </div>
       ))}
+    </div>
+  );
+}
+
+function HeroBookingBar({ lang, onSearch }: { lang: Lang; onSearch: (p: SearchParams) => void }) {
+  const is = lang === "is";
+  const [arrival, setArrival] = useState(addDays(14));
+  const [departure, setDeparture] = useState(addDays(15));
+  const [adults, setAdults] = useState(2);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    onSearch({ arrival, departure, adults, children: 0, promoCode: "" });
+  }
+
+  return (
+    <div className="hbBar">
+      <form className="hbForm" onSubmit={handleSubmit}>
+        <div className="hbField">
+          <label htmlFor="hb-arrival">{is ? "Koma" : "Check in"}</label>
+          <input
+            id="hb-arrival"
+            type="date"
+            min={addDays(0)}
+            value={arrival}
+            onChange={(e) => {
+              setArrival(e.target.value);
+              if (e.target.value >= departure) setDeparture(addDays(1));
+            }}
+            required
+          />
+        </div>
+        <div className="hbSep" aria-hidden="true" />
+        <div className="hbField">
+          <label htmlFor="hb-departure">{is ? "Brottför" : "Check out"}</label>
+          <input
+            id="hb-departure"
+            type="date"
+            min={arrival}
+            value={departure}
+            onChange={(e) => setDeparture(e.target.value)}
+            required
+          />
+        </div>
+        <div className="hbSep" aria-hidden="true" />
+        <div className="hbField hbFieldNarrow">
+          <label htmlFor="hb-adults">{is ? "Gestir" : "Guests"}</label>
+          <input
+            id="hb-adults"
+            type="number"
+            min="1"
+            max="8"
+            value={adults}
+            onChange={(e) => setAdults(Number(e.target.value))}
+            required
+          />
+        </div>
+        <button className="hbBtn" type="submit">
+          {is ? "Leita" : "Search"}
+        </button>
+      </form>
     </div>
   );
 }
