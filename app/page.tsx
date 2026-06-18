@@ -976,7 +976,13 @@ function BookingRoomsStep({
                   <div className="rb">
                     {room.type && <div className="rty">{room.type}</div>}
                     <h2 className="rn">{room.name}</h2>
-                    {room.description && <p className="rd">{room.description}</p>}
+                    {room.description && (
+                      <p className="rd">
+                        {room.description.length > 120
+                          ? room.description.slice(0, room.description.lastIndexOf(" ", 120)) + "…"
+                          : room.description}
+                      </p>
+                    )}
                     <div className="chs">
                       {chips.map((chip) => (
                         <span className="ch" key={chip}>{chip}</span>
