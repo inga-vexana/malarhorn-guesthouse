@@ -32,7 +32,7 @@ type BookingSearchResponse = {
   rooms: BookingRoom[];
 };
 
-type BookingStep = "search" | "rooms" | "guest" | "paying";
+type BookingStep = "search" | "rooms" | "guest" | "paying" | "widget";
 
 type SearchParams = {
   arrival: string;
@@ -482,6 +482,7 @@ function BookingPage({ lang }: { lang: Lang }) {
   const [rooms, setRooms] = useState<BookingRoom[]>([]);
   const [resultId, setResultId] = useState<string>("");
   const [bookingUrl, setBookingUrl] = useState<string>("");
+  const [embedUrl, setEmbedUrl] = useState<string>("");
   const [selectedRoom, setSelectedRoom] = useState<BookingRoom | null>(null);
   const [searchStatus, setSearchStatus] = useState<"idle" | "loading" | "error">("idle");
   const [searchError, setSearchError] = useState<string>("");
@@ -504,9 +505,18 @@ function BookingPage({ lang }: { lang: Lang }) {
         setSearchStatus("error");
         return;
       }
+      setBookingUrl(data.bookingUrl);
+      if (data.configured === false) {
+        // No live API key configured: embed the standard Bookvisit booking
+        // widget so guests can complete a booking just like on the old site.
+        setEmbedUrl(data.bookingUrl);
+        setStep("widget");
+        setSearchStatus("idle");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
       setRooms(data.rooms);
       setResultId(data.resultId ?? "");
-      setBookingUrl(data.bookingUrl);
       setStep("rooms");
       setSearchStatus("idle");
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -573,7 +583,7 @@ function BookingPage({ lang }: { lang: Lang }) {
 
   return (
     <>
-      <BookingProgressBar step={step} is={is} />
+      {step !== "widget" && <BookingProgressBar step={step} is={is} />}
 
       {step === "search" && (
         <BookingSearchStep
@@ -582,6 +592,15 @@ function BookingPage({ lang }: { lang: Lang }) {
           status={searchStatus}
           error={searchError}
           onSearch={handleSearch}
+        />
+      )}
+
+      {step === "widget" && (
+        <BookingWidgetStep
+          lang={lang}
+          embedUrl={embedUrl}
+          searchParams={searchParams}
+          onBack={() => setStep("search")}
         />
       )}
 
@@ -638,6 +657,53 @@ function BookingProgressBar({ step, is }: { step: BookingStep; is: boolean }) {
         </div>
       ))}
     </div>
+  );
+}
+
+function BookingWidgetStep({
+  lang,
+  embedUrl,
+  searchParams,
+  onBack,
+}: {
+  lang: Lang;
+  embedUrl: string;
+  searchParams: SearchParams;
+  onBack: () => void;
+}) {
+  const is = lang === "is";
+  return (
+    <section className="bkSection">
+      <div className="bkWidgetInner">
+        <button className="bkBack" onClick={onBack}>
+          ← {is ? "Breyta dagsetningum" : "Change dates"}
+        </button>
+        <p className="ey">
+          {new Date(searchParams.arrival).toLocaleDateString(is ? "is-IS" : "en-GB", { day: "numeric", month: "short" })}
+          {" – "}
+          {new Date(searchParams.departure).toLocaleDateString(is ? "is-IS" : "en-GB", { day: "numeric", month: "short" })}
+          {" · "}
+          {searchParams.adults} {is ? "fullorðnir" : "adults"}
+          {searchParams.children ? `, ${searchParams.children} ${is ? "börn" : "children"}` : ""}
+        </p>
+        <h1 className="st">{is ? "Veldu herbergi og bókaðu" : "Choose a room & book"}</h1>
+        <div className="dv" />
+        <div className="bkWidget">
+          <iframe
+            src={embedUrl}
+            title={is ? "Bókunarvél Malarhorn" : "Malarhorn booking engine"}
+            className="bkWidgetFrame"
+            loading="lazy"
+            allow="payment"
+          />
+        </div>
+        <p className="bkWidgetNote">
+          <a href={embedUrl} className="rl" target="_blank" rel="noreferrer">
+            {is ? "Opna bókunarvélina í nýjum glugga" : "Open the booking engine in a new window"}
+          </a>
+        </p>
+      </div>
+    </section>
   );
 }
 
