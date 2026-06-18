@@ -1358,8 +1358,27 @@ footer {
 
 .fso {
   display: flex;
-  gap: 1.5rem;
-}
+  gap: 1.25rem;
+  }
+
+.fso a {
+  align-items: center;
+  color: rgb(200 184 152 / 55%);
+  display: inline-flex;
+  transition: color 0.2s ease;
+  }
+
+.fso a:hover {
+  color: rgb(200 184 152 / 100%);
+  }
+
+.fcredit a {
+  text-decoration: underline;
+  }
+
+.fcredit a:hover {
+  color: rgb(200 184 152 / 80%);
+  }
 
 .gst-hero {
   background: var(--tc);
