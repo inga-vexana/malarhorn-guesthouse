@@ -23,7 +23,7 @@ type BookvisitRoomResult = {
     displayName?: string | null;
     ratesPerRoomConfig?: {
       hitKey?: string | null;
-      totalPrice?: { amount?: number | null } | null;
+      totalPrice?: { priceInclVAT?: number | null; displayPrice?: number | null } | null;
       lastFreeCancellationDate?: string | null;
       nonRefundableCancellationPolicy?: boolean;
     }[] | null;
@@ -168,7 +168,7 @@ export async function POST(request: Request) {
         (alt.ratesPerRoomConfig ?? []).map((r) => ({
           hitKey: r.hitKey ?? "",
           name: alt.displayName ?? "Rate",
-          price: r.totalPrice?.amount ?? 0,
+          price: r.totalPrice?.priceInclVAT ?? r.totalPrice?.displayPrice ?? 0,
           currency: alt.currency ?? currency,
           refundable: !r.nonRefundableCancellationPolicy,
           freeCancellationUntil: r.lastFreeCancellationDate ?? null,
