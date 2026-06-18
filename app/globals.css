@@ -1124,6 +1124,18 @@ button {
   margin-top: 2rem;
 }
 
+.bkCardPrice {
+  color: var(--t2);
+  font-family: Arial, sans-serif;
+  font-size: 0.88rem;
+  margin-bottom: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.bkCardBook {
+  display: inline-block;
+}
+
 .bkRoom {
   background: var(--l2);
   border-radius: 6px;

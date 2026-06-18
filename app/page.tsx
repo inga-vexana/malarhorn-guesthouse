@@ -955,50 +955,41 @@ function BookingRoomsStep({
             </a>
           </div>
         ) : (
-          <div className="bkRooms">
-            {rooms.map((room) => (
-              <article className="bkRoom" key={room.id}>
-                {room.image && (
-                  <div className="bkRoomImg" style={{ backgroundImage: `url("${room.image}")` }} />
-                )}
-                <div className="bkRoomBody">
-                  <div className="bkRoomMeta">
-                    {room.maxGuests && (
-                      <span className="ch">
-                        {is ? `Allt að ${room.maxGuests} gestir` : `Up to ${room.maxGuests} guests`}
-                      </span>
-                    )}
-                    {room.size && <span className="ch">{room.size}</span>}
-                    {room.available > 1 && (
-                      <span className="ch">
-                        {room.available} {is ? "laus" : "available"}
-                      </span>
-                    )}
-                  </div>
-                  <h2 className="bkRoomName">{room.name}</h2>
-                  {room.description && <p className="bkRoomDesc">{room.description}</p>}
-                  <div className="bkRoomFooter">
-                    <div className="bkRoomPrice">
-                      {room.price ? (
-                        <>
-                          <span className="bkPriceAmount">
-                            {Math.round(room.price).toLocaleString()} {room.currency}
-                          </span>
-                          <span className="bkPriceLabel">
-                            {is ? `/ ${nights} nætur` : `/ ${nights} nights`}
-                          </span>
-                        </>
-                      ) : (
-                        <span className="bkPriceAmount">{is ? "Verð á eftir" : "Price on request"}</span>
-                      )}
+          <div className="rg" style={{ marginTop: "2rem" }}>
+            {rooms.map((room, i) => {
+              const chips: string[] = [];
+              if (room.maxGuests) chips.push(is ? `Allt að ${room.maxGuests} gestir` : `Up to ${room.maxGuests} guests`);
+              if (room.size) chips.push(room.size);
+              if (room.available > 1) chips.push(`${room.available} ${is ? "laus" : "available"}`);
+
+              const priceLabel = room.price
+                ? `${Math.round(room.price).toLocaleString()} ${room.currency} / ${nights} ${is ? (nights === 1 ? "nótt" : "nætur") : nights === 1 ? "night" : "nights"}`
+                : is ? "Verð á eftir" : "Price on request";
+
+              const isFeatured = i === 0;
+
+              return (
+                <article className={`rc ${isFeatured ? "ft" : "sm"}`} key={room.id}>
+                  {(!isFeatured && room.image) && (
+                    <div className="rp" style={{ backgroundImage: `url("${room.image}")` }} />
+                  )}
+                  <div className="rb">
+                    {room.type && <div className="rty">{room.type}</div>}
+                    <h2 className="rn">{room.name}</h2>
+                    {room.description && <p className="rd">{room.description}</p>}
+                    <div className="chs">
+                      {chips.map((chip) => (
+                        <span className="ch" key={chip}>{chip}</span>
+                      ))}
                     </div>
-                    <button className="bp" onClick={() => onSelect(room)}>
-                      {is ? "Velja herbergi" : "Select room"}
+                    <p className="bkCardPrice">{priceLabel}</p>
+                    <button className="rl bkCardBook" onClick={() => onSelect(room)}>
+                      {is ? "Bóka →" : "Book now →"}
                     </button>
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         )}
       </div>
