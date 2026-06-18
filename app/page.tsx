@@ -929,15 +929,7 @@ function BookingRoomsStep({
   onBack: () => void;
 }) {
   const is = lang === "is";
-  const [activeRoom, setActiveRoom] = useState<BookingRoom | null>(null);
-
-  // Close drawer on Escape
-  useEffect(() => {
-    if (!activeRoom) return;
-    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setActiveRoom(null); };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [activeRoom]);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
     <section className="bkSection">
@@ -965,99 +957,88 @@ function BookingRoomsStep({
             </a>
           </div>
         ) : (
-          <div className="rg" style={{ marginTop: "2rem" }}>
-            {rooms.map((room, i) => {
+          <div className="hrList">
+            {rooms.map((room) => {
+              const isOpen = expandedId === room.id;
               const chips: string[] = [];
               if (room.maxGuests) chips.push(is ? `Allt að ${room.maxGuests} gestir` : `Up to ${room.maxGuests} guests`);
               if (room.size) chips.push(room.size);
-              if (room.available > 1) chips.push(`${room.available} ${is ? "laus" : "available"}`);
-
-              const priceLabel = room.price
-                ? `${Math.round(room.price).toLocaleString()} ${room.currency} / ${nights} ${is ? (nights === 1 ? "nótt" : "nætur") : nights === 1 ? "night" : "nights"}`
-                : is ? "Verð á eftir" : "Price on request";
-
-              const isFeatured = i === 0;
+              if (room.rateName) chips.push(room.rateName);
 
               return (
-                <article
-                  className={`rc ${isFeatured ? "ft" : "sm"} rcClickable`}
-                  key={room.id}
-                  onClick={() => setActiveRoom(room)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setActiveRoom(room); }}
-                  aria-label={room.name}
-                >
-                  {(!isFeatured && room.image) && (
-                    <div className="rp" style={{ backgroundImage: `url("${room.image}")` }} />
-                  )}
-                  <div className="rb">
-                    {room.type && <div className="rty">{room.type}</div>}
-                    <h2 className="rn">{room.name}</h2>
-                    {room.description && (
-                      <p className="rd">
-                        {room.description.length > 120
-                          ? room.description.slice(0, room.description.lastIndexOf(" ", 120)) + "…"
-                          : room.description}
+                <article key={room.id} className={`hrRow${isOpen ? " hrRowOpen" : ""}`}>
+                  {/* Collapsed header — always visible */}
+                  <div
+                    className="hrHeader"
+                    onClick={() => setExpandedId(isOpen ? null : room.id)}
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={isOpen}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setExpandedId(isOpen ? null : room.id); }}
+                  >
+                    <div className="hrHeaderLeft">
+                      {room.type && <div className="rty">{room.type}</div>}
+                      <h2 className="hrName">{room.name}</h2>
+                      <p className="hrShort">
+                        {room.description
+                          ? room.description.length > 100
+                            ? room.description.slice(0, room.description.lastIndexOf(" ", 100)) + "…"
+                            : room.description
+                          : ""}
                       </p>
-                    )}
-                    <div className="chs">
-                      {chips.map((chip) => (
-                        <span className="ch" key={chip}>{chip}</span>
-                      ))}
                     </div>
-                    <p className="bkCardPrice">{priceLabel}</p>
-                    <span className="rl bkCardBook">{is ? "Skoða herbergi →" : "View room →"}</span>
+                    <div className="hrHeaderRight">
+                      {room.price ? (
+                        <p className="hrPrice">
+                          {Math.round(room.price).toLocaleString()} <span>{room.currency}</span>
+                        </p>
+                      ) : null}
+                      <span className="hrToggle" aria-hidden="true">{isOpen ? "▲" : "▼"}</span>
+                    </div>
                   </div>
+
+                  {/* Expanded detail */}
+                  {isOpen && (
+                    <div className="hrDetail">
+                      <div className="hrDetailLeft">
+                        {room.description && <p className="hrDesc">{room.description}</p>}
+                        {chips.length > 0 && (
+                          <div className="chs hrChips">
+                            {chips.map((chip) => (
+                              <span className="ch" key={chip}>{chip}</span>
+                            ))}
+                          </div>
+                        )}
+                        <div className="hrBookRow">
+                          <button className="bp" onClick={() => onSelect(room)}>
+                            {is ? "Bóka herbergi" : "Book room"}
+                          </button>
+                          <p className="hrTotal">
+                            <span className="hrTotalLabel">
+                              {is ? `${nights} ${nights === 1 ? "nótt" : "nætur"} · alls` : `${nights} ${nights === 1 ? "night" : "nights"} total`}
+                            </span>
+                            {room.price && (
+                              <strong>{Math.round(room.price).toLocaleString()} {room.currency}</strong>
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                      {room.image && (
+                        <div
+                          className="hrImage"
+                          style={{ backgroundImage: `url("${room.image}")` }}
+                          role="img"
+                          aria-label={room.name}
+                        />
+                      )}
+                    </div>
+                  )}
                 </article>
               );
             })}
           </div>
         )}
       </div>
-
-      {/* Room detail drawer */}
-      {activeRoom && (() => {
-        const r = activeRoom;
-        const chips: string[] = [];
-        if (r.maxGuests) chips.push(is ? `Allt að ${r.maxGuests} gestir` : `Up to ${r.maxGuests} guests`);
-        if (r.size) chips.push(r.size);
-        if (r.available > 1) chips.push(`${r.available} ${is ? "laus" : "available"}`);
-        const priceLabel = r.price
-          ? `${Math.round(r.price).toLocaleString()} ${r.currency} / ${nights} ${is ? (nights === 1 ? "nótt" : "nætur") : nights === 1 ? "night" : "nights"}`
-          : is ? "Verð á eftir" : "Price on request";
-        return (
-          <>
-            <div className="rdOverlay" onClick={() => setActiveRoom(null)} aria-hidden="true" />
-            <div className="rdDrawer" role="dialog" aria-modal="true" aria-label={r.name}>
-              <button className="rdClose" onClick={() => setActiveRoom(null)} aria-label={is ? "Loka" : "Close"}>
-                ✕
-              </button>
-              {r.image && (
-                <div className="rdImg" style={{ backgroundImage: `url("${r.image}")` }} />
-              )}
-              <div className="rdBody">
-                {r.type && <div className="rty">{r.type}</div>}
-                <h2 className="rn">{r.name}</h2>
-                {r.description && <p className="rd rdFull">{r.description}</p>}
-                <div className="chs" style={{ marginBottom: "1.5rem" }}>
-                  {chips.map((chip) => (
-                    <span className="ch" key={chip}>{chip}</span>
-                  ))}
-                </div>
-                <div className="rdFooter">
-                  <div>
-                    <p className="bkPriceAmount">{priceLabel}</p>
-                  </div>
-                  <button className="bp" onClick={() => { setActiveRoom(null); onSelect(r); }}>
-                    {is ? "Bóka herbergi" : "Book room"}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </>
-        );
-      })()}
     </section>
   );
 }
