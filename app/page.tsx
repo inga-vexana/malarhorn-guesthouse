@@ -8,10 +8,20 @@ const MENU = "https://malarhornguesthouse.is/wp-content/uploads/Matsedill-Malarh
 type Lang = "en" | "is";
 type Page = "home" | "accommodation" | "restaurant" | "sailing" | "contact" | "about" | "guest" | "booking";
 
+type BookingRate = {
+  hitKey: string;
+  name: string;
+  price: number;
+  currency: string;
+  refundable: boolean;
+  freeCancellationUntil?: string | null;
+};
+
 type BookingRoom = {
   id: string;
   name: string;
   description: string;
+  fullDescription?: string | null;
   image?: string;
   available: number;
   price: number | null;
@@ -20,6 +30,11 @@ type BookingRoom = {
   hitKey?: string | null;
   size?: string | null;
   maxGuests?: number | null;
+  minGuests?: number | null;
+  ordinaryBeds?: number | null;
+  extraBeds?: number | null;
+  facilities?: string[] | null;
+  rates?: BookingRate[] | null;
 };
 
 type BookingSearchResponse = {
@@ -960,69 +975,140 @@ function BookingRoomsStep({
           <div className="hrList">
             {rooms.map((room) => {
               const isOpen = expandedId === room.id;
-              const chips: string[] = [];
-              if (room.maxGuests) chips.push(is ? `Allt að ${room.maxGuests} gestir` : `Up to ${room.maxGuests} guests`);
-              if (room.size) chips.push(room.size);
-              if (room.rateName) chips.push(room.rateName);
+              const toggle = () => setExpandedId(isOpen ? null : room.id);
+              const arrivalDate = new Date(searchParams.arrival).toLocaleDateString(is ? "is-IS" : "en-GB", { weekday: "short", day: "numeric", month: "short" });
+              const departureDate = new Date(searchParams.departure).toLocaleDateString(is ? "is-IS" : "en-GB", { weekday: "short", day: "numeric", month: "short" });
 
               return (
                 <article key={room.id} className={`hrRow${isOpen ? " hrRowOpen" : ""}`}>
-                  {/* Collapsed header — always visible */}
+
+                  {/* Collapsed row — image + text + price */}
                   <div
                     className="hrHeader"
-                    onClick={() => setExpandedId(isOpen ? null : room.id)}
+                    onClick={toggle}
                     role="button"
                     tabIndex={0}
                     aria-expanded={isOpen}
-                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setExpandedId(isOpen ? null : room.id); }}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") toggle(); }}
                   >
+                    {room.image && (
+                      <div className="hrThumb" style={{ backgroundImage: `url("${room.image}")` }} aria-hidden="true" />
+                    )}
                     <div className="hrHeaderLeft">
-                      {room.type && <div className="rty">{room.type}</div>}
                       <h2 className="hrName">{room.name}</h2>
                       <p className="hrShort">
                         {room.description
-                          ? room.description.length > 100
-                            ? room.description.slice(0, room.description.lastIndexOf(" ", 100)) + "…"
+                          ? room.description.length > 120
+                            ? room.description.slice(0, room.description.lastIndexOf(" ", 120)) + "…"
                             : room.description
                           : ""}
                       </p>
+                      <div className="hrMeta">
+                        {room.maxGuests && <span>{is ? `Allt að ${room.maxGuests} gestir` : `Up to ${room.maxGuests} guests`}</span>}
+                        {room.size && <span>{room.size}</span>}
+                        {room.ordinaryBeds != null && room.ordinaryBeds > 0 && (
+                          <span>{room.ordinaryBeds} {is ? (room.ordinaryBeds === 1 ? "rúm" : "rúm") : room.ordinaryBeds === 1 ? "bed" : "beds"}</span>
+                        )}
+                      </div>
                     </div>
                     <div className="hrHeaderRight">
                       {room.price ? (
                         <p className="hrPrice">
-                          {Math.round(room.price).toLocaleString()} <span>{room.currency}</span>
+                          {is ? "Frá" : "From"} {Math.round(room.price).toLocaleString()} <span>{room.currency}</span>
                         </p>
                       ) : null}
                       <span className="hrToggle" aria-hidden="true">{isOpen ? "▲" : "▼"}</span>
                     </div>
                   </div>
 
-                  {/* Expanded detail */}
+                  {/* Expanded detail panel */}
                   {isOpen && (
                     <div className="hrDetail">
+                      {/* Left column */}
                       <div className="hrDetailLeft">
-                        {room.description && <p className="hrDesc">{room.description}</p>}
-                        {chips.length > 0 && (
-                          <div className="chs hrChips">
-                            {chips.map((chip) => (
-                              <span className="ch" key={chip}>{chip}</span>
-                            ))}
+                        {/* Full description */}
+                        {(room.fullDescription || room.description) && (
+                          <p className="hrDesc">{room.fullDescription || room.description}</p>
+                        )}
+
+                        {/* Rates table */}
+                        {room.rates && room.rates.length > 0 && (
+                          <div className="hrRates">
+                            <h3 className="hrSectionTitle">{is ? "Verð" : "Available rates"}</h3>
+                            <p className="hrRatesMeta">
+                              {arrivalDate} – {departureDate}, {nights} {is ? (nights === 1 ? "nótt" : "nætur") : nights === 1 ? "night" : "nights"}, {searchParams.adults} {is ? "gestir" : "guests"}
+                            </p>
+                            <table className="hrRateTable">
+                              <thead>
+                                <tr>
+                                  <th>{is ? "Verðlag" : "Rate"}</th>
+                                  <th>{is ? "Skilmálar" : "Terms"}</th>
+                                  <th>{is ? "Verð" : "Price"}</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {room.rates.map((rate) => (
+                                  <tr key={rate.hitKey}>
+                                    <td className="hrRateName">{rate.name}</td>
+                                    <td className="hrRateTerms">
+                                      {rate.refundable ? (
+                                        <>
+                                          <span className="hrRefundable">{is ? "Endurgreiðanlegt" : "Free cancellation"}</span>
+                                          {rate.freeCancellationUntil && (
+                                            <span className="hrCancelDate">
+                                              {is ? "til" : "until"} {new Date(rate.freeCancellationUntil).toLocaleDateString(is ? "is-IS" : "en-GB", { day: "numeric", month: "short" })}
+                                            </span>
+                                          )}
+                                        </>
+                                      ) : (
+                                        <span className="hrNonRefundable">{is ? "Ekki endurgreiðanlegt" : "Non-refundable"}</span>
+                                      )}
+                                    </td>
+                                    <td className="hrRatePrice">
+                                      <strong>{Math.round(rate.price).toLocaleString()} {rate.currency}</strong>
+                                      <span>{is ? `fyrir ${searchParams.adults} gesti` : `for ${searchParams.adults} guests`}</span>
+                                    </td>
+                                    <td>
+                                      <button className="bp hrChooseBtn" onClick={() => onSelect({ ...room, hitKey: rate.hitKey, rateName: rate.name, price: rate.price })}>
+                                        {is ? "Velja" : "Choose"}
+                                      </button>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
                           </div>
                         )}
-                        <div className="hrBookRow">
-                          <button className="bp" onClick={() => onSelect(room)}>
-                            {is ? "Bóka herbergi" : "Book room"}
-                          </button>
-                          <p className="hrTotal">
-                            <span className="hrTotalLabel">
-                              {is ? `${nights} ${nights === 1 ? "nótt" : "nætur"} · alls` : `${nights} ${nights === 1 ? "night" : "nights"} total`}
-                            </span>
-                            {room.price && (
-                              <strong>{Math.round(room.price).toLocaleString()} {room.currency}</strong>
-                            )}
-                          </p>
-                        </div>
+
+                        {/* Capacity */}
+                        {(room.maxGuests || room.ordinaryBeds != null) && (
+                          <div className="hrCapacity">
+                            <h3 className="hrSectionTitle">{is ? "Rýmisupplýsingar" : "Capacity"}</h3>
+                            <div className="hrCapGrid">
+                              {room.maxGuests && <div><span>{is ? "Hámark gesta" : "Max guests"}</span><strong>{room.maxGuests}</strong></div>}
+                              {room.minGuests && <div><span>{is ? "Lágmark gesta" : "Min guests"}</span><strong>{room.minGuests}</strong></div>}
+                              {room.ordinaryBeds != null && <div><span>{is ? "Rúm" : "Beds"}</span><strong>{room.ordinaryBeds}</strong></div>}
+                              {room.extraBeds != null && room.extraBeds > 0 && <div><span>{is ? "Auka rúm" : "Extra beds"}</span><strong>{room.extraBeds}</strong></div>}
+                              {room.size && <div><span>{is ? "Stærð" : "Size"}</span><strong>{room.size}</strong></div>}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Amenities */}
+                        {room.facilities && room.facilities.length > 0 && (
+                          <div className="hrAmenities">
+                            <h3 className="hrSectionTitle">{is ? "Búnaður" : "Amenities"}</h3>
+                            <div className="hrAmenGrid">
+                              {room.facilities.map((f) => (
+                                <span key={f}>{f}</span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
+
+                      {/* Right column — image */}
                       {room.image && (
                         <div
                           className="hrImage"

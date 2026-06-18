@@ -39,8 +39,11 @@ type BookvisitRoomContent = {
   roomDetailedContent?: {
     size?: string | null;
     maxGuests?: number;
+    minGuests?: number;
     ordinaryBeds?: number;
-    facilities?: string[] | null;
+    extraBeds?: number;
+    bedTypes?: string[] | null;
+    facilities?: { name?: string | null }[] | null;
   } | null;
 };
 
@@ -158,19 +161,44 @@ export async function POST(request: Request) {
       const image = details?.images?.slice().sort((a, b) => (a.rank ?? 999) - (b.rank ?? 999))[0]?.uri;
       const firstRate = room.rateAlternatives?.[0];
       const hitKey = firstRate?.ratesPerRoomConfig?.[0]?.hitKey ?? null;
+      const currency = firstRate?.currency ?? result.currencyCode ?? "ISK";
+
+      // Map all rate alternatives into a flat rates array
+      const rates = (room.rateAlternatives ?? []).flatMap((alt) =>
+        (alt.ratesPerRoomConfig ?? []).map((r) => ({
+          hitKey: r.hitKey ?? "",
+          name: alt.displayName ?? "Rate",
+          price: r.totalPrice?.amount ?? 0,
+          currency: alt.currency ?? currency,
+          refundable: !r.nonRefundableCancellationPolicy,
+          freeCancellationUntil: r.lastFreeCancellationDate ?? null,
+        }))
+      );
+
+      // Facilities: handle both array-of-strings and array-of-objects
+      const rawFacilities = details?.roomDetailedContent?.facilities ?? [];
+      const facilities = rawFacilities.map((f) =>
+        typeof f === "string" ? f : (f as { name?: string | null }).name ?? ""
+      ).filter(Boolean);
 
       return {
         id: room.roomId,
         name: details?.name ?? room.name ?? "Accommodation",
         description: bookvisitHtmlToText(details?.shortDescription ?? details?.description),
+        fullDescription: bookvisitHtmlToText(details?.description),
         image,
         available: room.nrAvailable ?? 0,
         price: room.cheapestPrice ?? room.cheapestPriceNoLock ?? null,
-        currency: firstRate?.currency ?? result.currencyCode ?? "ISK",
+        currency,
         rateName: firstRate?.displayName ?? null,
         hitKey,
         size: details?.roomDetailedContent?.size ?? null,
         maxGuests: details?.roomDetailedContent?.maxGuests ?? null,
+        minGuests: details?.roomDetailedContent?.minGuests ?? null,
+        ordinaryBeds: details?.roomDetailedContent?.ordinaryBeds ?? null,
+        extraBeds: details?.roomDetailedContent?.extraBeds ?? null,
+        facilities,
+        rates,
       };
     });
 
