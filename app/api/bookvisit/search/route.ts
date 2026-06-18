@@ -36,14 +36,15 @@ type BookvisitRoomContent = {
   description?: string | null;
   shortDescription?: string | null;
   images?: { uri?: string | null; rank?: number | null }[] | null;
+  bedTypes?: string[] | null;
+  roomAmenities?: { roomAmenityTranslatedName?: string | null }[] | null;
   roomDetailedContent?: {
     size?: string | null;
     maxGuests?: number;
     minGuests?: number;
     ordinaryBeds?: number;
-    extraBeds?: number;
-    bedTypes?: string[] | null;
-    facilities?: { name?: string | null }[] | null;
+    extrabeds?: number;
+    facilities?: string[] | null;
   } | null;
 };
 
@@ -158,12 +159,20 @@ export async function POST(request: Request) {
 
     const rooms = ((result.roomsResult ?? []) as BookvisitRoomResult[]).map((room) => {
       const details = content.get(String(room.roomId));
-      const image = details?.images?.slice().sort((a, b) => (a.rank ?? 999) - (b.rank ?? 999))[0]?.uri;
+
+      // All images sorted by rank, prepend https: to protocol-relative URIs
+      const sortedImages = (details?.images ?? [])
+        .slice()
+        .sort((a, b) => (a.rank ?? 999) - (b.rank ?? 999))
+        .map((img) => (img.uri ?? "").replace(/^\/\//, "https://"))
+        .filter(Boolean);
+      const image = sortedImages[0];
+
       const firstRate = room.rateAlternatives?.[0];
       const hitKey = firstRate?.ratesPerRoomConfig?.[0]?.hitKey ?? null;
       const currency = firstRate?.currency ?? result.currencyCode ?? "ISK";
 
-      // Map all rate alternatives into a flat rates array
+      // All rate alternatives as flat array
       const rates = (room.rateAlternatives ?? []).flatMap((alt) =>
         (alt.ratesPerRoomConfig ?? []).map((r) => ({
           hitKey: r.hitKey ?? "",
@@ -175,18 +184,21 @@ export async function POST(request: Request) {
         }))
       );
 
-      // Facilities: handle both array-of-strings and array-of-objects
-      const rawFacilities = details?.roomDetailedContent?.facilities ?? [];
-      const facilities = rawFacilities.map((f) =>
-        typeof f === "string" ? f : (f as { name?: string | null }).name ?? ""
-      ).filter(Boolean);
+      // Human-readable amenity labels from roomAmenities (not the camelCase enum strings in facilities)
+      const facilities = (details?.roomAmenities ?? [])
+        .map((a) => a.roomAmenityTranslatedName ?? "")
+        .filter(Boolean);
+
+      // Bed types from root-level bedTypes array
+      const bedTypes = (details?.bedTypes ?? []).filter(Boolean);
 
       return {
         id: room.roomId,
         name: details?.name ?? room.name ?? "Accommodation",
-        description: bookvisitHtmlToText(details?.shortDescription ?? details?.description),
+        description: bookvisitHtmlToText(details?.description),
         fullDescription: bookvisitHtmlToText(details?.description),
         image,
+        images: sortedImages,
         available: room.nrAvailable ?? 0,
         price: room.cheapestPrice ?? room.cheapestPriceNoLock ?? null,
         currency,
@@ -196,7 +208,8 @@ export async function POST(request: Request) {
         maxGuests: details?.roomDetailedContent?.maxGuests ?? null,
         minGuests: details?.roomDetailedContent?.minGuests ?? null,
         ordinaryBeds: details?.roomDetailedContent?.ordinaryBeds ?? null,
-        extraBeds: details?.roomDetailedContent?.extraBeds ?? null,
+        extraBeds: details?.roomDetailedContent?.extrabeds ?? null,
+        bedTypes,
         facilities,
         rates,
       };

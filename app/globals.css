@@ -1223,14 +1223,61 @@ button {
   padding-bottom: 2.5rem;
 }
 
-/* Full-width image */
+/* Image carousel */
+.hrCarousel {
+  margin-bottom: 1.5rem;
+  position: relative;
+  width: 100%;
+}
+
 .hrDetailImg {
   aspect-ratio: 16 / 7;
   background-position: center;
   background-size: cover;
   border-radius: 2px;
-  margin-bottom: 1.5rem;
   width: 100%;
+}
+
+.hrCarPrev,
+.hrCarNext {
+  background: rgb(0 0 0 / 0.45);
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.8rem;
+  line-height: 1;
+  padding: 0.2rem 0.65rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hrCarPrev { left: 0.75rem; }
+.hrCarNext { right: 0.75rem; }
+
+.hrCarDots {
+  bottom: 0.65rem;
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.hrCarDot {
+  background: rgb(255 255 255 / 0.5);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 8px;
+  padding: 0;
+  width: 8px;
+}
+
+.hrCarDotActive {
+  background: #fff;
 }
 
 .hrDetailName {

@@ -23,6 +23,7 @@ type BookingRoom = {
   description: string;
   fullDescription?: string | null;
   image?: string;
+  images?: string[];
   available: number;
   price: number | null;
   currency: string;
@@ -33,6 +34,7 @@ type BookingRoom = {
   minGuests?: number | null;
   ordinaryBeds?: number | null;
   extraBeds?: number | null;
+  bedTypes?: string[] | null;
   facilities?: string[] | null;
   rates?: BookingRate[] | null;
 };
@@ -926,6 +928,180 @@ function BookingSearchStep({
   );
 }
 
+function RoomDetailPanel({
+  room, allImgs, is, nights, searchParams, arrivalDate, departureDate, onSelect,
+}: {
+  room: BookingRoom;
+  allImgs: string[];
+  is: boolean;
+  nights: number;
+  searchParams: SearchParams;
+  arrivalDate: string;
+  departureDate: string;
+  onSelect: (room: BookingRoom) => void;
+}) {
+  const [imgIdx, setImgIdx] = useState(0);
+
+  return (
+    <div className="hrDetail">
+
+      {/* Image carousel */}
+      {allImgs.length > 0 && (
+        <div className="hrCarousel">
+          <div
+            className="hrDetailImg"
+            style={{ backgroundImage: `url("${allImgs[imgIdx]}")` }}
+            role="img"
+            aria-label={room.name}
+          />
+          {allImgs.length > 1 && (
+            <>
+              <button className="hrCarPrev" onClick={() => setImgIdx((i) => (i - 1 + allImgs.length) % allImgs.length)} aria-label="Previous image">&#8249;</button>
+              <button className="hrCarNext" onClick={() => setImgIdx((i) => (i + 1) % allImgs.length)} aria-label="Next image">&#8250;</button>
+              <div className="hrCarDots">
+                {allImgs.map((_, i) => (
+                  <button
+                    key={i}
+                    className={`hrCarDot${i === imgIdx ? " hrCarDotActive" : ""}`}
+                    onClick={() => setImgIdx(i)}
+                    aria-label={`Image ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
+      {/* Room name */}
+      <h2 className="hrDetailName">{room.name}</h2>
+
+      {/* Icon meta row — bed type + max guests */}
+      <div className="hrIconRow">
+        {room.bedTypes && room.bedTypes.length > 0 && (
+          <div className="hrIconItem">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 20v-6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6"/><path d="M2 14v-4a2 2 0 0 1 2-2h4v6"/><rect x="10" y="8" width="4" height="6" rx="1"/><path d="M18 8h-2v6"/></svg>
+            <span>{room.bedTypes.join(", ")} {is ? (room.ordinaryBeds === 1 ? "rúm" : "rúm") : room.ordinaryBeds === 1 ? "bed" : "beds"}</span>
+          </div>
+        )}
+        {room.maxGuests && (
+          <div className="hrIconItem">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/></svg>
+            <span>{is ? `Hámark ${room.maxGuests} pers.` : `Max ${room.maxGuests} pers.`}</span>
+          </div>
+        )}
+      </div>
+
+      {/* Description — bold first sentence, then body */}
+      {room.description && (() => {
+        const full = room.description.trim();
+        const firstStop = full.search(/[.!?]\s/);
+        const intro = firstStop > 0 ? full.slice(0, firstStop + 1) : full;
+        const rest  = firstStop > 0 ? full.slice(firstStop + 2) : "";
+        return (
+          <div className="hrDescBlock">
+            <p className="hrDescIntro">{intro}</p>
+            {rest && <p className="hrDescBody">{rest}</p>}
+          </div>
+        );
+      })()}
+
+      {/* Available rates */}
+      {room.rates && room.rates.length > 0 && (
+        <div className="hrRates">
+          <h3 className="hrSectionTitle">{is ? "Verð" : "Available rates"}</h3>
+          <p className="hrRatesMeta">
+            {arrivalDate} – {departureDate},{" "}
+            {nights} {is ? (nights === 1 ? "nótt" : "nætur") : nights === 1 ? "night" : "nights"},{" "}
+            {searchParams.adults} {is ? "gestir" : "guests"}
+          </p>
+          <table className="hrRateTable">
+            <thead>
+              <tr>
+                <th>{is ? "Verðlag" : "Rate"}</th>
+                <th>{is ? "Skilmálar" : "Terms"}</th>
+                <th>{is ? "Verð í dag" : "Today's price"}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {room.rates.map((rate) => (
+                <tr key={rate.hitKey}>
+                  <td className="hrRateName">{rate.name}</td>
+                  <td className="hrRateTerms">
+                    {rate.refundable ? (
+                      <>
+                        <strong>{is ? "Endurgreiðanlegt" : "Free cancellation"}</strong>
+                        {rate.freeCancellationUntil && (
+                          <span className="hrCancelDate">
+                            {is ? "til" : "until"} {new Date(rate.freeCancellationUntil).toLocaleDateString(is ? "is-IS" : "en-GB", { day: "numeric", month: "short" })}
+                          </span>
+                        )}
+                      </>
+                    ) : (
+                      <strong>{is ? "Ekki endurgreiðanlegt" : "Non refundable"}</strong>
+                    )}
+                    <span className="hrSeeConditions">{is ? "Sjá skilmála" : "See conditions"}</span>
+                  </td>
+                  <td className="hrRatePrice">
+                    <strong>{Math.round(rate.price).toLocaleString()} {rate.currency}</strong>
+                    <span>{is ? `fyrir ${searchParams.adults} gesti` : `for ${searchParams.adults} guests`}</span>
+                  </td>
+                  <td className="hrRateAction">
+                    <button
+                      className="bp hrChooseBtn"
+                      onClick={() => onSelect({ ...room, hitKey: rate.hitKey, rateName: rate.name, price: rate.price })}
+                    >
+                      {is ? "VELJA" : "CHOOSE"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Capacity */}
+      {(room.maxGuests || room.ordinaryBeds != null) && (
+        <div className="hrCapacity">
+          <h3 className="hrSectionTitle">{is ? "Rými" : "Capacity"}</h3>
+          <div className="hrCapGrid">
+            {room.ordinaryBeds != null && (
+              <span>{is ? `Fjöldi rúma í venjulegum rúmum: ${room.ordinaryBeds}` : `No. of persons in regular beds: ${room.ordinaryBeds}`}</span>
+            )}
+            {room.extraBeds != null && (
+              <span>{is ? `Hámark auka rúm: ${room.extraBeds}` : `Max no. of x-beds: ${room.extraBeds}`}</span>
+            )}
+            {room.minGuests != null && (
+              <span>{is ? `Lágmark gesta: ${room.minGuests}` : `Min no. of persons: ${room.minGuests}`}</span>
+            )}
+            {room.maxGuests != null && (
+              <span>{is ? `Hámark gesta: ${room.maxGuests}` : `Max no. of persons: ${room.maxGuests}`}</span>
+            )}
+            {room.bedTypes && room.bedTypes.length > 0 && (
+              <span>{room.bedTypes.join(", ")}</span>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Amenities */}
+      {room.facilities && room.facilities.length > 0 && (
+        <div className="hrAmenities">
+          <h3 className="hrSectionTitle">{is ? "Búnaður" : "Amenities"}</h3>
+          <div className="hrAmenGrid">
+            {room.facilities.map((f) => (
+              <span key={f}>{f}</span>
+            ))}
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
+}
+
 function BookingRoomsStep({
   lang,
   rooms,
@@ -1022,126 +1198,21 @@ function BookingRoomsStep({
                   </div>
 
                   {/* Expanded detail panel — full width, single column */}
-                  {isOpen && (
-                    <div className="hrDetail">
-
-                      {/* Full-width image */}
-                      {room.image && (
-                        <div className="hrDetailImg" style={{ backgroundImage: `url("${room.image}")` }} role="img" aria-label={room.name} />
-                      )}
-
-                      {/* Room name */}
-                      <h2 className="hrDetailName">{room.name}</h2>
-
-                      {/* Icon meta row */}
-                      <div className="hrIconRow">
-                        {room.ordinaryBeds != null && room.ordinaryBeds > 0 && (
-                          <div className="hrIconItem">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 20v-6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6"/><path d="M2 14v-4a2 2 0 0 1 2-2h4v6"/><rect x="10" y="8" width="4" height="6" rx="1"/><path d="M18 8h-2v6"/></svg>
-                            <span>{room.ordinaryBeds} {is ? (room.ordinaryBeds === 1 ? "rúm" : "rúm") : room.ordinaryBeds === 1 ? "bed" : "beds"}</span>
-                          </div>
-                        )}
-                        {room.maxGuests && (
-                          <div className="hrIconItem">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/></svg>
-                            <span>{is ? `Hámark ${room.maxGuests} pers.` : `Max ${room.maxGuests} pers.`}</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Description — bold first sentence, then body */}
-                      {(room.fullDescription || room.description) && (() => {
-                        const full = (room.fullDescription || room.description || "").trim();
-                        const firstStop = full.search(/[.!?]\s/);
-                        const intro = firstStop > 0 ? full.slice(0, firstStop + 1) : full;
-                        const rest = firstStop > 0 ? full.slice(firstStop + 2) : "";
-                        return (
-                          <div className="hrDescBlock">
-                            <p className="hrDescIntro">{intro}</p>
-                            {rest && <p className="hrDescBody">{rest}</p>}
-                          </div>
-                        );
-                      })()}
-
-                      {/* Available rates */}
-                      {room.rates && room.rates.length > 0 && (
-                        <div className="hrRates">
-                          <h3 className="hrSectionTitle">{is ? "Verð" : "Available rates"}</h3>
-                          <p className="hrRatesMeta">
-                            {arrivalDate} – {departureDate}, {nights} {is ? (nights === 1 ? "nótt" : "nætur") : nights === 1 ? "night" : "nights"}, {searchParams.adults} {is ? "gestir" : "guests"}
-                          </p>
-                          <table className="hrRateTable">
-                            <thead>
-                              <tr>
-                                <th>{is ? "Verðlag" : "Rate"}</th>
-                                <th>{is ? "Skilmálar" : "Terms"}</th>
-                                <th>{is ? "Verð í dag" : "Today's price"}</th>
-                                <th></th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {room.rates.map((rate) => (
-                                <tr key={rate.hitKey}>
-                                  <td className="hrRateName">{rate.name}</td>
-                                  <td className="hrRateTerms">
-                                    {rate.refundable ? (
-                                      <>
-                                        <strong>{is ? "Endurgreiðanlegt" : "Free cancellation"}</strong>
-                                        {rate.freeCancellationUntil && (
-                                          <span className="hrCancelDate">
-                                            {is ? "til" : "until"} {new Date(rate.freeCancellationUntil).toLocaleDateString(is ? "is-IS" : "en-GB", { day: "numeric", month: "short" })}
-                                          </span>
-                                        )}
-                                      </>
-                                    ) : (
-                                      <strong>{is ? "Ekki endurgreiðanlegt" : "Non refundable"}</strong>
-                                    )}
-                                    <span className="hrSeeConditions">{is ? "Sjá skilmála" : "See conditions"}</span>
-                                  </td>
-                                  <td className="hrRatePrice">
-                                    <strong>{Math.round(rate.price).toLocaleString()} {rate.currency}</strong>
-                                    <span>{is ? `fyrir ${searchParams.adults} gesti` : `for ${searchParams.adults} guests`}</span>
-                                  </td>
-                                  <td className="hrRateAction">
-                                    <button className="bp hrChooseBtn" onClick={() => onSelect({ ...room, hitKey: rate.hitKey, rateName: rate.name, price: rate.price })}>
-                                      {is ? "VELJA" : "CHOOSE"}
-                                    </button>
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      )}
-
-                      {/* Capacity */}
-                      {(room.maxGuests || room.ordinaryBeds != null) && (
-                        <div className="hrCapacity">
-                          <h3 className="hrSectionTitle">{is ? "Rými" : "Capacity"}</h3>
-                          <div className="hrCapGrid">
-                            {room.ordinaryBeds != null && <span>{is ? `Fjöldi rúma: ${room.ordinaryBeds}` : `No. of persons in regular beds: ${room.ordinaryBeds}`}</span>}
-                            {room.extraBeds != null && <span>{is ? `Auka rúm: ${room.extraBeds}` : `Max no. of x-beds: ${room.extraBeds}`}</span>}
-                            {room.minGuests != null && <span>{is ? `Lágmark gesta: ${room.minGuests}` : `Min no. of persons: ${room.minGuests}`}</span>}
-                            {room.maxGuests != null && <span>{is ? `Hámark gesta: ${room.maxGuests}` : `Max no. of persons: ${room.maxGuests}`}</span>}
-                            {room.size && <span>{room.size}</span>}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Amenities */}
-                      {room.facilities && room.facilities.length > 0 && (
-                        <div className="hrAmenities">
-                          <h3 className="hrSectionTitle">{is ? "Búnaður" : "Amenities"}</h3>
-                          <div className="hrAmenGrid">
-                            {room.facilities.map((f) => (
-                              <span key={f}>{f}</span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                    </div>
-                  )}
+                  {isOpen && (() => {
+                    const allImgs = room.images && room.images.length > 0 ? room.images : (room.image ? [room.image] : []);
+                    return (
+                    <RoomDetailPanel
+                      room={room}
+                      allImgs={allImgs}
+                      is={is}
+                      nights={nights}
+                      searchParams={searchParams}
+                      arrivalDate={arrivalDate}
+                      departureDate={departureDate}
+                      onSelect={onSelect}
+                    />
+                    );
+                  })()}
 
 
                 </article>
