@@ -1216,23 +1216,64 @@ button {
   font-size: 0.65rem;
 }
 
-/* ── Expanded detail panel ─────────────────────────── */
+/* ── Expanded detail panel — single column ─────────── */
 .hrDetail {
-  display: grid;
-  gap: 2.5rem;
-  grid-template-columns: 1fr 360px;
+  display: flex;
+  flex-direction: column;
   padding-bottom: 2.5rem;
 }
 
-.hrDetailLeft {
-  min-width: 0;
+/* Full-width image */
+.hrDetailImg {
+  aspect-ratio: 16 / 7;
+  background-position: center;
+  background-size: cover;
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+  width: 100%;
 }
 
-.hrDesc {
+.hrDetailName {
+  color: var(--br);
+  font-size: 1.45rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* Icon row */
+.hrIconRow {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.hrIconItem {
+  align-items: center;
+  color: var(--br);
+  display: flex;
+  flex-direction: column;
+  font-size: 0.82rem;
+  gap: 0.3rem;
+  text-align: center;
+}
+
+/* Description */
+.hrDescBlock {
+  margin-bottom: 2rem;
+}
+
+.hrDescIntro {
+  color: var(--br);
+  font-size: 0.93rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.hrDescBody {
   color: var(--t2);
   font-size: 0.93rem;
   line-height: 1.75;
-  margin-bottom: 2rem;
   white-space: pre-line;
 }
 
@@ -1243,12 +1284,12 @@ button {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
   padding-bottom: 0.5rem;
   text-transform: uppercase;
 }
 
-/* Rates table */
+/* Rates */
 .hrRates {
   margin-bottom: 2rem;
 }
@@ -1260,64 +1301,75 @@ button {
 }
 
 .hrRateTable {
+  border: 1px solid var(--l3);
   border-collapse: collapse;
   width: 100%;
 }
 
+.hrRateTable thead {
+  background: var(--br);
+}
+
 .hrRateTable thead th {
-  color: var(--t2);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  padding: 0.5rem 0.75rem;
+  color: var(--w);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.65rem 0.9rem;
   text-align: left;
-  text-transform: uppercase;
 }
 
 .hrRateTable tbody tr {
   border-top: 1px solid var(--l3);
 }
 
+.hrRateTable tbody tr:nth-child(even) {
+  background: var(--l2);
+}
+
 .hrRateTable tbody td {
-  padding: 0.9rem 0.75rem;
-  vertical-align: middle;
+  padding: 1rem 0.9rem;
+  vertical-align: top;
 }
 
 .hrRateName {
+  font-size: 0.9rem;
   font-weight: 600;
-  font-size: 0.92rem;
 }
 
 .hrRateTerms {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
   font-size: 0.85rem;
+  gap: 0.2rem;
 }
 
-.hrRefundable {
-  color: #3a7d44;
+.hrRateTerms strong {
   font-weight: 600;
-}
-
-.hrNonRefundable {
-  color: var(--t2);
 }
 
 .hrCancelDate {
   color: var(--t2);
+  font-size: 0.8rem;
+}
+
+.hrSeeConditions {
+  color: var(--t2);
   font-size: 0.78rem;
+  text-decoration: underline;
 }
 
 .hrRatePrice {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  text-align: right;
   white-space: nowrap;
 }
 
 .hrRatePrice strong {
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .hrRatePrice span {
@@ -1325,9 +1377,15 @@ button {
   font-size: 0.78rem;
 }
 
+.hrRateAction {
+  text-align: right;
+  white-space: nowrap;
+}
+
 .hrChooseBtn {
-  font-size: 0.78rem !important;
-  padding: 0.55rem 1.1rem !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.1em !important;
+  padding: 0.6rem 1.2rem !important;
   white-space: nowrap;
 }
 
@@ -1337,23 +1395,15 @@ button {
 }
 
 .hrCapGrid {
-  display: grid;
+  column-gap: 2rem;
+  columns: 2;
   font-size: 0.88rem;
-  gap: 0.35rem 0;
-  grid-template-columns: 1fr 1fr;
-}
-
-.hrCapGrid div {
-  display: flex;
-  gap: 0.5rem;
+  line-height: 1.9;
 }
 
 .hrCapGrid span {
-  color: var(--t2);
-}
-
-.hrCapGrid strong {
-  font-weight: 600;
+  color: var(--br);
+  display: block;
 }
 
 /* Amenities */
@@ -1362,27 +1412,35 @@ button {
 }
 
 .hrAmenGrid {
-  display: grid;
+  column-gap: 2rem;
+  columns: 2;
   font-size: 0.88rem;
-  gap: 0.4rem 1rem;
-  grid-template-columns: 1fr 1fr;
+  line-height: 1.9;
 }
 
-/* Right image */
-.hrImage {
-  align-self: start;
-  aspect-ratio: 4 / 3;
-  background-position: center;
-  background-size: cover;
-  border-radius: 4px;
-  position: sticky;
-  top: 5rem;
-  width: 100%;
+.hrAmenGrid span {
+  display: block;
 }
 
 @media (max-width: 760px) {
-  .hrDetail {
-    grid-template-columns: 1fr;
+  .hrDetailImg {
+    aspect-ratio: 16 / 9;
+  }
+  .hrCapGrid,
+  .hrAmenGrid {
+    columns: 1;
+  }
+  .hrRateTable thead {
+    display: none;
+  }
+  .hrRateTable tbody tr {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    padding: 0.75rem 0;
+  }
+  .hrRateTable tbody td {
+    padding: 0;
   }
   .hrImage {
     aspect-ratio: 16 / 9;
