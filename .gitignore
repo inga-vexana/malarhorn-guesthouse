@@ -4,6 +4,9 @@ node_modules/
 malarhorn-home.png
 malarhorn-mobile.png
 npm-debug.log*
+.DS_Store
+.claude/
+public/hero.mp4
 
 .vercel
 .env*.local
@@ -11,3 +14,4 @@ npm-debug.log*
 .vercel
 .env*
 !.env.example
+tsconfig.tsbuildinfo
