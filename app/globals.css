@@ -307,7 +307,7 @@ button {
 .hpt p {
   color: var(--t2);
   font-family: var(--font-sans, Jost, Arial, sans-serif);
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 300;
   line-height: 1.9;
   margin-bottom: 1rem;
@@ -643,7 +643,7 @@ button {
   color: var(--t2);
   display: flex;
   font-family: var(--font-sans, Jost, Arial, sans-serif);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 300;
   gap: 0.9rem;
   padding: 0.65rem 0;
