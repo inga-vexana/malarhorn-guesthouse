@@ -2140,11 +2140,10 @@ footer {
 .ft-label {
   color: var(--gold-light);
   font-family: var(--font-sans, Jost, Arial, sans-serif);
-  font-size: 0.62rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
   margin-top: 0.8rem;
-  text-transform: uppercase;
 }
 
 .ft-label:first-of-type {
