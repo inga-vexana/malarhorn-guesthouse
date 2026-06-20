@@ -1,9 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import useSWR from "swr";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 import Script from "next/script";
 const LOGO =
   "https://malarhornguesthouse.is/wp-content/uploads/Untitled-200-x-200-px.png";
@@ -201,7 +198,6 @@ export default function MalarhornPage() {
 const [lang, setLang] = useState<Lang>("en");
 const [page, setPage] = useState<Page>("home");
   const [pendingSearch, setPendingSearch] = useState<SearchParams | null>(null);
-  const { data: heroVideoData } = useSWR<{ url: string | null }>("/api/hero-video", fetcher, { revalidateOnFocus: true, refreshInterval: 0 });
   const [preferredRoom, setPreferredRoom] = useState<string | null>(null);
 
   useEffect(() => {
@@ -240,9 +236,9 @@ const [page, setPage] = useState<Page>("home");
       case "booking":
         return <BookingPage lang={lang} initialSearch={pendingSearch ?? undefined} preferredRoom={preferredRoom ?? undefined} />;
       default:
-        return <Home lang={lang} goTo={goTo} onBook={handleBookFromHome} heroVideoUrl={heroVideoData?.url ?? null} />;
+        return <Home lang={lang} goTo={goTo} onBook={handleBookFromHome} />;
     }
-  }, [lang, page, pendingSearch, preferredRoom, heroVideoData]);
+  }, [lang, page, pendingSearch, preferredRoom]);
 
   return (
     <>
@@ -339,7 +335,7 @@ const [page, setPage] = useState<Page>("home");
   );
 }
 
-function Home({ lang, goTo, onBook, heroVideoUrl }: { lang: Lang; goTo: (page: Page) => void; onBook: (p: SearchParams) => void; heroVideoUrl: string | null }) {
+function Home({ lang, goTo, onBook }: { lang: Lang; goTo: (page: Page) => void; onBook: (p: SearchParams) => void }) {
   const is = lang === "is";
   return (
     <>
@@ -388,13 +384,7 @@ function Home({ lang, goTo, onBook, heroVideoUrl }: { lang: Lang; goTo: (page: P
         </div>
         <div className="him">
           <div className="himg">
-            {heroVideoUrl ? (
-              <video autoPlay muted loop playsInline key={heroVideoUrl}>
-                <source src={heroVideoUrl} type="video/mp4" />
-              </video>
-            ) : (
-              <div className="heroVideoPlaceholder" />
-            )}
+            <Photo src={images.guesthouse} className="heroImg" />
           </div>
           <div className="hbg">
             <div className="hbt">{is ? "Strandir · Vestfirðir" : "Drangsnes · Strandir"}</div>
