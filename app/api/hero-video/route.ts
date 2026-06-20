@@ -4,12 +4,15 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const { blobs } = await list();
-    // Match by contentType or by file extension as fallback
-    const videos = blobs.filter(
-      (b) =>
+    const videos = blobs.filter((b) => {
+      const name = decodeURIComponent(b.pathname).toLowerCase();
+      return (
         b.contentType?.startsWith("video/") ||
-        /\.(mp4|mov|webm)$/i.test(b.pathname)
-    );
+        name.endsWith(".mp4") ||
+        name.endsWith(".mov") ||
+        name.endsWith(".webm")
+      );
+    });
     const latest = videos.sort(
       (a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
     )[0];

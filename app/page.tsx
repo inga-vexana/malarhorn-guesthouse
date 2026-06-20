@@ -201,7 +201,7 @@ export default function MalarhornPage() {
 const [lang, setLang] = useState<Lang>("en");
 const [page, setPage] = useState<Page>("home");
   const [pendingSearch, setPendingSearch] = useState<SearchParams | null>(null);
-  const { data: heroVideoData } = useSWR<{ url: string | null }>("/api/hero-video", fetcher);
+  const { data: heroVideoData } = useSWR<{ url: string | null }>("/api/hero-video", fetcher, { revalidateOnFocus: true, refreshInterval: 0 });
   const [preferredRoom, setPreferredRoom] = useState<string | null>(null);
 
   useEffect(() => {
