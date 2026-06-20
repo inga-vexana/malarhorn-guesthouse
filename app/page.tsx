@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -225,24 +225,29 @@ const [page, setPage] = useState<Page>("home");
     goTo("booking");
   };
 
-  const content = useMemo(() => {
-    switch (page) {
-      case "accommodation":
-        return <Accommodation lang={lang} goTo={goTo} onBookRoom={handleBookRoom} />;
-      case "restaurant":
-        return <Restaurant lang={lang} />;
-      case "sailing":
-        return <Sailing lang={lang} />;
-      case "about":
-        return <About lang={lang} goTo={goTo} />;
-      case "guest":
-        return <GuestInfo lang={lang} goTo={goTo} />;
-      case "booking":
-        return <BookingPage lang={lang} initialSearch={pendingSearch ?? undefined} preferredRoom={preferredRoom ?? undefined} />;
-      default:
-        return <Home lang={lang} goTo={goTo} onBook={handleBookFromHome} heroVideoUrl={heroVideoData?.url ?? null} />;
-    }
-  }, [lang, page, pendingSearch, preferredRoom, heroVideoData]);
+  let content: React.ReactNode;
+  switch (page) {
+    case "accommodation":
+      content = <Accommodation lang={lang} goTo={goTo} onBookRoom={handleBookRoom} />;
+      break;
+    case "restaurant":
+      content = <Restaurant lang={lang} />;
+      break;
+    case "sailing":
+      content = <Sailing lang={lang} />;
+      break;
+    case "about":
+      content = <About lang={lang} goTo={goTo} />;
+      break;
+    case "guest":
+      content = <GuestInfo lang={lang} goTo={goTo} />;
+      break;
+    case "booking":
+      content = <BookingPage lang={lang} initialSearch={pendingSearch ?? undefined} preferredRoom={preferredRoom ?? undefined} />;
+      break;
+    default:
+      content = <Home lang={lang} goTo={goTo} onBook={handleBookFromHome} heroVideoUrl={heroVideoData?.url ?? null} />;
+  }
 
   return (
     <>
