@@ -5,28 +5,32 @@
 }
 
 :root {
-  --l: #f5f2ed;
-  --l2: #ede8df;
-  --l3: #d4cdc2;
-  --sg: #8a9890;
-  --sd: #6a7870;
-  --sl: #dde4e0;
-  --tc: #2e2c28;
-  --tl: #c8c0b4;
-  --br: #2e2c28;
-  --bm: #6a6860;
-  --bl: #9a9890;
-  --oc: #2e2c28;
-  --ob: #eceae6;
-  --w: #f8f5f0;
-  --tx: #2e2c28;
-  --t2: #5a5850;
+  /* Luxury warm ivory & deep ink palette */
+  --l: #f4f0e8;
+  --l2: #ece6d8;
+  --l3: #d6cfc0;
+  --sg: #9e8b6e;
+  --sd: #7a6a52;
+  --sl: #e8e2d6;
+  --tc: #1a1814;
+  --tl: #b8a888;
+  --br: #1a1814;
+  --bm: #5a5040;
+  --bl: #8a8070;
+  --oc: #1a1814;
+  --ob: #ede8de;
+  --w: #faf7f2;
+  --tx: #1a1814;
+  --t2: #4a4438;
+  /* Gold accent */
+  --gold: #a08858;
+  --gold-light: #c4a872;
 }
 
 body {
   background: var(--l);
   color: var(--tx);
-  font-family: Georgia, serif;
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
   font-size: 18px;
   overflow-x: hidden;
 }
@@ -46,12 +50,13 @@ button {
   background: var(--w);
   border-bottom: 1px solid var(--l3);
   display: flex;
-  height: 70px;
+  height: 76px;
   justify-content: space-between;
-  padding: 0 2.5rem;
+  padding: 0 3rem;
   position: sticky;
   top: 0;
   z-index: 200;
+  box-shadow: 0 1px 0 var(--l3), 0 2px 16px rgb(26 24 20 / 4%);
 }
 
 .logo {
@@ -62,7 +67,7 @@ button {
 
 .logo img {
   display: block;
-  height: 52px;
+  height: 60px;
   width: auto;
 }
 
@@ -79,10 +84,11 @@ button {
   color: var(--bm);
   cursor: pointer;
   display: block;
-  font-family: Arial, sans-serif;
-  font-size: 0.88rem;
-  letter-spacing: 0.06em;
-  padding: 0.5rem 1rem;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  padding: 0.5rem 1.1rem;
   text-decoration: none;
   text-transform: uppercase;
   transition: color 0.2s;
@@ -97,7 +103,7 @@ button {
 .nl .on,
 .navLinkButton.on {
   color: var(--tc);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .nl li {
@@ -129,10 +135,11 @@ button {
   color: var(--bm);
   cursor: pointer;
   display: block;
-  font-family: Arial, sans-serif;
-  font-size: 0.82rem;
-  letter-spacing: 0.06em;
-  padding: 0.7rem 1.2rem;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  padding: 0.8rem 1.4rem;
   text-align: left;
   text-decoration: none;
   text-transform: uppercase;
@@ -163,10 +170,10 @@ button {
   background: transparent;
   color: var(--bm);
   cursor: pointer;
-  font-family: Arial, sans-serif;
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
   padding: 0.38rem 0.9rem;
   text-transform: uppercase;
 }
@@ -180,16 +187,16 @@ button {
 .bp,
 .bs,
 .gst-bk {
-  border-radius: 100px;
+  border-radius: 0;
   cursor: pointer;
   display: inline-block;
-  font-family: Arial, sans-serif;
-  font-size: 0.88rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-decoration: none;
   text-transform: uppercase;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
   white-space: nowrap;
 }
 
@@ -201,35 +208,36 @@ button {
 }
 
 .bkbtn {
-  font-size: 0.82rem;
-  padding: 0.65rem 1.6rem;
+  font-size: 0.7rem;
+  padding: 0.72rem 1.8rem;
 }
 
 .bp {
-  padding: 1rem 2.2rem;
+  padding: 1.1rem 2.8rem;
 }
 
 .bpsm {
-  font-size: 0.78rem;
-  padding: 0.55rem 1.3rem;
+  font-size: 0.68rem;
+  padding: 0.6rem 1.4rem;
 }
 
 .bkbtn:hover,
 .bp:hover,
 .gst-bk:hover {
-  background: var(--sd);
+  background: var(--gold);
 }
 
 .bs {
   background: transparent;
-  border: 1.5px solid var(--l3);
-  color: var(--bm);
-  padding: 1rem 2.2rem;
+  border: 1px solid var(--tc);
+  color: var(--tc);
+  padding: 1.1rem 2.8rem;
 }
 
 .bs:hover {
-  border-color: var(--sg);
-  color: var(--sd);
+  background: var(--tc);
+  border-color: var(--tc);
+  color: var(--w);
 }
 
 .hero {
@@ -237,31 +245,32 @@ button {
   background: var(--l2);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 88vh;
+  min-height: 92vh;
 }
 
 .ht {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4.5rem 3.5rem 4.5rem 4.5rem;
+  padding: 5rem 4rem 5rem 5rem;
 }
 
 .htag,
 .ey {
   align-items: center;
-  color: var(--sd);
+  color: var(--gold);
   display: flex;
-  font-family: Arial, sans-serif;
-  font-size: 0.95rem;
-  gap: 1rem;
-  letter-spacing: 0.2em;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 400;
+  gap: 1.2rem;
+  letter-spacing: 0.28em;
   margin-bottom: 1.2rem;
   text-transform: uppercase;
 }
 
 .htag {
-  margin-bottom: 1.8rem;
+  margin-bottom: 2rem;
 }
 
 .htag::before {
@@ -270,7 +279,7 @@ button {
   display: inline-block;
   flex-shrink: 0;
   height: 1px;
-  width: 22px;
+  width: 28px;
 }
 
 .ey::before {
@@ -279,15 +288,17 @@ button {
 
 .hero h1 {
   color: var(--br);
-  font-size: clamp(2.4rem, 4vw, 4rem);
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 1.6rem;
+  font-size: clamp(2.8rem, 4.5vw, 5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 1.8rem;
+  letter-spacing: -0.01em;
 }
 
 .hero h1 em {
-  color: var(--sd);
+  color: var(--gold);
   font-style: italic;
+  font-weight: 300;
 }
 
 .hd,
@@ -295,17 +306,18 @@ button {
 .at p,
 .hpt p {
   color: var(--t2);
-  font-family: Arial, sans-serif;
-  font-size: 1.05rem;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1.1rem;
+  font-weight: 300;
   line-height: 1.9;
   margin-bottom: 1rem;
 }
 
 .hd {
-  font-size: 1.1rem;
-  line-height: 1.85;
-  margin-bottom: 2.2rem;
-  max-width: 420px;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin-bottom: 2.5rem;
+  max-width: 400px;
 }
 
 .ctas {
@@ -317,22 +329,26 @@ button {
 .hst {
   border-top: 1px solid var(--l3);
   display: flex;
-  gap: 2.5rem;
-  margin-top: 2.5rem;
-  padding-top: 1.8rem;
+  gap: 3rem;
+  margin-top: 2.8rem;
+  padding-top: 2rem;
 }
 
 .sn {
   color: var(--tc);
-  font-size: 2.2rem;
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 2.6rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .snl {
   color: var(--bl);
-  font-family: Arial, sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  margin-top: 0.2rem;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  margin-top: 0.3rem;
   text-transform: uppercase;
 }
 
@@ -349,37 +365,49 @@ button {
   width: 100%;
 }
 
-.himg video {
+.himg video,
+.heroVideoPlaceholder {
   height: 100%;
   left: 0;
   object-fit: cover;
-  opacity: 0.85;
   position: absolute;
   top: 0;
   width: 100%;
 }
 
+.himg video {
+  opacity: 0.85;
+}
+
+.heroVideoPlaceholder {
+  background: var(--tc);
+}
+
 .hbg {
-  background: var(--w);
-  border-radius: 4px;
-  bottom: 1.8rem;
-  box-shadow: 0 2px 12px rgb(0 0 0 / 12%);
-  left: 1.8rem;
-  padding: 1rem 1.4rem;
+  background: rgb(26 24 20 / 72%);
+  backdrop-filter: blur(8px);
+  border-radius: 0;
+  bottom: 2rem;
+  left: 2rem;
+  padding: 1.1rem 1.6rem;
   position: absolute;
 }
 
 .hbt {
-  color: var(--br);
-  font-size: 0.95rem;
-  margin-bottom: 0.2rem;
+  color: #faf7f2;
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.3rem;
 }
 
 .hbs {
-  color: var(--bl);
-  font-family: Arial, sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  color: var(--gold-light);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
 }
 
@@ -408,10 +436,11 @@ button {
 }
 
 .hwidField label {
-  color: #b8752a;
-  font-family: Arial, sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
+  color: var(--gold);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   margin-bottom: 0.35rem;
   text-transform: uppercase;
 }
@@ -474,10 +503,10 @@ button {
   border-right: 1px solid var(--l3);
   cursor: pointer;
   display: block;
-  padding: 2.8rem 2.2rem;
+  padding: 3.5rem 2.8rem;
   text-align: left;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: background 0.25s;
 }
 
 .sc:last-child {
@@ -485,35 +514,26 @@ button {
 }
 
 .sc:hover {
-  background: rgb(0 0 0 / 3%);
-}
-
-.si {
-  align-items: center;
-  background: rgb(0 0 0 / 6%);
-  border-radius: 50%;
-  display: flex;
-  font-size: 19px;
-  height: 46px;
-  justify-content: center;
-  margin-bottom: 1.1rem;
-  width: 46px;
+  background: rgb(160 136 88 / 5%);
 }
 
 .sc h3 {
   color: var(--br);
-  font-size: 1.2rem;
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 1.6rem;
   font-weight: 400;
-  margin-bottom: 0.6rem;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.8rem;
 }
 
 .sc p,
 .rd,
 .ph p {
   color: var(--t2);
-  font-family: Arial, sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.8;
 }
 
 .scl,
@@ -521,17 +541,17 @@ button {
 .gst-textlink {
   color: var(--tc);
   display: inline-block;
-  font-family: Arial, sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-decoration: none;
   text-transform: uppercase;
 }
 
 .scl {
-  color: var(--bm);
-  margin-top: 0.9rem;
+  color: var(--gold);
+  margin-top: 1.2rem;
 }
 
 .ab,
@@ -588,31 +608,35 @@ button {
   aspect-ratio: 4 / 3;
   background-position: center;
   background-size: cover;
-  border-radius: 4px;
+  border-radius: 0;
   width: 100%;
 }
 
 .af {
-  background: var(--w);
-  border: 1px solid var(--l3);
-  border-radius: 4px;
-  bottom: -1.3rem;
-  box-shadow: 0 2px 12px rgb(0 0 0 / 8%);
-  padding: 1.1rem 1.5rem;
+  background: var(--tc);
+  border: 0;
+  border-radius: 0;
+  bottom: -1.5rem;
+  box-shadow: 0 4px 24px rgb(26 24 20 / 18%);
+  padding: 1.4rem 2rem;
   position: absolute;
-  right: -1.3rem;
+  right: -1.5rem;
 }
 
 .afn {
-  color: var(--tc);
-  font-size: 2.1rem;
+  color: var(--w);
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 2.6rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .afl {
-  color: var(--bl);
-  font-family: Arial, sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
+  color: var(--gold-light);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
@@ -626,35 +650,38 @@ button {
   border-bottom: 1px solid var(--l3);
   color: var(--t2);
   display: flex;
-  font-family: Arial, sans-serif;
-  font-size: 1rem;
-  gap: 0.7rem;
-  padding: 0.5rem 0;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1.05rem;
+  font-weight: 300;
+  gap: 0.9rem;
+  padding: 0.65rem 0;
 }
 
 .cl li::before {
-  background: var(--sg);
-  border-radius: 50%;
+  background: var(--gold);
+  border-radius: 0;
   content: "";
   display: inline-block;
   flex-shrink: 0;
-  height: 7px;
-  width: 7px;
+  height: 1px;
+  width: 16px;
 }
 
 .st {
   color: var(--br);
-  font-size: clamp(1.8rem, 3vw, 2.7rem);
-  font-weight: 400;
-  line-height: 1.2;
-  margin-bottom: 1.2rem;
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(2.2rem, 3.5vw, 3.4rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin-bottom: 1.4rem;
 }
 
 .dv {
-  background: var(--sg);
-  height: 2px;
-  margin: 1.2rem 0;
-  width: 40px;
+  background: var(--gold);
+  height: 1px;
+  margin: 1.4rem 0;
+  width: 48px;
 }
 
 .ph {
@@ -669,8 +696,10 @@ button {
 
 .ph h1 {
   color: var(--br);
-  font-size: clamp(2.1rem, 4vw, 3.4rem);
-  font-weight: 400;
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
   margin-bottom: 0.8rem;
 }
 
@@ -686,17 +715,18 @@ button {
 }
 
 .rc {
-  background: var(--l2);
-  border-radius: 6px;
-  box-shadow: 0 1px 8px rgb(0 0 0 / 7%);
+  background: var(--w);
+  border-radius: 0;
+  box-shadow: 0 1px 0 var(--l3);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: transform 0.25s;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .rc:hover {
-  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgb(26 24 20 / 10%);
+  transform: translateY(-4px);
 }
 
 .rg6 {
@@ -822,22 +852,26 @@ button {
 }
 
 .rb .bp {
+  align-self: flex-start;
   margin-top: auto;
 }
 
 .rty {
-  color: var(--sd);
-  font-family: Arial, sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  margin-bottom: 0.4rem;
+  color: var(--gold);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
 
 .rn {
   color: var(--br);
-  font-size: 1.15rem;
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 1.35rem;
   font-weight: 400;
+  letter-spacing: 0.01em;
   margin-bottom: 0.6rem;
 }
 
@@ -853,13 +887,16 @@ button {
 }
 
 .ch {
-  background: #e0dcd4;
-  border-radius: 20px;
-  color: #5a5850;
-  font-family: Arial, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  padding: 0.28rem 0.7rem;
+  background: transparent;
+  border: 1px solid var(--l3);
+  border-radius: 0;
+  color: var(--bm);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.65rem;
+  text-transform: uppercase;
 }
 
 .rl,
@@ -879,7 +916,7 @@ button {
   border-radius: 0 6px 6px 0;
   color: #2e2c28;
   display: block;
-  font-size: 1.05rem;
+  font-size: 0.88rem;
   font-style: italic;
   line-height: 1.8;
   margin: 1.5rem 0;
@@ -1383,22 +1420,24 @@ button {
 
 #bokun_acf4a461_fba1_498b_827d_3a67889b1ee3 {
   background: var(--tc);
-  border: none;
-  border-radius: 100px;
+  border: 1px solid var(--tc);
+  border-radius: 0;
   color: var(--w);
   cursor: pointer;
-  font-family: Arial, sans-serif;
-  font-size: 0.88rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  padding: 1rem 2.2rem;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  padding: 1.1rem 2.8rem;
   text-transform: uppercase;
-  transition: background 0.2s;
+  transition: background 0.25s, color 0.25s;
   white-space: nowrap;
 }
 
 #bokun_acf4a461_fba1_498b_827d_3a67889b1ee3:hover {
-  background: var(--sd);
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--w);
 }
 
 #bokun_acf4a461_fba1_498b_827d_3a67889b1ee3:disabled {
@@ -1552,8 +1591,8 @@ button {
 
 
 footer {
-  background: #2e2c28;
-  padding: 4rem 2.5rem 0;
+  background: var(--tc);
+  padding: 5rem 2.5rem 0;
 }
 
 .fgd {
@@ -1577,27 +1616,30 @@ footer {
 }
 
 .fb p {
-  color: rgb(200 184 152 / 75%);
-  font-family: Arial, sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.85;
+  color: rgb(200 184 152 / 70%);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.9;
 }
 
 .fc h4 {
-  color: #c8b898;
-  font-family: Arial, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  margin-bottom: 1rem;
+  color: var(--gold-light);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.2rem;
+  text-transform: capitalize;
 }
 
 .fc p,
 .fc a {
-  color: rgb(200 184 152 / 70%);
+  color: rgb(200 184 152 / 65%);
   display: block;
-  font-family: Arial, sans-serif;
-  font-size: 0.95rem;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.88rem;
+  font-weight: 300;
   line-height: 2.1;
   text-decoration: none;
 }
@@ -1613,9 +1655,11 @@ footer {
 
 .fb2 p,
 .fb2 a {
-  color: rgb(200 184 152 / 40%);
-  font-family: Arial, sans-serif;
-  font-size: 0.82rem;
+  color: rgb(200 184 152 / 35%);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
   text-decoration: none;
 }
 
@@ -1625,7 +1669,7 @@ footer {
 }
 
 .gst-hero {
-  background: linear-gradient(rgba(0,0,0,0.52), rgba(0,0,0,0.52)), url('/guesthouse-exterior.jpg') center 60% / cover no-repeat;
+  background: linear-gradient(rgba(26,24,20,0.6), rgba(26,24,20,0.6)), url('/guesthouse-exterior.jpg') center 60% / cover no-repeat;
   color: var(--w);
   padding: 5rem 2rem 4rem;
   text-align: center;
@@ -1641,17 +1685,19 @@ footer {
 }
 
 .gst-hero h1 {
-  font-size: clamp(1.6rem, 5vw, 2.2rem);
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
   margin-bottom: 0.8rem;
 }
 
 .gst-hero p {
-  color: rgb(255 255 255 / 50%);
-  font-family: Arial, sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
+  color: var(--gold-light);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
@@ -2102,10 +2148,12 @@ footer {
 
 /* Footer labels */
 .ft-label {
-  color: var(--bl);
+  color: var(--gold-light);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
   font-size: 0.75rem;
+  font-weight: 400;
   letter-spacing: 0.03em;
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
 }
 
 .ft-label:first-of-type {
@@ -2143,20 +2191,21 @@ footer {
 .mnuTab {
   background: none;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 1px solid transparent;
   color: var(--t2);
   cursor: pointer;
-  font-family: Georgia, serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
   margin-bottom: -1px;
-  padding: 0.9rem 2rem;
+  padding: 1rem 2rem;
   text-transform: uppercase;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.2s, border-color 0.2s;
 }
 
 .mnuTab.on {
-  border-bottom-color: var(--tc);
+  border-bottom-color: var(--gold);
   color: var(--tc);
 }
 
@@ -2185,7 +2234,7 @@ footer {
 
 .mnuItem {
   border-bottom: 1px solid var(--l3);
-  padding: 1.1rem 0;
+  padding: 1.3rem 0;
 }
 
 .mnuItemRow {
@@ -2196,22 +2245,42 @@ footer {
 }
 
 .mnuItemName {
-  font-size: 0.9rem;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.05rem;
   font-weight: 600;
+  gap: 0.6rem;
+}
+
+.veganBadge {
+  align-items: center;
+  border: 1px solid #5a9a5a;
+  border-radius: 20px;
+  color: #4a8a4a;
+  display: inline-flex;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.58rem;
+  font-weight: 500;
+  gap: 0.3rem;
+  letter-spacing: 0.1em;
+  padding: 0.18rem 0.55rem 0.18rem 0.35rem;
+  text-transform: uppercase;
+  vertical-align: middle;
 }
 
 .mnuItemPrice {
   color: var(--t2);
   flex-shrink: 0;
-  font-size: 0.85rem;
+  font-size: 1rem;
 }
 
 .mnuItemDesc {
   color: var(--t2);
-  font-size: 0.8rem;
+  font-size: 0.93rem;
   font-style: italic;
-  line-height: 1.55;
-  margin-top: 0.3rem;
+  line-height: 1.6;
+  margin-top: 0.4rem;
 }
 
 .mnuPdf {
