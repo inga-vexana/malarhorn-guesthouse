@@ -1698,7 +1698,7 @@ function Sailing({ lang }: { lang: Lang }) {
               </p>
               <p className="bt">
                 {is
-                  ? "Malarhorn b��ður upp á fallegar siglingar til Grímseyjar á sumrin."
+                  ? "Malarhorn býður upp á fallegar siglingar til Grímseyjar á sumrin."
                   : "Malarhorn offers regular scenic sailings to Grimsey during summer."}
               </p>
               <button
