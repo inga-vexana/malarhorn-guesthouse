@@ -1419,10 +1419,10 @@ button {
 }
 
 #bokun_acf4a461_fba1_498b_827d_3a67889b1ee3 {
-  background: transparent;
+  background: var(--tc);
   border: 1px solid var(--tc);
   border-radius: 0;
-  color: var(--tc);
+  color: var(--w);
   cursor: pointer;
   font-family: var(--font-sans, Jost, Arial, sans-serif);
   font-size: 0.72rem;
@@ -1435,7 +1435,8 @@ button {
 }
 
 #bokun_acf4a461_fba1_498b_827d_3a67889b1ee3:hover {
-  background: var(--tc);
+  background: var(--gold);
+  border-color: var(--gold);
   color: var(--w);
 }
 
