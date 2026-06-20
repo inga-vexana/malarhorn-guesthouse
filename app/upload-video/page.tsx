@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 export default function UploadVideoPage() {
   const [status, setStatus] = useState<"idle" | "uploading" | "done" | "error">("idle");
   const [url, setUrl] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -31,16 +32,17 @@ export default function UploadVideoPage() {
       };
 
       xhr.onload = () => {
+        const data = JSON.parse(xhr.responseText);
         if (xhr.status === 200) {
-          const data = JSON.parse(xhr.responseText);
           setUrl(data.url);
           setStatus("done");
         } else {
+          setErrorMsg(data.error ?? "Óþekkt villa");
           setStatus("error");
         }
       };
 
-      xhr.onerror = () => setStatus("error");
+      xhr.onerror = () => { setErrorMsg("Netfylling mistókst"); setStatus("error"); };
       xhr.send(formData);
     } catch {
       setStatus("error");
@@ -153,7 +155,7 @@ export default function UploadVideoPage() {
 
             {status === "error" && (
               <p style={{ color: "#c0392b", fontFamily: "var(--font-sans, Arial, sans-serif)", fontSize: "0.85rem", marginBottom: "1rem" }}>
-                Eitthvað fór úrskeiðis. Reyndu aftur.
+                Villa: {errorMsg}
               </p>
             )}
 
