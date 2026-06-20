@@ -1,9 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import useSWR from "swr";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 import Script from "next/script";
 const LOGO =
   "https://malarhornguesthouse.is/wp-content/uploads/Untitled-200-x-200-px.png";
@@ -201,7 +198,10 @@ export default function MalarhornPage() {
 const [lang, setLang] = useState<Lang>("en");
 const [page, setPage] = useState<Page>("home");
   const [pendingSearch, setPendingSearch] = useState<SearchParams | null>(null);
-  const { data: heroVideoData } = useSWR<{ url: string | null }>("/api/hero-video", fetcher, { revalidateOnFocus: true, refreshInterval: 0 });
+  const [heroVideoUrl, setHeroVideoUrl] = useState<string | null>(null);
+  useEffect(() => {
+    fetch("/api/hero-video").then(r => r.json()).then(d => setHeroVideoUrl(d.url ?? null)).catch(() => {});
+  }, []);
   const [preferredRoom, setPreferredRoom] = useState<string | null>(null);
 
   useEffect(() => {
@@ -246,7 +246,7 @@ const [page, setPage] = useState<Page>("home");
       content = <BookingPage lang={lang} initialSearch={pendingSearch ?? undefined} preferredRoom={preferredRoom ?? undefined} />;
       break;
     default:
-      content = <Home lang={lang} goTo={goTo} onBook={handleBookFromHome} heroVideoUrl={heroVideoData?.url ?? null} />;
+      content = <Home lang={lang} goTo={goTo} onBook={handleBookFromHome} heroVideoUrl={heroVideoUrl} />;
   }
 
   return (
