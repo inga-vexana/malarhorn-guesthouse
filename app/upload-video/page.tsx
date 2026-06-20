@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 
 export default function UploadVideoPage() {
-  const [status, setStatus] = useState<"idle" | "uploading" | "done" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "uploading" | "processing" | "done" | "error">("idle");
   const [url, setUrl] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
@@ -16,38 +16,55 @@ export default function UploadVideoPage() {
 
     setStatus("uploading");
     setProgress(0);
+    setErrorMsg(null);
 
     const formData = new FormData();
     formData.append("file", file);
 
-    try {
-      // Use XHR for progress tracking
+    // Use XHR for upload progress, then switch to "processing" state
+    await new Promise<void>((resolve) => {
       const xhr = new XMLHttpRequest();
       xhr.open("POST", "/api/upload-video");
 
-      xhr.upload.onprogress = (e) => {
-        if (e.lengthComputable) {
-          setProgress(Math.round((e.loaded / e.total) * 100));
+      xhr.upload.onprogress = (ev) => {
+        if (ev.lengthComputable) {
+          const pct = Math.round((ev.loaded / ev.total) * 100);
+          setProgress(pct);
+          if (pct === 100) setStatus("processing");
         }
       };
 
       xhr.onload = () => {
-        const data = JSON.parse(xhr.responseText);
-        if (xhr.status === 200) {
-          setUrl(data.url);
-          setStatus("done");
-        } else {
-          setErrorMsg(data.error ?? "Óþekkt villa");
+        try {
+          const data = JSON.parse(xhr.responseText);
+          if (xhr.status === 200) {
+            setUrl(data.url);
+            setStatus("done");
+          } else {
+            setErrorMsg(data.error ?? "Óþekkt villa");
+            setStatus("error");
+          }
+        } catch {
+          setErrorMsg("Gat ekki lesið svar frá þjóni");
           setStatus("error");
         }
+        resolve();
       };
 
-      xhr.onerror = () => { setErrorMsg("Netfylling mistókst"); setStatus("error"); };
+      xhr.onerror = () => {
+        setErrorMsg("Tenging við þjón mistókst");
+        setStatus("error");
+        resolve();
+      };
+
       xhr.send(formData);
-    } catch {
-      setStatus("error");
-    }
+    });
   }
+
+  const btnLabel =
+    status === "uploading" ? `${progress}% — Hleður upp...` :
+    status === "processing" ? "Vinnsla..." :
+    "Hlaða upp";
 
   return (
     <main style={{
@@ -90,11 +107,7 @@ export default function UploadVideoPage() {
             <p style={{ color: "#4a8a4a", fontFamily: "var(--font-sans, Arial, sans-serif)", fontSize: "0.9rem", marginBottom: "1rem" }}>
               Videoið hefur verið hlaðið upp!
             </p>
-            <video
-              src={url!}
-              controls
-              style={{ width: "100%", marginBottom: "1.5rem" }}
-            />
+            <video src={url!} controls style={{ width: "100%", marginBottom: "1.5rem" }} />
             <p style={{ color: "#4a4438", fontFamily: "var(--font-sans, Arial, sans-serif)", fontSize: "0.8rem" }}>
               Farðu á forsíðuna til að sjá videoið í hero-hlutanum.
             </p>
@@ -132,23 +145,18 @@ export default function UploadVideoPage() {
               }}
             />
 
-            {status === "uploading" && (
+            {(status === "uploading" || status === "processing") && (
               <div style={{ marginBottom: "1.5rem" }}>
-                <div style={{
-                  background: "#ece6d8",
-                  height: 4,
-                  marginBottom: "0.5rem",
-                  width: "100%",
-                }}>
+                <div style={{ background: "#ece6d8", height: 4, marginBottom: "0.5rem", width: "100%" }}>
                   <div style={{
                     background: "#a08858",
                     height: "100%",
-                    transition: "width 0.2s",
-                    width: `${progress}%`,
+                    transition: "width 0.3s",
+                    width: status === "processing" ? "100%" : `${progress}%`,
                   }} />
                 </div>
                 <p style={{ color: "#4a4438", fontFamily: "var(--font-sans, Arial, sans-serif)", fontSize: "0.8rem" }}>
-                  {progress}% hlaðið upp...
+                  {status === "processing" ? "Vinnsla hjá þjóni, bíddu..." : `${progress}% hlaðið upp...`}
                 </p>
               </div>
             )}
@@ -161,12 +169,12 @@ export default function UploadVideoPage() {
 
             <button
               type="submit"
-              disabled={status === "uploading"}
+              disabled={status === "uploading" || status === "processing"}
               style={{
-                background: status === "uploading" ? "#888" : "#1a1814",
+                background: (status === "uploading" || status === "processing") ? "#888" : "#1a1814",
                 border: "none",
                 color: "#faf7f2",
-                cursor: status === "uploading" ? "not-allowed" : "pointer",
+                cursor: (status === "uploading" || status === "processing") ? "not-allowed" : "pointer",
                 fontFamily: "var(--font-sans, Arial, sans-serif)",
                 fontSize: "0.72rem",
                 fontWeight: 500,
@@ -176,7 +184,7 @@ export default function UploadVideoPage() {
                 transition: "background 0.2s",
               }}
             >
-              {status === "uploading" ? `${progress}% ...` : "Hlaða upp"}
+              {btnLabel}
             </button>
           </form>
         )}
