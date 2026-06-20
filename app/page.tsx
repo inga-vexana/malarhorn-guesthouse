@@ -359,7 +359,7 @@ function Home({ lang, goTo, onBook }: { lang: Lang; goTo: (page: Page) => void; 
               {is ? "Bóka herbergi" : "Book room"}
             </button>
             <style>{`
-              #bokun_651f7888_4ca6_4686_a8fd_5b828b5179c2 {
+              #bokun_df652b15_7a39_4330_957a_55e401cfa1c4 {
                 display: inline-block;
                 padding: 1.1rem 2.8rem;
                 background: transparent;
@@ -378,7 +378,7 @@ function Home({ lang, goTo, onBook }: { lang: Lang; goTo: (page: Page) => void; 
                 transition: background 0.25s, color 0.25s;
                 white-space: nowrap;
               }
-              #bokun_651f7888_4ca6_4686_a8fd_5b828b5179c2:hover {
+              #bokun_df652b15_7a39_4330_957a_55e401cfa1c4:hover {
                 background: #1a1814;
                 color: #faf7f2;
               }
@@ -389,8 +389,8 @@ function Home({ lang, goTo, onBook }: { lang: Lang; goTo: (page: Page) => void; 
             />
             <button
               className="bokunButton"
-              id="bokun_651f7888_4ca6_4686_a8fd_5b828b5179c2"
-              data-src="https://widgets.bokun.io/online-sales/96789794-5a10-4ca1-96e4-8190ad1ff7fb/experience/1235775?partialView=1"
+              id="bokun_df652b15_7a39_4330_957a_55e401cfa1c4"
+              data-src="https://widgets.bokun.io/online-sales/96789794-5a10-4ca1-96e4-8190ad1ff7fb/product-list/109538?partialView=1"
               data-testid="widget-book-button"
             >
               {is ? "Bóka siglingu" : "Book sailing"}
