@@ -1247,7 +1247,7 @@ function Restaurant({ lang }: { lang: Lang }) {
   const is = lang === "is";
   const [menuTab, setMenuTab] = useState<"lunch" | "dinner" | "drinks">("lunch");
 
-  type MenuItem = { nameIs: string; nameEn: string; descIs: string; descEn: string; price: number };
+  type MenuItem = { nameIs: string; nameEn: string; descIs: string; descEn: string; price: number; vegan?: boolean };
   type DrinkItem = { name: string; desc: string; price: string };
 
   const lunchMains: MenuItem[] = [
@@ -1272,7 +1272,7 @@ function Restaurant({ lang }: { lang: Lang }) {
     { nameIs: "Bragð af Íslandi", nameEn: "Taste of Iceland", descIs: "Smakkplatti með úrvali af íslenskum sérkennum og hráefni af svæðinu, fullkominn til að deila", descEn: "House tasting platter with a selection of Icelandic specialties and local ingredients", price: 3990 },
     { nameIs: "Fiskisúpa", nameEn: "Fish Soup", descIs: "Heimagerð, rjómalöguð fiskisúpa, rík af fersku sjávarbragði, borin fram með nýbökuðu brauði", descEn: "Homemade fish soup, creamy and rich in fresh seafood flavors, served with freshly baked bread", price: 2690 },
     { nameIs: "Hvítlauksbrauð", nameEn: "Garlic Bread", descIs: "Heitt brauð með hvítlaukssmjöri, létt stökkt að utan og mjúkt að innan", descEn: "Warm garlic bread with aromatic garlic butter, crispy on the outside and soft on the inside", price: 1290 },
-    { nameIs: "Ferskt salat", nameEn: "Fresh Salad", descIs: "Litríkt salat með fersku og stökku grænmeti, toppað með léttri og frískandi dressingu", descEn: "Fresh and vibrant salad with crisp vegetables, finished with a light and refreshing dressing", price: 1990 },
+    { nameIs: "Ferskt salat", nameEn: "Fresh Salad", descIs: "Litríkt salat með fersku og stökku grænmeti, toppað með léttri og frískandi dressingu", descEn: "Fresh and vibrant salad with crisp vegetables, finished with a light and refreshing dressing", price: 1990, vegan: true },
   ];
   const dinnerMains: MenuItem[] = [
     { nameIs: "Fiskur dagsins", nameEn: "Catch of the Day", descIs: "Nýveiddur fiskur, borinn fram með sætkartöflu, silkimjúkri hollandaise sósu, fersku grænmeti og smælki", descEn: "Catch of the day served with sweet potato, creamy hollandaise sauce, seasonal vegetables and baby potatoes", price: 5690 },
@@ -1282,8 +1282,8 @@ function Restaurant({ lang }: { lang: Lang }) {
     { nameIs: "Plokkfiskur með rúgbrauði", nameEn: "Icelandic Fish Stew", descIs: "Klassískur íslenskur plokkfiskur borinn fram með volgu rúgbrauði", descEn: "Traditional Icelandic fish stew served with warm rye bread", price: 3290 },
     { nameIs: "Fiskisúpa", nameEn: "Fish Soup", descIs: "Heimagerð, rjómalöguð fiskisúpa, rík af fersku sjávarbragði, borin fram með nýbökuðu brauði", descEn: "Homemade fish soup, creamy and rich in fresh seafood flavors, served with freshly baked bread", price: 3490 },
     { nameIs: "Kjúklingasalat", nameEn: "Chicken Salad", descIs: "Létt og ferskt salat með kjúklingi, fersku grænmeti og frískandi dressingu", descEn: "A light and fresh salad with chicken, fresh vegetables and a refreshing dressing", price: 3690 },
-    { nameIs: "Grænmetislasagna", nameEn: "Vegetarian Lasagna", descIs: "Heimagerð lasagna með grænmeti og osti", descEn: "Homemade vegetarian lasagna with flavorful vegetables and cheese", price: 3590 },
-    { nameIs: "Kjúklingbaunasalat", nameEn: "Chickpea Salad", descIs: "Létt og ferskt salat með kjúklingabaunum og frískandi dressingu", descEn: "A light and fresh salad with chickpea and a refreshing dressing", price: 3690 },
+    { nameIs: "Grænmetislasagna", nameEn: "Vegetarian Lasagna", descIs: "Heimagerð lasagna með grænmeti og osti", descEn: "Homemade vegetarian lasagna with flavorful vegetables and cheese", price: 3590, vegan: true },
+    { nameIs: "Kjúklingbaunasalat", nameEn: "Chickpea Salad", descIs: "Létt og ferskt salat með kjúklingabaunum og frískandi dressingu", descEn: "A light and fresh salad with chickpea and a refreshing dressing", price: 3690, vegan: true },
   ];
   const dinnerDesserts: MenuItem[] = [
     { nameIs: "Volg eplakaka", nameEn: "Warm Apple Pie", descIs: "Heimabökuð volg eplakaka með mildum kanilkeim, borin fram með rjóma", descEn: "Homemade warm apple pie with a hint of cinnamon, served with whipped cream", price: 2200 },
@@ -1355,12 +1355,26 @@ function Restaurant({ lang }: { lang: Lang }) {
     { name: "Kristall", desc: "330ml", price: "490 kr." },
   ];
 
+  const VeganBadge = () => (
+    <span className="veganBadge" title="Vegan" aria-label="Vegan">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="11" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M7 13c1.5-4 4-6 9-6-1 5-3.5 8-9 8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M7 13c1 0 2.5.5 3 2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+      </svg>
+      <span>Vegan</span>
+    </span>
+  );
+
   const MenuItems = ({ items }: { items: MenuItem[] }) => (
     <div className="mnuItems">
       {items.map((item, i) => (
         <div key={i} className="mnuItem">
           <div className="mnuItemRow">
-            <span className="mnuItemName">{is ? item.nameIs : item.nameEn}</span>
+            <span className="mnuItemName">
+              {is ? item.nameIs : item.nameEn}
+              {item.vegan && <VeganBadge />}
+            </span>
             <span className="mnuItemPrice">{item.price.toLocaleString("is-IS")} kr.</span>
           </div>
           <p className="mnuItemDesc">{is ? item.descIs : item.descEn}</p>

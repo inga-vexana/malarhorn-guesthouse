@@ -2236,8 +2236,28 @@ footer {
 }
 
 .mnuItemName {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
   font-size: 0.9rem;
   font-weight: 600;
+  gap: 0.6rem;
+}
+
+.veganBadge {
+  align-items: center;
+  border: 1px solid #5a9a5a;
+  border-radius: 20px;
+  color: #4a8a4a;
+  display: inline-flex;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.58rem;
+  font-weight: 500;
+  gap: 0.3rem;
+  letter-spacing: 0.1em;
+  padding: 0.18rem 0.55rem 0.18rem 0.35rem;
+  text-transform: uppercase;
+  vertical-align: middle;
 }
 
 .mnuItemPrice {
