@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { upload } from "@vercel/blob/client";
 
 export default function UploadVideoPage() {
-  const [status, setStatus] = useState<"idle" | "uploading" | "processing" | "done" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "uploading" | "done" | "error">("idle");
   const [url, setUrl] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
@@ -18,53 +19,23 @@ export default function UploadVideoPage() {
     setProgress(0);
     setErrorMsg(null);
 
-    const formData = new FormData();
-    formData.append("file", file);
-
-    // Use XHR for upload progress, then switch to "processing" state
-    await new Promise<void>((resolve) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "/api/upload-video");
-
-      xhr.upload.onprogress = (ev) => {
-        if (ev.lengthComputable) {
-          const pct = Math.round((ev.loaded / ev.total) * 100);
-          setProgress(pct);
-          if (pct === 100) setStatus("processing");
-        }
-      };
-
-      xhr.onload = () => {
-        try {
-          const data = JSON.parse(xhr.responseText);
-          if (xhr.status === 200) {
-            setUrl(data.url);
-            setStatus("done");
-          } else {
-            setErrorMsg(data.error ?? "Óþekkt villa");
-            setStatus("error");
-          }
-        } catch {
-          setErrorMsg("Gat ekki lesið svar frá þjóni");
-          setStatus("error");
-        }
-        resolve();
-      };
-
-      xhr.onerror = () => {
-        setErrorMsg("Tenging við þjón mistókst");
-        setStatus("error");
-        resolve();
-      };
-
-      xhr.send(formData);
-    });
+    try {
+      const blob = await upload(file.name, file, {
+        access: "public",
+        handleUploadUrl: "/api/upload-video",
+        onUploadProgress: (ev) => {
+          setProgress(Math.round(ev.percentage));
+        },
+      });
+      setUrl(blob.url);
+      setStatus("done");
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : "Óþekkt villa");
+      setStatus("error");
+    }
   }
 
-  const btnLabel =
-    status === "uploading" ? `${progress}% — Hleður upp...` :
-    status === "processing" ? "Vinnsla..." :
-    "Hlaða upp";
+  const btnLabel = status === "uploading" ? `${progress}% — Hleður upp...` : "Hlaða upp";
 
   return (
     <main style={{
@@ -145,18 +116,18 @@ export default function UploadVideoPage() {
               }}
             />
 
-            {(status === "uploading" || status === "processing") && (
+            {status === "uploading" && (
               <div style={{ marginBottom: "1.5rem" }}>
                 <div style={{ background: "#ece6d8", height: 4, marginBottom: "0.5rem", width: "100%" }}>
                   <div style={{
                     background: "#a08858",
                     height: "100%",
                     transition: "width 0.3s",
-                    width: status === "processing" ? "100%" : `${progress}%`,
+                    width: `${progress}%`,
                   }} />
                 </div>
                 <p style={{ color: "#4a4438", fontFamily: "var(--font-sans, Arial, sans-serif)", fontSize: "0.8rem" }}>
-                  {status === "processing" ? "Vinnsla hjá þjóni, bíddu..." : `${progress}% hlaðið upp...`}
+                  {progress}% hlaðið upp...
                 </p>
               </div>
             )}
@@ -169,12 +140,12 @@ export default function UploadVideoPage() {
 
             <button
               type="submit"
-              disabled={status === "uploading" || status === "processing"}
+              disabled={status === "uploading"}
               style={{
-                background: (status === "uploading" || status === "processing") ? "#888" : "#1a1814",
+                background: status === "uploading" ? "#888" : "#1a1814",
                 border: "none",
                 color: "#faf7f2",
-                cursor: (status === "uploading" || status === "processing") ? "not-allowed" : "pointer",
+                cursor: status === "uploading" ? "not-allowed" : "pointer",
                 fontFamily: "var(--font-sans, Arial, sans-serif)",
                 fontSize: "0.72rem",
                 fontWeight: 500,

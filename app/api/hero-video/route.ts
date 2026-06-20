@@ -3,11 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const { blobs } = await list({ prefix: "hero.mp4" });
-    const video = blobs.find((b) => b.pathname === "hero.mp4");
-    return NextResponse.json({ url: video?.url ?? null });
+    const { blobs } = await list();
+    const videos = blobs.filter((b) => b.contentType?.startsWith("video/"));
+    const latest = videos.sort(
+      (a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
+    )[0];
+    return NextResponse.json({ url: latest?.url ?? null });
   } catch (error) {
-    console.error("Error fetching hero video:", error);
+    console.error("[v0] Error fetching hero video:", error);
     return NextResponse.json({ url: null });
   }
 }
