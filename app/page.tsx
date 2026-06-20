@@ -2,9 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Script from "next/script";
-const LOGO =
-  "https://malarhornguesthouse.is/wp-content/uploads/Untitled-200-x-200-px.png";
-const MENU = "https://malarhornguesthouse.is/wp-content/uploads/Matsedill-Malarhorn.pdf";
+const LOGO = "/Untitled-200-x-200-px.png";
+const MENU = "/Matsedill-Malarhorn.pdf";
 
 type Lang = "en" | "is";
 type Page = "home" | "accommodation" | "restaurant" | "sailing" | "about" | "guest" | "booking";
@@ -83,15 +82,13 @@ const translations = {
 };
 
 const images = {
-  about: "https://malarhornguesthouse.is/wp-content/uploads/IMG_0529-1-scaled.jpg",
-  hotPots: "https://malarhornguesthouse.is/wp-content/uploads/IMG_8748-scaled.jpeg",
-  restaurant:
-    "https://malarhornguesthouse.is/wp-content/uploads/Malarhorn-Guesthouse-Arjan-Wilmsen-68-scaled.jpg",
-  sailing: "https://malarhornguesthouse.is/wp-content/uploads/Untitled-design-14.png",
-  guesthouse: "https://malarhornguesthouse.is/wp-content/uploads/Untitled-design-12.png",
-  stayDine:
-    "https://malarhornguesthouse.is/wp-content/uploads/Malarhorn-Guesthouse-Arjan-Wilmsen-72-scaled.jpg",
-  unwind: "https://malarhornguesthouse.is/wp-content/uploads/6-10.png",
+  about: "/IMG_0529-1-scaled.jpg",
+  hotPots: "/IMG_8748-scaled.jpeg",
+  restaurant: "/Malarhorn-Guesthouse-Arjan-Wilmsen-68-scaled.jpg",
+  sailing: "/Untitled-design-14.png",
+  guesthouse: "/Untitled-design-12.png",
+  stayDine: "/Malarhorn-Guesthouse-Arjan-Wilmsen-72-scaled.jpg",
+  unwind: "/6-10.png",
 };
 
 const BV = "https://images.bookvisit.com/img/";
@@ -1536,7 +1533,7 @@ function Sailing({ lang }: { lang: Lang }) {
       providerIs: "Grímseyjarferðir með Malarhorni",
       providerEn: "Grímsey Tours by Malarhorn",
       price: 18900,
-      img: "https://malarhornguesthouse.is/wp-content/uploads/Untitled-design-14.png",
+      img: "/Untitled-design-14.png",
       descIs: [
         "Komdu með í okkar vinsælustu og heildstæðustu Grímseyjarupplifun,leiðsagða bátsferð og göngu frá Drangsnesi til Grímseyjar á Steingrímsfirði.",
         "Eftir stutta siglingu frá Drangsnesi göngum við í land í Grímsey og könnum eyjuna fótgangandi með leiðsögn heimamanns. Ferðin leggur áherslu á fjölbreytt fuglalíf, fallega strandlengju og kyrrláta náttúru eyjarinnar. Yfir sumartímann er Grímsey sérstaklega þekkt fyrir lundann og gefst gestum kostur á að heimsækja lundabyggðina og fylgjast með fuglunum af virðingarfjarlægð.",
@@ -1592,7 +1589,7 @@ function Sailing({ lang }: { lang: Lang }) {
       providerIs: "Grímseyjarferðir með Malarhorni",
       providerEn: "Grímsey Tours by Malarhorn",
       price: 13900,
-      img: "https://malarhornguesthouse.is/wp-content/uploads/Untitled-design-14.png",
+      img: "/Untitled-design-14.png",
       descIs: [
         "Upplifðu Grímsey í leiðsagðri tveggja tíma náttúruferð frá Drangsnesi.",
         "Eftir stutta siglingu yfir Steingrímsfjörð göngum við í land í Grímsey og könnum hluta eyjarinnar með leiðsögn heimamanns. Ferðin veitir gestum góða innsýn í náttúru eyjarinnar, fuglalíf og rólegt andrúmsloft, án þess að fara í lengri þriggja tíma göngu.",
@@ -1648,7 +1645,7 @@ function Sailing({ lang }: { lang: Lang }) {
       providerIs: "Grímseyjarferðir með Malarhorni",
       providerEn: "Grímsey Tours by Malarhorn",
       price: 8900,
-      img: "https://malarhornguesthouse.is/wp-content/uploads/Untitled-design-14.png",
+      img: "/Untitled-design-14.png",
       descIs: [
         "Njóttu stuttrar og fallegrar bátsferðar í kringum Grímseyjareyju frá Drangsneshöfn.",
         "Þetta eins tíma sjóævintýri er tilvalið fyrir gesti sem vilja upplifa Grímsey frá sjónum án þess að ganga í land. Við siglum í kringum eyjuna og leitum að lundum, sjófuglum og öðru dýralífi meðfram ströndinni. Útsýnið til eyjarinnar, strandlengjunnar og Steingrímsfjörðar gerir þetta að fallegri og aðgengilegri náttúruupplifun.",
