@@ -844,6 +844,7 @@ button {
 }
 
 .rb .bp {
+  align-self: flex-start;
   margin-top: auto;
 }
 
