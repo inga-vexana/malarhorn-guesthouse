@@ -7,7 +7,6 @@ export async function GET() {
     const videos = blobs.filter((b) => {
       const name = decodeURIComponent(b.pathname).toLowerCase();
       return (
-        b.contentType?.startsWith("video/") ||
         name.endsWith(".mp4") ||
         name.endsWith(".mov") ||
         name.endsWith(".webm")
