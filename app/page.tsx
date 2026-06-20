@@ -147,7 +147,7 @@ const rooms_data = {
     {
       type: "Fjölskylda",
       name: "Fjölskylduherbergi",
-      text: "Rúmgott 27 m² herbergi á jarðhæð með tvöföldu rúmi, einbreið rúmi og kökkum fyrir allt að 5 gesti.",
+      text: "Rúmgott 27 m² herbergi á jarðhæð með tvöföldu rúmi, einbreið rúmi og koju fyrir allt að 5 gesti.",
       tags: ["27 m²", "Allt að 5 gestir", "Sjávarútsýni", "Jarðhæð"],
       imgs: [`${BV}5473107d-6caa-40f0-83ba-f877244230d0.jpg`, `${BV}899ec191-7515-4021-8ac8-1cde319b8fcf.jpg`, `${BV}3b1d468c-674e-48fb-b5e6-7397334727a5.jpg`],
       featured: true,
