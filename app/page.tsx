@@ -200,7 +200,6 @@ function Photo({ src, className = "" }: { src: string; className?: string }) {
 export default function MalarhornPage() {
 const [lang, setLang] = useState<Lang>("en");
 const [page, setPage] = useState<Page>("home");
-const { data: heroVideoData } = useSWR<{ url: string | null }>("/api/hero-video", fetcher);
   const [pendingSearch, setPendingSearch] = useState<SearchParams | null>(null);
   const [preferredRoom, setPreferredRoom] = useState<string | null>(null);
 
@@ -341,6 +340,7 @@ const { data: heroVideoData } = useSWR<{ url: string | null }>("/api/hero-video"
 
 function Home({ lang, goTo, onBook }: { lang: Lang; goTo: (page: Page) => void; onBook: (p: SearchParams) => void }) {
   const is = lang === "is";
+  const { data: heroVideoData } = useSWR<{ url: string | null }>("/api/hero-video", fetcher);
   return (
     <>
       <section className="hero">
