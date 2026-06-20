@@ -242,7 +242,7 @@ const [page, setPage] = useState<Page>("home");
       default:
         return <Home lang={lang} goTo={goTo} onBook={handleBookFromHome} heroVideoUrl={heroVideoData?.url ?? null} />;
     }
-  }, [lang, page, pendingSearch, preferredRoom]);
+  }, [lang, page, pendingSearch, preferredRoom, heroVideoData]);
 
   return (
     <>
