@@ -358,12 +358,7 @@ function Home({ lang, goTo, onBook }: { lang: Lang; goTo: (page: Page) => void; 
             <button className="bp" onClick={() => window.open(BV_BOOK, "_blank")}>
               {is ? "Bóka herbergi" : "Book room"}
             </button>
-            <button
-              className="bokunButton bs"
-              id="bokun_acf4a461_fba1_498b_827d_3a67889b1ee3"
-              data-src="https://widgets.bokun.io/online-sales/96789794-5a10-4ca1-96e4-8190ad1ff7fb/product-list/109538?partialView=1"
-              data-testid="widget-book-button"
-            >
+            <button className="bs" onClick={() => goTo("sailing")}>
               {is ? "Bóka siglingu" : "Book sailing"}
             </button>
           </div>
