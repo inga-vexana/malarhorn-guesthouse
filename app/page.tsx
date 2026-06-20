@@ -384,7 +384,9 @@ function Home({ lang, goTo, onBook }: { lang: Lang; goTo: (page: Page) => void; 
         </div>
         <div className="him">
           <div className="himg">
-            <Photo src={images.guesthouse} className="heroImg" />
+            <video autoPlay muted loop playsInline>
+              <source src="/hero.mp4" type="video/mp4" />
+            </video>
           </div>
           <div className="hbg">
             <div className="hbt">{is ? "Strandir · Vestfirðir" : "Drangsnes · Strandir"}</div>
