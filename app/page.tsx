@@ -397,15 +397,19 @@ function Home({ lang, goTo, onBook }: { lang: Lang; goTo: (page: Page) => void; 
 
       <section className="sv">
         <div className="sg">
-          {[
-            ["accommodation", "", is ? "Gisting" : "Accommodation", is ? "Þægileg herbergi og íbúðir með útsýni yfir hafið." : "Comfortable rooms and apartments with ocean views."],
-            ["restaurant", "", is ? "Veitingastaður" : "Restaurant", is ? "Ferskt íslenskt hráefni í hlýu andrúmslofti. Opið aðeins á sumrin." : "Fresh local cuisine in a warm atmosphere. Open in summer."],
-            ["sailing", "", is ? "Siglingar" : "Sailing", is ? "Ævintýrasigling út í Grímsey." : "Explore the Westfjords on an unforgettable adventure."],
-          ].map(([target, , title, text]) => (
-            <button className="sc" key={target} onClick={() => goTo(target as Page)}>
-              <h3>{title}</h3>
-              <p>{text}</p>
-              <span className="scl">{is ? "Frekari upplýsingar →" : "Learn more →"}</span>
+          {([
+            ["accommodation", images.guesthouse, is ? "Gisting" : "Accommodation", is ? "Þægileg herbergi og íbúðir með útsýni yfir hafið." : "Comfortable rooms and apartments with ocean views.", "01"],
+            ["restaurant", images.restaurant, is ? "Veitingastaður" : "Restaurant", is ? "Ferskt íslenskt hráefni í hlýu andrúmslofti. Opið aðeins á sumrin." : "Fresh local cuisine in a warm atmosphere. Open in summer.", "02"],
+            ["sailing", images.sailing, is ? "Siglingar" : "Sailing", is ? "Ævintýrasigling út í Grímsey." : "Explore the Westfjords on an unforgettable adventure.", "03"],
+          ] as [Page, string, string, string, string][]).map(([target, img, title, text, num]) => (
+            <button className="sc" key={target} onClick={() => goTo(target)} style={{ backgroundImage: `url("${img}")` }}>
+              <div className="sc-overlay" />
+              <div className="sc-content">
+                <span className="sc-num">{num}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+                <span className="scl">{is ? "Frekari upplýsingar →" : "Learn more →"}</span>
+              </div>
             </button>
           ))}
         </div>

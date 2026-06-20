@@ -67,7 +67,7 @@ button {
 
 .logo img {
   display: block;
-  height: 52px;
+  height: 60px;
   width: auto;
 }
 
@@ -479,9 +479,7 @@ button {
 }
 
 .sv {
-  background: var(--l);
-  border-bottom: 1px solid var(--l3);
-  border-top: 1px solid var(--l3);
+  background: var(--tc);
 }
 
 .sg,
@@ -491,53 +489,74 @@ button {
 }
 
 .sc {
-  background: transparent;
-  border-right: 1px solid var(--l3);
+  background-position: center;
+  background-size: cover;
+  border: none;
   cursor: pointer;
   display: block;
-  padding: 3.5rem 2.8rem;
+  min-height: 520px;
+  padding: 0;
+  position: relative;
   text-align: left;
-  text-decoration: none;
-  transition: background 0.25s;
+  transition: none;
 }
 
-.sc:last-child {
-  border-right: 0;
+.sc-overlay {
+  background: linear-gradient(to top, rgb(10 8 6 / 90%) 0%, rgb(10 8 6 / 40%) 55%, rgb(10 8 6 / 20%) 100%);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: background 0.4s;
 }
 
-.sc:hover {
-  background: rgb(160 136 88 / 5%);
+.sc:hover .sc-overlay {
+  background: linear-gradient(to top, rgb(10 8 6 / 95%) 0%, rgb(10 8 6 / 55%) 55%, rgb(10 8 6 / 30%) 100%);
 }
 
-.si {
-  align-items: center;
-  background: rgb(0 0 0 / 6%);
-  border-radius: 50%;
+.sc-content {
+  bottom: 0;
   display: flex;
-  font-size: 19px;
-  height: 46px;
-  justify-content: center;
-  margin-bottom: 1.1rem;
-  width: 46px;
+  flex-direction: column;
+  left: 0;
+  padding: 2.5rem 2.8rem;
+  position: absolute;
+  right: 0;
+}
+
+.sc-num {
+  color: var(--gold);
+  display: block;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
 }
 
 .sc h3 {
-  color: var(--br);
+  color: #faf7f2;
   font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
-  font-size: 1.6rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  margin-bottom: 0.8rem;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.6rem;
 }
 
 .sc p,
 .rd,
 .ph p {
-  color: var(--t2);
+  color: rgb(250 247 242 / 70%);
   font-family: var(--font-sans, Jost, Arial, sans-serif);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 300;
-  line-height: 1.8;
+  line-height: 1.75;
+}
+
+.sc p {
+  color: rgb(250 247 242 / 65%);
 }
 
 .scl,
@@ -554,7 +573,7 @@ button {
 }
 
 .scl {
-  color: var(--gold);
+  color: var(--gold-light);
   margin-top: 1.2rem;
 }
 
@@ -1593,8 +1612,8 @@ button {
 
 
 footer {
-  background: #2e2c28;
-  padding: 4rem 2.5rem 0;
+  background: var(--tc);
+  padding: 5rem 2.5rem 0;
 }
 
 .fgd {
@@ -1618,10 +1637,11 @@ footer {
 }
 
 .fb p {
-  color: rgb(200 184 152 / 75%);
-  font-family: Arial, sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.85;
+  color: rgb(200 184 152 / 70%);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.9;
 }
 
 .fc h4 {
@@ -1636,10 +1656,11 @@ footer {
 
 .fc p,
 .fc a {
-  color: rgb(200 184 152 / 70%);
+  color: rgb(200 184 152 / 65%);
   display: block;
-  font-family: Arial, sans-serif;
-  font-size: 0.95rem;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.88rem;
+  font-weight: 300;
   line-height: 2.1;
   text-decoration: none;
 }
@@ -1655,9 +1676,11 @@ footer {
 
 .fb2 p,
 .fb2 a {
-  color: rgb(200 184 152 / 40%);
-  font-family: Arial, sans-serif;
-  font-size: 0.82rem;
+  color: rgb(200 184 152 / 35%);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
   text-decoration: none;
 }
 
@@ -2146,10 +2169,13 @@ footer {
 
 /* Footer labels */
 .ft-label {
-  color: var(--bl);
-  font-size: 0.75rem;
-  letter-spacing: 0.03em;
-  margin-top: 0.5rem;
+  color: var(--gold-light);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  margin-top: 0.8rem;
+  text-transform: uppercase;
 }
 
 .ft-label:first-of-type {
