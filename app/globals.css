@@ -1616,11 +1616,11 @@ footer {
 .fc h4 {
   color: var(--gold-light);
   font-family: var(--font-sans, Jost, Arial, sans-serif);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.04em;
   margin-bottom: 1.2rem;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .fc p,
