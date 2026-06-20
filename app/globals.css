@@ -365,14 +365,22 @@ button {
   width: 100%;
 }
 
-.himg video {
+.himg video,
+.heroVideoPlaceholder {
   height: 100%;
   left: 0;
   object-fit: cover;
-  opacity: 0.85;
   position: absolute;
   top: 0;
   width: 100%;
+}
+
+.himg video {
+  opacity: 0.85;
+}
+
+.heroVideoPlaceholder {
+  background: var(--tc);
 }
 
 .hbg {
