@@ -201,6 +201,7 @@ export default function MalarhornPage() {
 const [lang, setLang] = useState<Lang>("en");
 const [page, setPage] = useState<Page>("home");
   const [pendingSearch, setPendingSearch] = useState<SearchParams | null>(null);
+  const { data: heroVideoData } = useSWR<{ url: string | null }>("/api/hero-video", fetcher);
   const [preferredRoom, setPreferredRoom] = useState<string | null>(null);
 
   useEffect(() => {
@@ -239,7 +240,7 @@ const [page, setPage] = useState<Page>("home");
       case "booking":
         return <BookingPage lang={lang} initialSearch={pendingSearch ?? undefined} preferredRoom={preferredRoom ?? undefined} />;
       default:
-        return <Home lang={lang} goTo={goTo} onBook={handleBookFromHome} />;
+        return <Home lang={lang} goTo={goTo} onBook={handleBookFromHome} heroVideoUrl={heroVideoData?.url ?? null} />;
     }
   }, [lang, page, pendingSearch, preferredRoom]);
 
@@ -338,9 +339,8 @@ const [page, setPage] = useState<Page>("home");
   );
 }
 
-function Home({ lang, goTo, onBook }: { lang: Lang; goTo: (page: Page) => void; onBook: (p: SearchParams) => void }) {
+function Home({ lang, goTo, onBook, heroVideoUrl }: { lang: Lang; goTo: (page: Page) => void; onBook: (p: SearchParams) => void; heroVideoUrl: string | null }) {
   const is = lang === "is";
-  const { data: heroVideoData } = useSWR<{ url: string | null }>("/api/hero-video", fetcher);
   return (
     <>
       <section className="hero">
@@ -388,9 +388,9 @@ function Home({ lang, goTo, onBook }: { lang: Lang; goTo: (page: Page) => void; 
         </div>
         <div className="him">
           <div className="himg">
-            {heroVideoData?.url ? (
-              <video autoPlay muted loop playsInline key={heroVideoData.url}>
-                <source src={heroVideoData.url} type="video/mp4" />
+            {heroVideoUrl ? (
+              <video autoPlay muted loop playsInline key={heroVideoUrl}>
+                <source src={heroVideoUrl} type="video/mp4" />
               </video>
             ) : (
               <div className="heroVideoPlaceholder" />
