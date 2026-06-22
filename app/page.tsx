@@ -196,6 +196,7 @@ const [lang, setLang] = useState<Lang>("en");
 const [page, setPage] = useState<Page>("home");
   const [pendingSearch, setPendingSearch] = useState<SearchParams | null>(null);
   const [preferredRoom, setPreferredRoom] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     if (window.location.hash === "#guest") setPage("guest");
@@ -204,6 +205,7 @@ const [page, setPage] = useState<Page>("home");
   const t = translations[lang];
   const goTo = (nextPage: Page) => {
     setPage(nextPage);
+    setMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -289,8 +291,58 @@ const [page, setPage] = useState<Page>("home");
           <button className="bkbtn" onClick={() => window.open(BV_BOOK, "_blank")}>
             {t.book}
           </button>
+          <button
+            className="hamburger"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label={menuOpen ? "Loka valmynd" : "Opna valmynd"}
+            aria-expanded={menuOpen}
+          >
+            <span className={`hbar ${menuOpen ? "hbar1-open" : ""}`} />
+            <span className={`hbar ${menuOpen ? "hbar2-open" : ""}`} />
+            <span className={`hbar ${menuOpen ? "hbar3-open" : ""}`} />
+          </button>
         </div>
       </nav>
+
+      {/* Mobile drawer */}
+      {menuOpen && (
+        <div className="mobileMenuOverlay" onClick={() => setMenuOpen(false)} aria-hidden="true" />
+      )}
+      <div className={`mobileMenu ${menuOpen ? "mobileMenuOpen" : ""}`} aria-hidden={!menuOpen}>
+        <ul className="mobileMenuList">
+          {t.nav.map(([key, label]) => (
+            <li key={key}>
+              <button
+                className={`mobileMenuLink ${page === key ? "on" : ""}`}
+                onClick={() => goTo(key)}
+              >
+                {label}
+              </button>
+            </li>
+          ))}
+          <li>
+            <button
+              className="mobileMenuLink"
+              onClick={() => goTo("guest")}
+            >
+              {t.guest}
+            </button>
+          </li>
+        </ul>
+        <div className="mobileMenuFooter">
+          <div className="lgt" aria-label="Language">
+            <button className={`lb ${lang === "en" ? "on" : ""}`} onClick={() => { setLang("en"); }}>
+              EN
+            </button>
+            <button className={`lb ${lang === "is" ? "on" : ""}`} onClick={() => { setLang("is"); }}>
+              IS
+            </button>
+          </div>
+          <button className="bp" onClick={() => { window.open(BV_BOOK, "_blank"); setMenuOpen(false); }}>
+            {t.book}
+          </button>
+        </div>
+      </div>
 
       <main>{content}</main>
 
