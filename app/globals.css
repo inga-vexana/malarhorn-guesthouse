@@ -1838,6 +1838,115 @@ footer {
   white-space: nowrap;
 }
 
+/* ── Hamburger button ── */
+.hamburger {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  height: 40px;
+  justify-content: center;
+  padding: 8px;
+  width: 40px;
+}
+
+.hbar {
+  background: var(--tc);
+  border-radius: 2px;
+  display: block;
+  height: 1.5px;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+  width: 22px;
+}
+
+.hbar1-open {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.hbar2-open {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hbar3-open {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ── Mobile drawer ── */
+.mobileMenuOverlay {
+  background: rgb(0 0 0 / 40%);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 190;
+}
+
+.mobileMenu {
+  background: var(--w);
+  border-top: 1px solid var(--l3);
+  box-shadow: 0 8px 32px rgb(26 24 20 / 12%);
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 76px;
+  transform: translateY(-110%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 195;
+}
+
+.mobileMenuOpen {
+  transform: translateY(0);
+}
+
+.mobileMenuList {
+  list-style: none;
+  padding: 0.5rem 0;
+}
+
+.mobileMenuLink {
+  background: transparent;
+  border-bottom: 1px solid var(--l3);
+  color: var(--bm);
+  cursor: pointer;
+  display: block;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  padding: 1.1rem 1.5rem;
+  text-align: left;
+  text-transform: uppercase;
+  transition: background 0.18s, color 0.18s;
+  width: 100%;
+}
+
+.mobileMenuLink:hover,
+.mobileMenuLink.on {
+  background: var(--l2);
+  color: var(--tc);
+}
+
+.mobileMenuLink.on {
+  font-weight: 500;
+}
+
+.mobileMenuFooter {
+  align-items: center;
+  border-top: 1px solid var(--l3);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+}
+
+/* ── Responsive breakpoints ── */
 @media (max-width: 860px) {
   .nl {
     display: none;
@@ -1849,6 +1958,10 @@ footer {
 
   .bkbtn {
     display: none;
+  }
+
+  .hamburger {
+    display: flex;
   }
 
   .hero,
@@ -2005,6 +2118,14 @@ footer {
 
   .nav {
     padding: 0 1.2rem;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .bkbtn {
+    display: none;
   }
 }
 
