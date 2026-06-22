@@ -1933,10 +1933,6 @@ footer {
   color: var(--tc);
 }
 
-.mobileMenuLink.on {
-  font-weight: 500;
-}
-
 .mobileMenuFooter {
   align-items: center;
   border-top: 1px solid var(--l3);
