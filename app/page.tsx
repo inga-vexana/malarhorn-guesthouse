@@ -442,7 +442,7 @@ function Home({ lang, goTo, onBook }: { lang: Lang; goTo: (page: Page) => void; 
               data-src="https://widgets.bokun.io/online-sales/96789794-5a10-4ca1-96e4-8190ad1ff7fb/product-list/109538?partialView=1"
               data-testid="widget-book-button"
             >
-              {is ? "Bóka siglingu" : "Book sailing"}
+              {is ? "Bóka siglingu" : "Book tour"}
             </button>
           </div>
           <div className="hst">
@@ -1943,7 +1943,7 @@ function GuestInfo({ lang, goTo }: { lang: Lang; goTo: (page: Page) => void }) {
             [is ? "Tímabil" : "Season", is ? "15. júní til miðjan ágúst" : "June 15 to mid August"],
             [is ? "Mætingarstaður" : "Meeting point", is ? "Drangsneshöfn" : "Drangsnes harbour"],
           ]}
-          action={{ onClick: () => goTo("sailing"), text: is ? "Bóka siglingu" : "Book sailing" }}
+          action={{ onClick: () => goTo("sailing"), text: is ? "Bóka siglingu" : "Book tour" }}
         />
         <GuestSection
           title="Mini Market"
