@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import Script from "next/script";
+import { LangProvider } from "./components/LangContext";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -20,7 +23,8 @@ const jost = Jost({
 
 export const metadata: Metadata = {
   title: "Malarhorn Guesthouse — Drangsnes, Iceland",
-  description: "A peaceful seaside retreat in Drangsnes, Westfjords. Ocean views, hot pots, and Icelandic hospitality.",
+  description:
+    "A peaceful seaside retreat in Drangsnes, Westfjords. Ocean views, hot pots, and Icelandic hospitality.",
 };
 
 export default function RootLayout({
@@ -54,7 +58,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        {children}
+        <LangProvider>
+          <Nav />
+          <main>{children}</main>
+          <Footer />
+        </LangProvider>
       </body>
     </html>
   );
