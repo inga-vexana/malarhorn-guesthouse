@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLang } from "../components/LangContext";
+import { useSafeLang } from "../components/LangContext";
 import { PageHeader, Photo } from "../components/shared";
 import { images } from "../lib/constants";
 
@@ -178,7 +178,7 @@ function DrinkItems({ items }: { items: DrinkItem[] }) {
 }
 
 export default function RestaurantPage() {
-  const { lang } = useLang();
+  const { lang } = useSafeLang();
   const is = lang === "is";
   const [menuTab, setMenuTab] = useState<"lunch" | "dinner" | "drinks">("lunch");
 

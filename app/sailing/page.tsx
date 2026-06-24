@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Script from "next/script";
-import { useLang } from "../components/LangContext";
+import { useSafeLang } from "../components/LangContext";
 import { PageHeader, Photo, InfoBox } from "../components/shared";
 import { images } from "../lib/constants";
 
@@ -178,7 +178,7 @@ const tours = [
 ];
 
 export default function SailingPage() {
-  const { lang } = useLang();
+  const { lang } = useSafeLang();
   const is = lang === "is";
   const [selectedTour, setSelectedTour] = useState<number | null>(null);
   const sel = selectedTour !== null ? tours[selectedTour] : null;

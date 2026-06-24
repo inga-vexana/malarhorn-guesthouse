@@ -1,11 +1,11 @@
 "use client";
 
-import { useLang } from "../components/LangContext";
+import { useSafeLang } from "../components/LangContext";
 import { Photo } from "../components/shared";
 import { BV_BOOK, images } from "../lib/constants";
 
 export default function AboutPage() {
-  const { lang } = useLang();
+  const { lang } = useSafeLang();
   const is = lang === "is";
 
   return (
