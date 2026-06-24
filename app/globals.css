@@ -2405,6 +2405,160 @@ footer {
   text-align: center;
 }
 
+/* ── Gift Card Page ── */
+.gcSection {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.gcGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.gcCard {
+  background: var(--w);
+  border: 1px solid var(--l3);
+  border-radius: 4px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: border-color 0.2s;
+}
+
+.gcCard:hover {
+  border-color: var(--gold);
+}
+
+.gcCardTop {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.gcIcon {
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.gcCardMeta {
+  flex: 1;
+}
+
+.gcCardName {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--tc);
+  margin-bottom: 0.5rem;
+}
+
+.gcCardDesc {
+  color: var(--t2);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.gcCardBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  border-top: 1px solid var(--l3);
+}
+
+.gcPricing {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.gcPrice {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--tc);
+}
+
+.gcOriginal {
+  font-size: 0.9rem;
+  color: var(--bl);
+  text-decoration: line-through;
+}
+
+.gcBadge {
+  background: var(--gold);
+  color: var(--w);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+}
+
+.gcBtn {
+  background: var(--tc);
+  color: var(--l);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.gcBtn:hover {
+  background: var(--bm);
+}
+
+.gcNote {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: var(--sl);
+  border-left: 3px solid var(--gold);
+  color: var(--t2);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+@media (min-width: 640px) {
+  .gcCard {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .gcCardTop {
+    flex: 1;
+  }
+
+  .gcCardBottom {
+    flex-direction: column;
+    align-items: flex-end;
+    border-top: none;
+    border-left: 1px solid var(--l3);
+    padding-top: 0;
+    padding-left: 1.5rem;
+    min-width: 200px;
+  }
+
+  .gcBtn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ── END Gift Card Page ── */
+
 .mnuPdf .bt {
   margin-bottom: 1.5rem;
 }

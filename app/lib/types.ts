@@ -1,5 +1,5 @@
 export type Lang = "en" | "is";
-export type Page = "home" | "accommodation" | "restaurant" | "sailing" | "about" | "guest" | "booking";
+export type Page = "home" | "accommodation" | "restaurant" | "sailing" | "about" | "guest" | "booking" | "giftcard";
 
 export type BookingRoom = {
   id: string;

@@ -16,6 +16,7 @@ const pageToPath: Record<string, string> = {
   about: "/about",
   guest: "/guest",
   booking: "/booking",
+  giftcard: "/giftcard",
 };
 
 export default function Nav() {
