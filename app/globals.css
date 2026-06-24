@@ -2542,13 +2542,16 @@ footer {
 
 .gcNote {
   margin-top: 3rem;
-  padding: 1.5rem;
+  padding: 1rem 1.25rem;
   background: var(--sl);
   border-left: 3px solid var(--gold);
   color: var(--t2);
   font-family: var(--font-sans, Jost, Arial, sans-serif);
-  font-size: 0.9rem;
-  line-height: 1.7;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (min-width: 640px) {
