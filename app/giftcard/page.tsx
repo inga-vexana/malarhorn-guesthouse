@@ -141,6 +141,17 @@ export default function GiftCardPage() {
               : <>Gift cards are purchased through Reserva. You will be redirected to a secure payment page when you click &ldquo;View gift card&rdquo;.</>}
           </p>
         </div>
+
+        <div className="gcAllWrap">
+          <a
+            href="https://gjafabref.reserva.is/malarhornguesthouse"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gcAllBtn"
+          >
+            {is ? "Skoða öll gjafabréf" : "View all gift cards"}
+          </a>
+        </div>
       </section>
     </>
   );
