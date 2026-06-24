@@ -199,7 +199,7 @@ export default function RestaurantPage() {
             <Photo src={images.restaurant} />
             <div>
               <p className="ey">Malarkaffi</p>
-              <h2 className="st">{is ? "Opið á sumrin" : "Open during the summer season only"}</h2>
+              <h2 className="st">{is ? "Opið á sumrin" : "Enjoy lunch, dinner and drinks with beautiful ocean views"}</h2>
               <div className="dv" />
               <p className="bt">
                 {is
