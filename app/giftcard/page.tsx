@@ -72,14 +72,6 @@ const giftCards = [
   },
 ];
 
-function formatPrice(n: number) {
-  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
-
-function DiscountBadge({ original, sale }: { original: number; sale: number }) {
-  const pct = Math.round((1 - sale / original) * 100);
-  return <span className="gcBadge">-{pct}%</span>;
-}
 
 function GiftCardItem({
   card,
@@ -105,18 +97,13 @@ function GiftCardItem({
           <p className="gcCardDesc">{is ? card.desc_is : card.desc_en}</p>
         </div>
         <div className="gcCardBottom">
-          <div className="gcPricing">
-            <span className="gcPrice">{formatPrice(card.price)} kr.</span>
-            <span className="gcOriginal">{formatPrice(card.originalPrice)} kr.</span>
-            <DiscountBadge original={card.originalPrice} sale={card.price} />
-          </div>
           <a
             href={card.url}
             target="_blank"
             rel="noopener noreferrer"
             className="gcBtn"
           >
-            {is ? "Kaupa gjafabréf" : "Buy gift card"}
+            {is ? "Skoða gjafabréf" : "View gift card"}
           </a>
         </div>
       </div>
@@ -150,8 +137,8 @@ export default function GiftCardPage() {
         <div className="gcNote">
           <p>
             {is
-              ? "Gjafabréfin eru keypt í gegnum Reserva. Þú verður vísað á örugga greiðslusíðu þegar þú smellir á \"Kaupa gjafabréf\"."
-              : 'Gift cards are purchased through Reserva. You will be redirected to a secure payment page when you click "Buy gift card".'}
+              ? "Gjafabréfin eru keypt í gegnum Reserva. Þú verður vísað á örugga greiðslusíðu þegar þú smellir á \"Skoða gjafabréf\"."
+              : 'Gift cards are purchased through Reserva. You will be redirected to a secure payment page when you click "View gift card".'}
           </p>
         </div>
       </section>
