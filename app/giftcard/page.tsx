@@ -1,13 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useSafeLang } from "../components/LangContext";
 import { PageHeader } from "../components/shared";
-
-const RESERVA_URL = "https://gjafabref.reserva.is/malarhornguesthouse";
 
 const giftCards = [
   {
     id: 1,
+    url: "https://gjafabref.reserva.is/malarhornguesthouse/1356",
+    image: "/images/giftcards/gc1.png",
     name_is: "Tvær vetrarnætur á Malarhorni",
     name_en: "Two Winter Nights at Malarhorn",
     desc_is:
@@ -19,6 +20,8 @@ const giftCards = [
   },
   {
     id: 2,
+    url: "https://gjafabref.reserva.is/malarhornguesthouse/1357",
+    image: "/images/giftcards/gc2.jpg",
     name_is: "Vetrarnótt á Malarhorni",
     name_en: "A Winter Night at Malarhorn",
     desc_is:
@@ -30,6 +33,8 @@ const giftCards = [
   },
   {
     id: 3,
+    url: "https://gjafabref.reserva.is/malarhornguesthouse/1370",
+    image: "/images/giftcards/gc3.jpg",
     name_is: "Einnar nætur gisting á Malarhorni - allt árið",
     name_en: "One Night Stay at Malarhorn - Year Round",
     desc_is:
@@ -41,6 +46,8 @@ const giftCards = [
   },
   {
     id: 4,
+    url: "https://gjafabref.reserva.is/malarhornguesthouse/1371",
+    image: "/images/giftcards/gc4.jpg",
     name_is: "Tveggja nátta gisting á Malarhorni - allt árið",
     name_en: "Two Night Stay at Malarhorn - Year Round",
     desc_is:
@@ -52,6 +59,8 @@ const giftCards = [
   },
   {
     id: 5,
+    url: "https://gjafabref.reserva.is/malarhornguesthouse/1379",
+    image: "/images/giftcards/gc5.jpg",
     name_is: "Einnar nætur gisting ásamt siglingu út í Grímsey",
     name_en: "One Night Stay with Sailing to Grímsey",
     desc_is:
@@ -75,38 +84,41 @@ function DiscountBadge({ original, sale }: { original: number; sale: number }) {
 function GiftCardItem({
   card,
   is,
-  onBuy,
 }: {
   card: (typeof giftCards)[number];
   is: boolean;
-  onBuy: () => void;
 }) {
   return (
     <article className="gcCard">
-      <div className="gcCardTop">
-        <div className="gcIcon" aria-hidden="true">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-            <rect x="3" y="12" width="30" height="21" rx="2" stroke="currentColor" strokeWidth="2" />
-            <rect x="3" y="12" width="30" height="6" rx="1" stroke="currentColor" strokeWidth="2" />
-            <line x1="18" y1="12" x2="18" y2="33" stroke="currentColor" strokeWidth="2" />
-            <path d="M18 12 C18 12 13 6 10 8 C7 10 10 14 14 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            <path d="M18 12 C18 12 23 6 26 8 C29 10 26 14 22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </div>
+      <a href={card.url} target="_blank" rel="noopener noreferrer" className="gcImageLink" aria-label={is ? card.name_is : card.name_en}>
+        <Image
+          src={card.image}
+          alt={is ? card.name_is : card.name_en}
+          width={400}
+          height={260}
+          className="gcImage"
+        />
+      </a>
+      <div className="gcCardContent">
         <div className="gcCardMeta">
           <h2 className="gcCardName">{is ? card.name_is : card.name_en}</h2>
           <p className="gcCardDesc">{is ? card.desc_is : card.desc_en}</p>
         </div>
-      </div>
-      <div className="gcCardBottom">
-        <div className="gcPricing">
-          <span className="gcPrice">{formatPrice(card.price)} kr.</span>
-          <span className="gcOriginal">{formatPrice(card.originalPrice)} kr.</span>
-          <DiscountBadge original={card.originalPrice} sale={card.price} />
+        <div className="gcCardBottom">
+          <div className="gcPricing">
+            <span className="gcPrice">{formatPrice(card.price)} kr.</span>
+            <span className="gcOriginal">{formatPrice(card.originalPrice)} kr.</span>
+            <DiscountBadge original={card.originalPrice} sale={card.price} />
+          </div>
+          <a
+            href={card.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gcBtn"
+          >
+            {is ? "Kaupa gjafabréf" : "Buy gift card"}
+          </a>
         </div>
-        <button className="gcBtn" onClick={onBuy}>
-          {is ? "Kaupa gjafabréf" : "Buy gift card"}
-        </button>
       </div>
     </article>
   );
@@ -131,12 +143,7 @@ export default function GiftCardPage() {
       <section className="gcSection">
         <div className="gcGrid">
           {giftCards.map((card) => (
-            <GiftCardItem
-              key={card.id}
-              card={card}
-              is={is}
-              onBuy={() => window.open(RESERVA_URL, "_blank")}
-            />
+            <GiftCardItem key={card.id} card={card} is={is} />
           ))}
         </div>
 
@@ -144,7 +151,7 @@ export default function GiftCardPage() {
           <p>
             {is
               ? "Gjafabréfin eru keypt í gegnum Reserva. Þú verður vísað á örugga greiðslusíðu þegar þú smellir á \"Kaupa gjafabréf\"."
-              : "Gift cards are purchased through Reserva. You will be redirected to a secure payment page when you click \"Buy gift card\"."}
+              : 'Gift cards are purchased through Reserva. You will be redirected to a secure payment page when you click "Buy gift card".'}
           </p>
         </div>
       </section>
