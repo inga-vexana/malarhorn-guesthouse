@@ -152,7 +152,7 @@ function MenuItems({ items, is }: { items: MenuItem[]; is: boolean }) {
               {is ? item.nameIs : item.nameEn}
               {item.vegan && <VeganBadge />}
             </span>
-            <span className="mnuItemPrice">{item.price.toLocaleString("is-IS")} kr.</span>
+            <span className="mnuItemPrice">{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} kr.</span>
           </div>
           <p className="mnuItemDesc">{is ? item.descIs : item.descEn}</p>
         </div>
