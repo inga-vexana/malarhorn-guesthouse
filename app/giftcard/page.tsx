@@ -137,7 +137,7 @@ export default function GiftCardPage() {
         <div className="gcNote">
           <p>
             {is
-              ? "Gjafabréfin eru keypt í gegnum Reserva. Þú verður vísað á örugga greiðslusíðu þegar þú smellir á \"Skoða gjafabréf\"."
+              ? "Öll gjafabréf eru afgreidd í gegnum Reserva. Með því að smella á „Skoða gjafabréf" opnast örugg greiðslusíða þar sem þú getur lokið kaupunum."
               : 'Gift cards are purchased through Reserva. You will be redirected to a secure payment page when you click "View gift card".'}
           </p>
         </div>
