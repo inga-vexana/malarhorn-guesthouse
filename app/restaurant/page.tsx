@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLang } from "../components/LangContext";
+import { useSafeLang } from "../components/LangContext";
 import { PageHeader, Photo } from "../components/shared";
 import { images } from "../lib/constants";
 
@@ -152,7 +152,7 @@ function MenuItems({ items, is }: { items: MenuItem[]; is: boolean }) {
               {is ? item.nameIs : item.nameEn}
               {item.vegan && <VeganBadge />}
             </span>
-            <span className="mnuItemPrice">{item.price.toLocaleString("is-IS")} kr.</span>
+            <span className="mnuItemPrice">{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} kr.</span>
           </div>
           <p className="mnuItemDesc">{is ? item.descIs : item.descEn}</p>
         </div>
@@ -178,7 +178,7 @@ function DrinkItems({ items }: { items: DrinkItem[] }) {
 }
 
 export default function RestaurantPage() {
-  const { lang } = useLang();
+  const { lang } = useSafeLang();
   const is = lang === "is";
   const [menuTab, setMenuTab] = useState<"lunch" | "dinner" | "drinks">("lunch");
 
@@ -199,7 +199,7 @@ export default function RestaurantPage() {
             <Photo src={images.restaurant} />
             <div>
               <p className="ey">Malarkaffi</p>
-              <h2 className="st">{is ? "Opið á sumrin" : "Enjoy lunch, dinner and drinks with beautiful ocean views"}</h2>
+              <h2 className="st">{is ? "Njóttu góðs matar og drykkja með einstöku útsýni yfir hafið" : "Enjoy lunch, dinner and drinks with beautiful ocean views"}</h2>
               <div className="dv" />
               <p className="bt">
                 {is

@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useLang } from "../components/LangContext";
+import { useSafeLang } from "../components/LangContext";
 import { GuestSection } from "../components/shared";
 import { BV_BOOK } from "../lib/constants";
 
 const LOGO = "/Untitled-200-x-200-px.png";
 
 export default function GuestPage() {
-  const { lang } = useLang();
+  const { lang } = useSafeLang();
   const is = lang === "is";
 
   return (

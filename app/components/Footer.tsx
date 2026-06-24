@@ -1,10 +1,10 @@
 "use client";
 
-import { useLang } from "./LangContext";
+import { useSafeLang } from "./LangContext";
 import { translations } from "../lib/constants";
 
 export default function Footer() {
-  const { lang } = useLang();
+  const { lang } = useSafeLang();
   const t = translations[lang];
 
   return (

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Script from "next/script";
 import Link from "next/link";
-import { useLang } from "./components/LangContext";
+import { useSafeLang } from "./components/LangContext";
 import { Photo } from "./components/shared";
 import { BV_BOOK, images, addDays } from "./lib/constants";
 
@@ -16,7 +16,7 @@ type SearchParams = {
 };
 
 export default function HomePage() {
-  const { lang } = useLang();
+  const { lang } = useSafeLang();
   const is = lang === "is";
 
   return (

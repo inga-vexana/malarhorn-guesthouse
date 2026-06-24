@@ -29,6 +29,7 @@ export const translations = {
       ["restaurant", "Restaurant"],
       ["sailing", "Sailing"],
       ["about", "Malarhorn"],
+      ["giftcard", "Gift Cards"],
     ] as [Page, string][],
   },
   is: {
@@ -43,6 +44,7 @@ export const translations = {
       ["restaurant", "Veitingastaður"],
       ["sailing", "Sigling til Grímsey"],
       ["about", "Malarhorn"],
+      ["giftcard", "Gjafabréf"],
     ] as [Page, string][],
   },
 };

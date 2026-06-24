@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLang } from "../components/LangContext";
+import { useSafeLang } from "../components/LangContext";
 import { PageHeader, RoomCarousel } from "../components/shared";
 import { rooms_data, BV_BOOK } from "../lib/constants";
 
@@ -40,7 +40,7 @@ function RoomDetail({ room, lang }: { room: RoomEntry; lang: "en" | "is" }) {
 }
 
 export default function AccommodationPage() {
-  const { lang } = useLang();
+  const { lang } = useSafeLang();
   const is = lang === "is";
   const [selectedIdx, setSelectedIdx] = useState(0);
   const selected = rooms_data[lang][selectedIdx];

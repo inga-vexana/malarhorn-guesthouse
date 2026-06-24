@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useLang } from "./LangContext";
+import { useSafeLang } from "./LangContext";
 import { translations, BV_BOOK } from "../lib/constants";
 
 const LOGO = "/Untitled-200-x-200-px.png";
@@ -16,13 +16,14 @@ const pageToPath: Record<string, string> = {
   about: "/about",
   guest: "/guest",
   booking: "/booking",
+  giftcard: "/giftcard",
 };
 
 export default function Nav() {
-  const { lang, setLang } = useLang();
+  const { lang, setLang, mounted } = useSafeLang();
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
-  const t = translations[lang];
+  const t = translations[mounted ? lang : "en"];
 
   const isActive = (key: string) => {
     const path = pageToPath[key];
