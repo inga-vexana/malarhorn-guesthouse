@@ -225,12 +225,12 @@ function BookingRoomsStep({
                         {room.price ? (
                           <>
                             <span className="bkPriceAmount">
-                              {Math.round(room.price).toLocaleString()} {room.currency}
+                              {Math.round(room.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {room.currency}
                             </span>
                             <span className="bkPriceLabel">
                               {is ? `/ ${nights} nætur` : `/ ${nights} nights`}
                               {pricePerNight &&
-                                ` · ${pricePerNight.toLocaleString()} ${room.currency} ${
+                                ` · ${pricePerNight.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} ${room.currency} ${
                                   is ? "/ nótt" : "/ night"
                                 }`}
                             </span>
@@ -316,7 +316,7 @@ function BookingGuestStep({
             </p>
             {room.price && (
               <p className="bkSummaryPrice">
-                {Math.round(room.price).toLocaleString()} {room.currency}
+                {Math.round(room.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {room.currency}
               </p>
             )}
           </div>
