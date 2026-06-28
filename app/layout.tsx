@@ -21,7 +21,7 @@ const jost = Jost({
   display: "swap",
 });
 
-const BASE_URL = "https://www.malarhornguesthouse.is";
+const BASE_URL = "https://www.malarhorn.is";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const BASE_URL = "https://www.malarhornguesthouse.is";
+const BASE_URL = "https://www.malarhorn.is";
 
 export const metadata: Metadata = {
   title: "Gift Cards",
