@@ -196,35 +196,28 @@ export default function SailingPage() {
       />
 
       <div style={{ background: "var(--bg)", padding: "3rem 5vw" }}>
-        <div
-          style={{
-            maxWidth: "860px",
-            margin: "0 auto",
-            overflow: "hidden",
-            aspectRatio: "3 / 2",
-          }}
-        >
-          <Image
-            src="/grimsey-aerial.png"
-            alt="Aerial view of Grímsey island on Steingrímsfjörður, Westfjords Iceland"
-            width={1200}
-            height={800}
-            style={{
-              width: "116%",
-              height: "116%",
-              marginLeft: "-14%",
-              marginTop: "-5%",
-              objectFit: "cover",
-              display: "block",
-            }}
-            priority
-          />
-        </div>
-      </div>
+        <div className="grimsey-split">
+          {/* Image — left on desktop, top on mobile */}
+          <div className="grimsey-img-wrap">
+            <Image
+              src="/grimsey-aerial.png"
+              alt="Aerial view of Grímsey island on Steingrímsfjörður, Westfjords Iceland"
+              width={1200}
+              height={800}
+              style={{
+                width: "116%",
+                height: "116%",
+                marginLeft: "-14%",
+                marginTop: "-5%",
+                objectFit: "cover",
+                display: "block",
+              }}
+              priority
+            />
+          </div>
 
-      <section className="sec">
-        <div className="si2">
-          <div style={{ maxWidth: "640px" }}>
+          {/* Text — right on desktop, below on mobile */}
+          <div className="grimsey-text">
             <p className="ey">{is ? "Um Grímsey" : "About Grímsey"}</p>
             <h2 className="st">{is ? "Sannkölluð náttúruperla" : "A true natural gem"}</h2>
             <div className="dv" />
@@ -249,7 +242,7 @@ export default function SailingPage() {
             </button>
           </div>
         </div>
-      </section>
+      </div>
 
       <section className="sec">
         <div className="si2">

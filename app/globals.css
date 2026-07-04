@@ -2675,6 +2675,44 @@ footer {
   background: var(--gold);
 }
 
+/* ── Grímsey image + text split layout ── */
+.grimsey-split {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.grimsey-img-wrap {
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  width: 100%;
+}
+
+.grimsey-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 861px) {
+  .grimsey-split {
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .grimsey-img-wrap {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .grimsey-text {
+    flex: 1;
+  }
+}
+
 .gcAllWrap {
   margin-top: 2.5rem;
   text-align: center;
