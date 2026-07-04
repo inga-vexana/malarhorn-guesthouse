@@ -4,7 +4,7 @@ import { useState } from "react";
 import Script from "next/script";
 import Image from "next/image";
 import { useSafeLang } from "../components/LangContext";
-import { PageHeader, InfoBox } from "../components/shared";
+import { PageHeader, Photo, InfoBox } from "../components/shared";
 
 const tours = [
   {
