@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Script from "next/script";
+import Image from "next/image";
 import { useSafeLang } from "../components/LangContext";
 import { PageHeader, Photo, InfoBox } from "../components/shared";
-import { images } from "../lib/constants";
 
 const tours = [
   {
@@ -187,44 +187,62 @@ export default function SailingPage() {
     <>
       <PageHeader
         eyebrow={is ? "Ævintýri" : "Adventure"}
-        title={is ? "Siglingar út í Grímsey" : "Sailing to Grimsey"}
+        title={is ? "Siglingar út í Grímsey" : "Sailing to Grímsey"}
         text={
           is
             ? "Best geymda leyndarmálið á Ströndum, nálgaðu lundana í náttúrulegu umhverfi."
             : "A hidden gem in the Strandir region, explore Iceland's largest puffin colony by boat."
         }
       />
-      <section className="sec">
-        <div className="si2">
-          <div className="sfeat">
-            <div>
-              <p className="ey">{is ? "Um Grímsey" : "About Grimsey"}</p>
-              <h2 className="st">{is ? "Sannkölluð náttúruperla" : "A true natural gem"}</h2>
-              <div className="dv" />
-              <p className="bt">
-                {is
-                  ? "Grímsey í Steingrímsfirði er ein stærsta lundabyggð landsins, áætlað 25 til 30 þúsund pör á hverju sumri."
-                  : "Grimsey in Steingrimsfjordur is home to one of Iceland's largest puffin colonies, with an estimated 25,000 to 30,000 breeding pairs each summer."}
-              </p>
-              <p className="bt">
-                {is
-                  ? "Malarhorn býður upp á fallegar siglingar til Grímseyjar á sumrin."
-                  : "Malarhorn offers regular scenic sailings to Grimsey during summer."}
-              </p>
-              <button
-                className="bokunButton bp"
-                id="bokun_acf4a461_fba1_498b_827d_3a67889b1ee3"
-                data-src="https://widgets.bokun.io/online-sales/96789794-5a10-4ca1-96e4-8190ad1ff7fb/product-list/109538?partialView=1"
-                data-testid="widget-book-button"
-                style={{ marginTop: "1.5rem" }}
-              >
-                {is ? "Bóka ferð" : "Book now"}
-              </button>
-            </div>
-            <Photo src={images.sailing} />
+
+      <div style={{ background: "var(--bg)", padding: "3rem 5vw" }}>
+        <div className="grimsey-split">
+          {/* Image — left on desktop, top on mobile */}
+          <div className="grimsey-img-wrap">
+            <Image
+              src="/grimsey-aerial.png"
+              alt="Aerial view of Grímsey island on Steingrímsfjörður, Westfjords Iceland"
+              width={1200}
+              height={800}
+              style={{
+                width: "130%",
+                height: "130%",
+                marginLeft: "-15%",
+                marginTop: "-7%",
+                objectFit: "cover",
+                display: "block",
+              }}
+              priority
+            />
+          </div>
+
+          {/* Text — right on desktop, below on mobile */}
+          <div className="grimsey-text">
+            <p className="ey">{is ? "Um Grímsey" : "About Grímsey"}</p>
+            <h2 className="st">{is ? "Sannkölluð náttúruperla" : "A true natural gem"}</h2>
+            <div className="dv" />
+            <p className="bt">
+              {is
+                ? "Grímsey í Steingrímsfirði er ein stærsta lundabyggð landsins, áætlað 25 til 30 þúsund pör á hverju sumri."
+                : "Grímsey in Steingrímsfjörður is home to one of Iceland's largest puffin colonies, with an estimated 25,000 to 30,000 breeding pairs each summer."}
+            </p>
+            <p className="bt">
+              {is
+                ? "Malarhorn býður upp á fallegar siglingar til Grímseyjar á sumrin."
+                : "Malarhorn offers regular scenic sailings to Grímsey during summer."}
+            </p>
+            <button
+              className="bokunButton bp"
+              id="bokun_acf4a461_fba1_498b_827d_3a67889b1ee3"
+              data-src="https://widgets.bokun.io/online-sales/96789794-5a10-4ca1-96e4-8190ad1ff7fb/product-list/109538?partialView=1"
+              data-testid="widget-book-button"
+              style={{ marginTop: "1.5rem" }}
+            >
+              {is ? "Bóka ferð" : "Book now"}
+            </button>
           </div>
         </div>
-      </section>
+      </div>
 
       <section className="sec">
         <div className="si2">

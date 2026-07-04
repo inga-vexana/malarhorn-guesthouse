@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     "Westfjords Iceland",
     "Strandir",
     "Iceland accommodation",
-    "Grimsey sailing",
+    "Grímsey sailing",
     "Icelandic guesthouse",
     "hot pots Iceland",
   ],
