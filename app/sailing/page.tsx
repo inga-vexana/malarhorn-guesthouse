@@ -4,8 +4,7 @@ import { useState } from "react";
 import Script from "next/script";
 import Image from "next/image";
 import { useSafeLang } from "../components/LangContext";
-import { PageHeader, Photo, InfoBox } from "../components/shared";
-import { images } from "../lib/constants";
+import { PageHeader, InfoBox } from "../components/shared";
 
 const tours = [
   {
@@ -225,32 +224,29 @@ export default function SailingPage() {
 
       <section className="sec">
         <div className="si2">
-          <div className="sfeat">
-            <div>
-              <p className="ey">{is ? "Um Grímsey" : "About Grímsey"}</p>
-              <h2 className="st">{is ? "Sannkölluð náttúruperla" : "A true natural gem"}</h2>
-              <div className="dv" />
-              <p className="bt">
-                {is
-                  ? "Grímsey í Steingrímsfirði er ein stærsta lundabyggð landsins, áætlað 25 til 30 þúsund pör á hverju sumri."
-                  : "Grímsey in Steingrímsfjörður is home to one of Iceland's largest puffin colonies, with an estimated 25,000 to 30,000 breeding pairs each summer."}
-              </p>
-              <p className="bt">
-                {is
-                  ? "Malarhorn býður upp á fallegar siglingar til Grímseyjar á sumrin."
-                  : "Malarhorn offers regular scenic sailings to Grímsey during summer."}
-              </p>
-              <button
-                className="bokunButton bp"
-                id="bokun_acf4a461_fba1_498b_827d_3a67889b1ee3"
-                data-src="https://widgets.bokun.io/online-sales/96789794-5a10-4ca1-96e4-8190ad1ff7fb/product-list/109538?partialView=1"
-                data-testid="widget-book-button"
-                style={{ marginTop: "1.5rem" }}
-              >
-                {is ? "Bóka ferð" : "Book now"}
-              </button>
-            </div>
-            <Photo src={images.sailing} />
+          <div style={{ maxWidth: "640px" }}>
+            <p className="ey">{is ? "Um Grímsey" : "About Grímsey"}</p>
+            <h2 className="st">{is ? "Sannkölluð náttúruperla" : "A true natural gem"}</h2>
+            <div className="dv" />
+            <p className="bt">
+              {is
+                ? "Grímsey í Steingrímsfirði er ein stærsta lundabyggð landsins, áætlað 25 til 30 þúsund pör á hverju sumri."
+                : "Grímsey in Steingrímsfjörður is home to one of Iceland's largest puffin colonies, with an estimated 25,000 to 30,000 breeding pairs each summer."}
+            </p>
+            <p className="bt">
+              {is
+                ? "Malarhorn býður upp á fallegar siglingar til Grímseyjar á sumrin."
+                : "Malarhorn offers regular scenic sailings to Grímsey during summer."}
+            </p>
+            <button
+              className="bokunButton bp"
+              id="bokun_acf4a461_fba1_498b_827d_3a67889b1ee3"
+              data-src="https://widgets.bokun.io/online-sales/96789794-5a10-4ca1-96e4-8190ad1ff7fb/product-list/109538?partialView=1"
+              data-testid="widget-book-button"
+              style={{ marginTop: "1.5rem" }}
+            >
+              {is ? "Bóka ferð" : "Book now"}
+            </button>
           </div>
         </div>
       </section>
