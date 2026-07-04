@@ -1893,12 +1893,21 @@ footer {
   flex-direction: column;
   left: 0;
   overflow: hidden;
+  overflow-y: auto;
+  max-height: calc(100dvh - 76px);
   position: fixed;
   right: 0;
   top: 76px;
   transform: translateY(-110%);
   transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 195;
+}
+
+@media (max-width: 860px) {
+  .mobileMenu {
+    max-height: calc(100dvh - 64px);
+    top: 64px;
+  }
 }
 
 .mobileMenuOpen {
@@ -1920,8 +1929,10 @@ footer {
   font-size: 0.82rem;
   font-weight: 400;
   letter-spacing: 0.18em;
+  min-height: 52px;
   padding: 1.1rem 1.5rem;
   text-align: left;
+  text-decoration: none;
   text-transform: uppercase;
   transition: background 0.18s, color 0.18s;
   width: 100%;
@@ -1943,7 +1954,9 @@ footer {
 }
 
 /* ── Responsive breakpoints ── */
-@media (max-width: 860px) {
+
+/* Tablet / large phone — hide desktop nav early */
+@media (max-width: 1120px) {
   .nl {
     display: none;
   }
@@ -1952,15 +1965,93 @@ footer {
     padding: 0 1.2rem;
   }
 
-  .bkbtn {
-    display: none;
-  }
-
   .hamburger {
     display: flex;
   }
 
-  .hero,
+  .bkbtn {
+    display: none;
+  }
+}
+
+/* Mobile — main breakpoint */
+@media (max-width: 860px) {
+  /* Nav */
+  .nav {
+    height: 64px;
+    padding: 0 1rem;
+  }
+
+  .logo img {
+    height: 48px;
+  }
+
+  /* Hide language toggle in nav — it lives in the mobile drawer */
+  .nr .lgt {
+    display: none;
+  }
+
+  /* Hero */
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .him {
+    display: none;
+  }
+
+  .ht {
+    padding: 2.5rem 1.2rem 2rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 10vw, 3.6rem);
+    margin-bottom: 1.2rem;
+  }
+
+  .hd {
+    font-size: 0.98rem;
+    margin-bottom: 1.8rem;
+    max-width: 100%;
+  }
+
+  .ctas {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .ctas .bp,
+  #bokun_d38dbce3_2050_4f22_839c_044b2b887d68 {
+    width: 100%;
+    text-align: center;
+    padding: 1rem 1.5rem;
+  }
+
+  .hst {
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .sn {
+    font-size: 2rem;
+  }
+
+  /* Services strip */
+  .sg {
+    grid-template-columns: 1fr;
+  }
+
+  .sc {
+    border-bottom: 1px solid var(--l3);
+    border-right: 0;
+    padding: 2rem 1.2rem;
+  }
+
+  /* Shared two-column sections */
   .ai,
   .hpi,
   .rg2,
@@ -1969,18 +2060,33 @@ footer {
   .cly,
   .fgd {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
-  .him {
-    display: none;
+  /* Section padding */
+  .sec,
+  .ab,
+  .hp,
+  .sd2,
+  .ph,
+  .booking,
+  .bookingCompact {
+    padding: 2.5rem 1.2rem;
   }
 
+  /* Page headers */
+  .ph {
+    padding: 2.5rem 1.2rem 2rem;
+  }
+
+  /* Room grids */
   .rg,
-  .rg6,
-  .sg {
+  .rg6 {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
+  /* Room detail panel */
   .rdet {
     padding: 2rem 1.2rem;
   }
@@ -1990,27 +2096,35 @@ footer {
     gap: 1.5rem;
   }
 
-  .sc {
-    border-bottom: 1px solid var(--l3);
-    border-right: 0;
+  /* Accommodation photo badge — prevent overflow */
+  .af {
+    bottom: -1rem;
+    right: -0.5rem;
+    padding: 1rem 1.4rem;
   }
 
-  .sec,
-  .ab,
-  .hp,
-  .sd2,
-  .ph,
-  .booking,
-  .bookingCompact {
-    padding: 3rem 1.2rem;
+  .afn {
+    font-size: 2rem;
   }
 
-  .bookingForm,
+  /* Booking form */
+  .bookingForm {
+    grid-template-columns: 1fr;
+  }
+
   .bookingRoom {
     grid-template-columns: 1fr;
   }
 
-  .bookingRoomBody,
+  .bookingRoomImage {
+    min-height: 200px;
+  }
+
+  .bookingRoomBody {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .bookingFallback {
     align-items: flex-start;
     flex-direction: column;
@@ -2021,6 +2135,7 @@ footer {
     text-align: left;
   }
 
+  /* Booking wizard */
   .bkSearchForm,
   .bkGuestForm {
     grid-template-columns: 1fr;
@@ -2052,10 +2167,7 @@ footer {
     width: 1.5rem;
   }
 
-  .ht {
-    padding: 3rem 1.2rem;
-  }
-
+  /* Booking widget */
   .hwidWrap {
     padding: 1.5rem 1.2rem;
   }
@@ -2064,15 +2176,15 @@ footer {
     grid-template-columns: 1fr 1fr;
   }
 
+  .hwidField:nth-child(1) {
+    border-bottom: 1px solid #e8e4de;
+    grid-column: 1;
+  }
+
   .hwidField:nth-child(3) {
     border-bottom: 1px solid #e8e4de;
     border-right: none;
     grid-column: 2;
-  }
-
-  .hwidField:nth-child(1) {
-    border-bottom: 1px solid #e8e4de;
-    grid-column: 1;
   }
 
   .hwidField:nth-child(2) {
@@ -2085,18 +2197,49 @@ footer {
     padding: 1rem;
   }
 
-  .hst {
-    gap: 1.2rem;
+  /* Restaurant menu tabs — allow scrolling if needed */
+  .mnuTabs {
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    justify-content: flex-start;
   }
 
-  .gst-body {
-    gap: 0.5rem;
-    padding: 1.2rem 0.75rem 3rem;
+  .mnuTabs::-webkit-scrollbar {
+    display: none;
   }
 
-  .ir,
-  .gst-row,
+  .mnuTab {
+    flex-shrink: 0;
+    padding: 1rem 1.2rem;
+    font-size: 0.76rem;
+  }
+
+  .mnuInner {
+    padding: 0 1.2rem;
+  }
+
+  /* Footer */
+  .fgd {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  footer {
+    padding: 3rem 1.2rem 0;
+  }
+
   .fb2 {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem 0;
+  }
+
+  /* Guest info rows */
+  .ir,
+  .gst-row {
     align-items: flex-start;
     flex-direction: column;
   }
@@ -2105,23 +2248,15 @@ footer {
   .gst-lbl {
     min-width: 0;
   }
-}
 
-@media (max-width: 1120px) {
-  .nl {
-    display: none;
+  .gst-body {
+    gap: 0.5rem;
+    padding: 1.2rem 0.75rem 3rem;
   }
 
-  .nav {
-    padding: 0 1.2rem;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
-  .bkbtn {
-    display: none;
+  /* Gift card note — prevent text overflow */
+  .gcNote {
+    white-space: normal;
   }
 }
 
