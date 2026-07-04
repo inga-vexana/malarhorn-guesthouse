@@ -196,15 +196,31 @@ export default function SailingPage() {
         }
       />
 
-      <div style={{ lineHeight: 0 }}>
-        <Image
-          src="/grimsey-aerial.png"
-          alt="Aerial view of Grímsey island on Steingrímsfjörður, Westfjords Iceland"
-          width={1200}
-          height={800}
-          style={{ width: "100%", height: "auto", display: "block" }}
-          priority
-        />
+      <div style={{ background: "var(--bg)", padding: "3rem 5vw" }}>
+        <div
+          style={{
+            maxWidth: "860px",
+            margin: "0 auto",
+            overflow: "hidden",
+            aspectRatio: "3 / 2",
+          }}
+        >
+          <Image
+            src="/grimsey-aerial.png"
+            alt="Aerial view of Grímsey island on Steingrímsfjörður, Westfjords Iceland"
+            width={1200}
+            height={800}
+            style={{
+              width: "116%",
+              height: "116%",
+              marginLeft: "-14%",
+              marginTop: "-5%",
+              objectFit: "cover",
+              display: "block",
+            }}
+            priority
+          />
+        </div>
       </div>
 
       <section className="sec">
