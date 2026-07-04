@@ -205,10 +205,10 @@ export default function SailingPage() {
               width={1200}
               height={800}
               style={{
-                width: "116%",
-                height: "116%",
-                marginLeft: "-14%",
-                marginTop: "-5%",
+                width: "130%",
+                height: "130%",
+                marginLeft: "-15%",
+                marginTop: "-7%",
                 objectFit: "cover",
                 display: "block",
               }}
