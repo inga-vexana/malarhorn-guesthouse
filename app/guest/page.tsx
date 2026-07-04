@@ -66,15 +66,15 @@ export default function GuestPage() {
           rows={[
             [
               is ? "Sjóævintýrið" : "Sea Safari",
-              is ? "1 klukkustund · 8.900 kr." : "1 hour · ISK 8,900",
+              is ? "1 klukkustund" : "1 hour",
             ],
             [
               is ? "Grímseyjarupplifun" : "Wildlife Tour",
-              is ? "2 klukkustundir · 13.900 kr." : "2 hours · ISK 13,900",
+              is ? "2 klukkustundir" : "2 hours",
             ],
             [
               is ? "Lundaganga" : "Puffin Walk",
-              is ? "3 klukkustundir · 18.900 kr." : "3 hours · ISK 18,900",
+              is ? "3 klukkustundir" : "3 hours",
             ],
             [
               is ? "Tímabil" : "Season",
