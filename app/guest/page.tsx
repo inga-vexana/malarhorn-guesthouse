@@ -45,7 +45,7 @@ export default function GuestPage() {
           note={
             is
               ? "Rétt við sjávarsíðuna með útsýni yfir Grímsey. Ókeypis og alltaf opið."
-              : "Right on the shoreline with views of Grimsey. Always open and free of charge; a small donation is appreciated."
+              : "Right on the shoreline with views of Grímsey. Always open and free of charge; a small donation is appreciated."
           }
           rows={[
             [is ? "Opnunartími" : "Open", is ? "Alltaf opið" : "Always open"],
@@ -57,11 +57,11 @@ export default function GuestPage() {
           rows={[[is ? "Opnunartími" : "Open", "11:00 - 18:00"]]}
         />
         <GuestSection
-          title={is ? "Siglingar til Grímsey" : "Sailing to Grimsey"}
+          title={is ? "Siglingar til Grímsey" : "Sailing to Grímsey"}
           note={
             is
               ? "Við bjóðum upp á þrjár leiðsagðar ferðir til Grímsey. Bókaðu beint við móttökuna eða sendu okkur tölvupóst."
-              : "We offer three guided tours to Grimsey island. Book directly at reception or get in touch."
+              : "We offer three guided tours to Grímsey island. Book directly at reception or get in touch."
           }
           rows={[
             [

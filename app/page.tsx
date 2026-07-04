@@ -170,7 +170,7 @@ export default function HomePage() {
                 : [
                     "Stunning ocean and mountain views",
                     "Short walk to the Drangsnes hot pots",
-                    "Sailing trips to Grimsey island",
+                    "Sailing trips to Grímsey island",
                     "Fresh, locally inspired restaurant",
                     "Personal service in a seaside village",
                   ]
@@ -196,7 +196,7 @@ export default function HomePage() {
             <p>
               {is
                 ? "Heitu pottarnir á Drangsnesi bjóða upp á einstaka slökun við sjávarsíðuna með útsýni yfir hafið og Grímsey."
-                : "The hot pots in Drangsnes are set right on the shoreline with uninterrupted views of the ocean and Grimsey island."}
+                : "The hot pots in Drangsnes are set right on the shoreline with uninterrupted views of the ocean and Grímsey island."}
             </p>
             <button className="bp" onClick={() => window.open(BV_BOOK, "_blank")}>
               {is ? "Bóka gistingu" : "Book your stay"}
