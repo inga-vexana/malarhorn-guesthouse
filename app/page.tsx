@@ -68,6 +68,7 @@ export default function HomePage() {
             <Script
               src="https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=96789794-5a10-4ca1-96e4-8190ad1ff7fb"
               strategy="lazyOnload"
+              onError={() => console.warn("[v0] Bokun widget failed to load")}
             />
             <button
               className="bokunButton"
