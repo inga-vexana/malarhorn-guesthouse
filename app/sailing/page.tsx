@@ -231,32 +231,11 @@ export default function SailingPage() {
                 ? "Malarhorn býður upp á fallegar siglingar til Grímseyjar á sumrin."
                 : "Malarhorn offers regular scenic sailings to Grímsey during summer."}
             </p>
-            <button
-              className="bokunButton bp"
-              id="bokun_acf4a461_fba1_498b_827d_3a67889b1ee3"
-              data-src="https://widgets.bokun.io/online-sales/96789794-5a10-4ca1-96e4-8190ad1ff7fb/product-list/109538?partialView=1"
-              data-testid="widget-book-button"
-              style={{ marginTop: "1.5rem" }}
-            >
-              {is ? "Bóka ferð" : "Book now"}
-            </button>
           </div>
         </div>
       </div>
 
-      <section className="sec">
-        <div className="si2">
-          <Script
-            src="https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=96789794-5a10-4ca1-96e4-8190ad1ff7fb"
-            strategy="lazyOnload"
-          />
-          <div
-            className="bokunWidget"
-            data-src="https://widgets.bokun.io/online-sales/96789794-5a10-4ca1-96e4-8190ad1ff7fb/product-list/109538"
-          />
-          <noscript>Please enable javascript in your browser to book</noscript>
-        </div>
-      </section>
+
 
       {sel && (
         <section className="rdet">
@@ -293,15 +272,6 @@ export default function SailingPage() {
                   {is ? sel.cancellationIs : sel.cancellation}
                 </p>
               )}
-              <a
-                href={`mailto:malarhorn@malarhornguesthouse.is?subject=${encodeURIComponent(
-                  is ? sel.nameIs : sel.nameEn
-                )}`}
-                className="bp"
-                style={{ marginTop: "1.5rem" }}
-              >
-                {is ? "Bóka / Fyrirspurn" : "Book / Enquire"}
-              </a>
             </div>
           </div>
         </section>
