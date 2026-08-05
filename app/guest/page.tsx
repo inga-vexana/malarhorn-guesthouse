@@ -85,10 +85,6 @@ export default function GuestPage() {
               is ? "Drangsneshöfn" : "Drangsnes harbour",
             ],
           ]}
-          action={{
-            onClick: () => (window.location.href = "/sailing"),
-            text: is ? "Bóka siglingu" : "Book tour",
-          }}
         />
         <GuestSection
           title="Mini Market"

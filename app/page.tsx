@@ -40,43 +40,6 @@ export default function HomePage() {
             <button className="bp" onClick={() => window.open(BV_BOOK, "_blank")}>
               {is ? "Bóka herbergi" : "Book room"}
             </button>
-            <style>{`
-              #bokun_d38dbce3_2050_4f22_839c_044b2b887d68 {
-                display: inline-block;
-                padding: 1.1rem 2.8rem;
-                background: transparent;
-                border: 1px solid #1a1814;
-                border-radius: 0;
-                box-shadow: none;
-                font-family: Jost, Arial, sans-serif;
-                font-weight: 500;
-                font-size: 0.72rem;
-                letter-spacing: 0.2em;
-                text-transform: uppercase;
-                text-decoration: none;
-                text-align: center;
-                color: #1a1814;
-                cursor: pointer;
-                transition: background 0.25s, color 0.25s;
-                white-space: nowrap;
-              }
-              #bokun_d38dbce3_2050_4f22_839c_044b2b887d68:hover {
-                background: #1a1814;
-                color: #faf7f2;
-              }
-            `}</style>
-            <Script
-              src="https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=96789794-5a10-4ca1-96e4-8190ad1ff7fb"
-              strategy="lazyOnload"
-            />
-            <button
-              className="bokunButton"
-              id="bokun_d38dbce3_2050_4f22_839c_044b2b887d68"
-              data-src="https://widgets.bokun.io/online-sales/96789794-5a10-4ca1-96e4-8190ad1ff7fb/product-list/109538?partialView=1"
-              data-testid="widget-book-button"
-            >
-              {is ? "Bóka siglingu" : "Book tour"}
-            </button>
           </div>
           <div className="hst">
             <div>
