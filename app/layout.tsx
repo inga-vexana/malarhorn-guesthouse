@@ -4,6 +4,7 @@ import Script from "next/script";
 import { LangProvider } from "./components/LangContext";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import TrackingCapture from "./components/TrackingCapture";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -176,6 +177,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
+        <TrackingCapture />
         <LangProvider>
           <Nav />
           <main>{children}</main>

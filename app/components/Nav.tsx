@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSafeLang } from "./LangContext";
-import { translations, BV_BOOK } from "../lib/constants";
+import { translations } from "../lib/constants";
+import { getBookingUrl } from "../lib/booking-url";
 
 const LOGO = "/Untitled-200-x-200-px.png";
 
@@ -81,7 +82,7 @@ export default function Nav() {
               IS
             </button>
           </div>
-          <button className="bkbtn" onClick={() => window.open(BV_BOOK, "_blank")}>
+          <button className="bkbtn" onClick={() => window.open(getBookingUrl(), "_blank")}>
             {t.book}
           </button>
           <button
@@ -153,7 +154,7 @@ export default function Nav() {
           <button
             className="bp"
             onClick={() => {
-              window.open(BV_BOOK, "_blank");
+              window.open(getBookingUrl(), "_blank");
               setMenuOpen(false);
             }}
           >

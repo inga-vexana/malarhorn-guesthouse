@@ -5,7 +5,8 @@ import Script from "next/script";
 import Link from "next/link";
 import { useSafeLang } from "./components/LangContext";
 import { Photo } from "./components/shared";
-import { BV_BOOK, images, addDays } from "./lib/constants";
+import { images, addDays } from "./lib/constants";
+import { getBookingUrl } from "./lib/booking-url";
 
 type SearchParams = {
   arrival: string;
@@ -37,7 +38,7 @@ export default function HomePage() {
               : "A peaceful retreat where the ocean, mountains and nature create a truly unique experience in the Strandir region."}
           </p>
           <div className="ctas">
-            <button className="bp" onClick={() => window.open(BV_BOOK, "_blank")}>
+            <button className="bp" onClick={() => window.open(getBookingUrl(), "_blank")}>
               {is ? "Bóka herbergi" : "Book room"}
             </button>
           </div>
@@ -141,7 +142,7 @@ export default function HomePage() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <button className="bp" onClick={() => window.open(BV_BOOK, "_blank")}>
+            <button className="bp" onClick={() => window.open(getBookingUrl(), "_blank")}>
               {is ? "Bóka gistingu" : "Book your stay"}
             </button>
           </div>
@@ -161,7 +162,7 @@ export default function HomePage() {
                 ? "Heitu pottarnir á Drangsnesi bjóða upp á einstaka slökun við sjávarsíðuna með útsýni yfir hafið og Grímsey."
                 : "The hot pots in Drangsnes are set right on the shoreline with uninterrupted views of the ocean and Grímsey island."}
             </p>
-            <button className="bp" onClick={() => window.open(BV_BOOK, "_blank")}>
+            <button className="bp" onClick={() => window.open(getBookingUrl(), "_blank")}>
               {is ? "Bóka gistingu" : "Book your stay"}
             </button>
           </div>
