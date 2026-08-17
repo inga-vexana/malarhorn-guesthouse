@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useSafeLang } from "../components/LangContext";
 import { PageHeader, RoomCarousel } from "../components/shared";
-import { rooms_data, BV_BOOK } from "../lib/constants";
+import { rooms_data } from "../lib/constants";
+import { getBookingUrl } from "../lib/booking-url";
 
 type RoomEntry = (typeof rooms_data.en)[number];
 
@@ -30,7 +31,7 @@ function RoomDetail({ room, lang }: { room: RoomEntry; lang: "en" | "is" }) {
               </span>
             ))}
           </div>
-          <button className="bp" onClick={() => window.open(BV_BOOK, "_blank")}>
+          <button className="bp" onClick={() => window.open(getBookingUrl(), "_blank")}>
             {is ? "Bóka núna" : "Book now"}
           </button>
         </div>
@@ -85,7 +86,7 @@ export default function AccommodationPage() {
                     className="bp bpsm"
                     onClick={(e) => {
                       e.stopPropagation();
-                      window.open(BV_BOOK, "_blank");
+                      window.open(getBookingUrl(), "_blank");
                     }}
                   >
                     {is ? "Bóka núna" : "Book now"}

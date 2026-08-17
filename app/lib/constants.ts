@@ -1,8 +1,6 @@
 import type { Lang, Page } from "./types";
 
 export const BV = "https://images.bookvisit.com/img/";
-export const BV_BOOK =
-  "https://online.bookvisit.com/accommodation?channelId=5780d487-02bc-4988-8121-30c65f421168";
 export const LOGO = "/Untitled-200-x-200-px.png";
 export const MENU = "/Matsedill-Malarhorn.pdf";
 

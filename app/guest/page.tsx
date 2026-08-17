@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSafeLang } from "../components/LangContext";
 import { GuestSection } from "../components/shared";
-import { BV_BOOK } from "../lib/constants";
+import { getBookingUrl } from "../lib/booking-url";
 
 const LOGO = "/Untitled-200-x-200-px.png";
 
@@ -120,7 +120,7 @@ export default function GuestPage() {
             {is ? ", Vestfirðir, Ísland" : ", Westfjords, Iceland"}
           </p>
         </section>
-        <button className="gst-bk bp" onClick={() => window.open(BV_BOOK, "_blank")}>
+        <button className="gst-bk bp" onClick={() => window.open(getBookingUrl(), "_blank")}>
           {is ? "Bóka næstu gistingu" : "Book your next stay"}
         </button>
       </div>
