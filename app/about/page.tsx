@@ -3,7 +3,7 @@
 import { useSafeLang } from "../components/LangContext";
 import { Photo } from "../components/shared";
 import { images } from "../lib/constants";
-import { getBookingUrl } from "../lib/booking-url";
+import { BookingLink } from "../components/BookingLink";
 
 export default function AboutPage() {
   const { lang } = useSafeLang();
@@ -62,9 +62,7 @@ export default function AboutPage() {
                 ? "Hvort sem það er í heitu pottunum, á veröndinni eða í göngu um Steingrímsfjörð, Malarhorn er staður til að hægja á sér."
                 : "Malarhorn is a place to truly slow down and enjoy the natural surroundings."}
             </p>
-            <button className="bp" onClick={() => window.open(getBookingUrl(), "_blank")}>
-              {is ? "Bóka gistingu" : "Book your stay"}
-            </button>
+            <BookingLink className="bp">{is ? "Bóka gistingu" : "Book your stay"}</BookingLink>
           </div>
         </div>
       </section>
