@@ -6,7 +6,7 @@
  * that block sessionStorage (e.g. private browsing).
  */
 
-const BOOKING_BASE_URL =
+export const BOOKING_BASE_URL =
   "https://online.bookvisit.com/accommodation?channelId=5780d487-02bc-4988-8121-30c65f421168";
 
 const TRACKED_PARAMS = [

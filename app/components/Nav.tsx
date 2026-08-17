@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSafeLang } from "./LangContext";
 import { translations } from "../lib/constants";
-import { getBookingUrl } from "../lib/booking-url";
+import { BookingLink } from "./BookingLink";
 
 const LOGO = "/Untitled-200-x-200-px.png";
 
@@ -82,9 +82,7 @@ export default function Nav() {
               IS
             </button>
           </div>
-          <button className="bkbtn" onClick={() => window.open(getBookingUrl(), "_blank")}>
-            {t.book}
-          </button>
+          <BookingLink className="bkbtn">{t.book}</BookingLink>
           <button
             className="hamburger"
             onClick={() => setMenuOpen((o) => !o)}
@@ -151,15 +149,9 @@ export default function Nav() {
               IS
             </button>
           </div>
-          <button
-            className="bp"
-            onClick={() => {
-              window.open(getBookingUrl(), "_blank");
-              setMenuOpen(false);
-            }}
-          >
+          <BookingLink className="bp" onClick={() => setMenuOpen(false)}>
             {t.book}
-          </button>
+          </BookingLink>
         </div>
       </div>
     </>
