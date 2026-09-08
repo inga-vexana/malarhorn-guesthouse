@@ -214,6 +214,11 @@ export default function RestaurantPage() {
                   ? "Velkomin á Malarkaffi, þar sem góður matur, hlýleg gestrisni og hafið mætast."
                   : "Welcome to Malarkaffi, where good food, warm hospitality and the ocean come together."}
               </div>
+              <p className="bt" style={{ marginTop: "1.25rem" }}>
+                {is
+                  ? "Hádegisverði sumarsins er lokið hjá Malarkaffi. Við þökkum kærlega fyrir frábært sumar."
+                  : "Malarkaffi's summer lunch service has now ended. Thank you so much for a wonderful summer."}
+              </p>
             </div>
           </div>
         </div>

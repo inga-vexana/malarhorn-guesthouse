@@ -1629,8 +1629,12 @@ footer {
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.04em;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.6rem;
   text-transform: capitalize;
+}
+
+.fc h4.fc-sub {
+  margin-top: 0.8rem;
 }
 
 .fc p,
