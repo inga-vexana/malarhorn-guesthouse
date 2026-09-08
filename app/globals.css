@@ -1633,8 +1633,9 @@ footer {
   text-transform: capitalize;
 }
 
-.fc h4 + h4 {
-  margin-top: 1.4rem;
+.fc h4.fc-sub {
+  margin-bottom: 0;
+  margin-top: 1.6rem;
 }
 
 .fc p,
