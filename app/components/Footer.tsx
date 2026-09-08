@@ -18,6 +18,9 @@ export default function Footer() {
           <h4>{t.find}</h4>
           <p>Grundargata 17</p>
           <p>520 Drangsnes, Iceland</p>
+          <p className="ft-label">
+            {lang === "en" ? "Malarkaffi open 14:00 – 21:00" : "Malarkaffi opið 14:00 – 21:00"}
+          </p>
         </div>
         <div className="fc">
           <h4>{t.contact}</h4>
