@@ -16,10 +16,10 @@ export default function Footer() {
         </div>
         <div className="fc">
           <h4>{t.find}</h4>
-          <h4>Malarkaffi</h4>
-          <p>14:00 – 21:00</p>
           <p>Grundargata 17</p>
           <p>520 Drangsnes, Iceland</p>
+          <h4>Malarkaffi</h4>
+          <p>14:00 – 21:00</p>
         </div>
         <div className="fc">
           <h4>{t.contact}</h4>
