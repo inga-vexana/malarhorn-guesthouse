@@ -1633,6 +1633,10 @@ footer {
   text-transform: capitalize;
 }
 
+.fc h4 + h4 {
+  margin-top: 1.4rem;
+}
+
 .fc p,
 .fc a {
   color: rgb(200 184 152 / 65%);
