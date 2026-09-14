@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Malarkaffi restaurant at Malarhorn Guesthouse — fresh Icelandic cuisine with ocean views in Drangsnes, Westfjords. Open daily during summer for lunch and dinner.",
   alternates: {
-    canonical: `${BASE_URL}/restaurant`,
+    canonical: `${BASE_URL}/en/restaurant`,
     languages: {
       "is-IS": `${BASE_URL}/restaurant`,
       en: `${BASE_URL}/en/restaurant`,
@@ -18,7 +18,8 @@ export const metadata: Metadata = {
     title: "Restaurant — Malarhorn Guesthouse",
     description:
       "Malarkaffi restaurant — fresh Icelandic cuisine with ocean views in Drangsnes, Westfjords. Open daily during summer for lunch and dinner.",
-    url: `${BASE_URL}/restaurant`,
+    url: `${BASE_URL}/en/restaurant`,
+    locale: "en_US",
     images: [
       {
         url: "/Malarhorn-Guesthouse-Arjan-Wilmsen-68-scaled.jpg",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RestaurantLayout({
+export default function RestaurantEnLayout({
   children,
 }: {
   children: React.ReactNode;

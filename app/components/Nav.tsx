@@ -25,17 +25,24 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const t = translations[mounted ? lang : "en"];
+  const prefix = lang === "en" ? "/en" : "";
+  const localize = (path: string) => (path === "/" ? prefix || "/" : `${prefix}${path}`);
 
   const isActive = (key: string) => {
     const path = pageToPath[key];
-    if (key === "home") return pathname === "/";
-    return pathname.startsWith(path);
+    const currentPath = pathname.startsWith("/en")
+      ? pathname === "/en"
+        ? "/"
+        : pathname.slice(3)
+      : pathname;
+    if (key === "home") return currentPath === "/";
+    return currentPath.startsWith(path);
   };
 
   return (
     <>
       <nav className="nav">
-        <Link className="logo" href="/" aria-label="Malarhorn home">
+        <Link className="logo" href={localize("/")} aria-label="Malarhorn home">
           <img src={LOGO} alt="Malarhorn" />
         </Link>
         <ul className="nl">
@@ -44,7 +51,7 @@ export default function Nav() {
               {key === "restaurant" ? (
                 <Link
                   className={`navLinkButton ${isActive(key) ? "on" : ""}`}
-                  href={pageToPath[key]}
+                  href={localize(pageToPath[key])}
                 >
                   {label}
                 </Link>
@@ -52,19 +59,19 @@ export default function Nav() {
                 <>
                   <Link
                     className={`navLinkButton ${isActive(key) ? "on" : ""}`}
-                    href={pageToPath[key]}
+                    href={localize(pageToPath[key])}
                   >
                     {label}
                   </Link>
                   <div className="drop">
-                    <Link href="/about">{label}</Link>
-                    <Link href="/guest">{t.guest}</Link>
+                    <Link href={localize("/about")}>{label}</Link>
+                    <Link href={localize("/guest")}>{t.guest}</Link>
                   </div>
                 </>
               ) : (
                 <Link
                   className={`navLinkButton ${isActive(key) ? "on" : ""}`}
-                  href={pageToPath[key]}
+                  href={localize(pageToPath[key])}
                   onClick={() => setMenuOpen(false)}
                 >
                   {label}
@@ -113,7 +120,7 @@ export default function Nav() {
             <li key={key}>
               <Link
                 className={`mobileMenuLink ${isActive(key) ? "on" : ""}`}
-                href={pageToPath[key]}
+                href={localize(pageToPath[key])}
                 onClick={() => setMenuOpen(false)}
               >
                 {label}
@@ -123,7 +130,7 @@ export default function Nav() {
           <li>
             <Link
               className="mobileMenuLink"
-              href="/guest"
+              href={localize("/guest")}
               onClick={() => setMenuOpen(false)}
             >
               {t.guest}

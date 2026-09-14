@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Sailing tours to Grímsey island from Drangsnes — discover Iceland's largest puffin colony in the Westfjords Strandir region. Book with Malarhorn Guesthouse.",
   alternates: {
-    canonical: `${BASE_URL}/sailing`,
+    canonical: `${BASE_URL}/en/sailing`,
     languages: {
       "is-IS": `${BASE_URL}/sailing`,
       en: `${BASE_URL}/en/sailing`,
@@ -18,7 +18,8 @@ export const metadata: Metadata = {
     title: "Sailing to Grímsey — Malarhorn Guesthouse",
     description:
       "Sailing tours to Grímsey island from Drangsnes — discover Iceland's largest puffin colony in the Westfjords Strandir region.",
-    url: `${BASE_URL}/sailing`,
+    url: `${BASE_URL}/en/sailing`,
+    locale: "en_US",
     images: [
       {
         url: "/Untitled-design-14.png",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SailingLayout({
+export default function SailingEnLayout({
   children,
 }: {
   children: React.ReactNode;

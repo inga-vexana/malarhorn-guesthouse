@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://www.malarhornguesthouse.is";
+const BASE_URL = "https://www.malarhorn.is";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -12,10 +12,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/giftcard", priority: 0.7, changeFrequency: "monthly" as const },
   ];
 
-  return routes.map(({ path, priority, changeFrequency }) => ({
-    url: `${BASE_URL}${path}`,
-    lastModified: new Date(),
-    changeFrequency,
-    priority,
-  }));
+  return routes.flatMap(({ path, priority, changeFrequency }) => {
+    const alternates = {
+      languages: {
+        "is-IS": `${BASE_URL}${path}`,
+        en: `${BASE_URL}/en${path}`,
+      },
+    };
+
+    return [
+      {
+        url: `${BASE_URL}${path}`,
+        lastModified: new Date(),
+        changeFrequency,
+        priority,
+        alternates,
+      },
+      {
+        url: `${BASE_URL}/en${path}`,
+        lastModified: new Date(),
+        changeFrequency,
+        priority,
+        alternates,
+      },
+    ];
+  });
 }
