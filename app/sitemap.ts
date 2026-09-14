@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { events_data } from "./lib/constants";
 
 const BASE_URL = "https://www.malarhorn.is";
 
@@ -11,6 +12,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/about", priority: 0.7, changeFrequency: "yearly" as const },
     { path: "/giftcard", priority: 0.7, changeFrequency: "monthly" as const },
     { path: "/vidburdir", priority: 0.7, changeFrequency: "weekly" as const },
+    ...events_data.map((e) => ({
+      path: `/vidburdir/${e.slug}`,
+      priority: 0.6,
+      changeFrequency: "monthly" as const,
+    })),
   ];
 
   return routes.flatMap(({ path, priority, changeFrequency }) => {

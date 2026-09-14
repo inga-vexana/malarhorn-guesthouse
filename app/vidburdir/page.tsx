@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useSafeLang } from "../components/LangContext";
 import { PageHeader, Photo } from "../components/shared";
 import { BookingLink } from "../components/BookingLink";
-import { events_data, formatEventDate } from "../lib/constants";
+import { events_data, formatEventDate, pick } from "../lib/constants";
 
 export default function EventsPage() {
   const { lang } = useSafeLang();
@@ -44,27 +45,39 @@ export default function EventsPage() {
           </div>
         ) : (
           <div className="evtGrid">
-            {upcoming.map((e) => (
-              <article className="evtCard" key={e.id}>
-                {e.image ? (
-                  <Photo src={e.image} className="evtImage" />
-                ) : null}
-                <div className="evtCardBody">
-                  <p className="evtDate">
-                    {formatEventDate(e.startDate, lang)}
-                    {e.endDate && e.endDate !== e.startDate
-                      ? ` – ${formatEventDate(e.endDate, lang)}`
-                      : ""}
-                    {e.time ? ` · ${e.time}` : ""}
-                  </p>
-                  <h2 className="evtTitle">{e.title}</h2>
-                  <p className="evtDesc">{e.description}</p>
-                  {e.location ? (
-                    <p className="evtLocation">{e.location}</p>
+            {upcoming.map((e) => {
+              const href = is ? `/vidburdir/${e.slug}` : `/en/vidburdir/${e.slug}`;
+              return (
+                <article className="evtCard" key={e.id}>
+                  {e.image ? (
+                    <Link href={href} className="evtImageLink" aria-label={pick(e.title, lang)}>
+                      <Photo src={e.image} className="evtImage" />
+                    </Link>
                   ) : null}
-                </div>
-              </article>
-            ))}
+                  <div className="evtCardBody">
+                    <p className="evtDate">
+                      {formatEventDate(e.startDate, lang)}
+                      {e.endDate && e.endDate !== e.startDate
+                        ? ` – ${formatEventDate(e.endDate, lang)}`
+                        : ""}
+                      {e.time ? ` · ${e.time}` : ""}
+                    </p>
+                    <h2 className="evtTitle">
+                      <Link href={href} className="evtTitleLink">
+                        {pick(e.title, lang)}
+                      </Link>
+                    </h2>
+                    <p className="evtDesc">{pick(e.description, lang)}</p>
+                    {e.location ? (
+                      <p className="evtLocation">{e.location}</p>
+                    ) : null}
+                    <Link href={href} className="evtMore">
+                      {is ? "Skoða viðburð" : "View event"} &rarr;
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         )}
 

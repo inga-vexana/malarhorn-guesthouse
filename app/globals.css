@@ -2925,6 +2925,206 @@ footer {
   }
 }
 
+.evtImageLink {
+  display: block;
+}
+
+.evtTitleLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.evtTitleLink:hover {
+  color: var(--gold);
+}
+
+.evtMore {
+  display: inline-block;
+  margin-top: 0.25rem;
+  color: var(--gold);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.evtMore:hover {
+  color: var(--tc);
+}
+
+/* ── Event Detail Page ── */
+.evtDetailHero {
+  position: relative;
+  width: 100%;
+  height: 320px;
+}
+
+.evtDetailImage {
+  width: 100%;
+  height: 100%;
+}
+
+.evtDetailHeroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 10%), rgb(0 0 0 / 0%) 40%);
+}
+
+.evtDetailSection {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.evtBack {
+  display: inline-block;
+  color: var(--t2);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  margin-bottom: 2rem;
+}
+
+.evtBack:hover {
+  color: var(--gold);
+}
+
+.evtDetailDate {
+  margin-bottom: 0.75rem;
+}
+
+.evtDetailTitle {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--tc);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.evtDetailSubtitle {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--t2);
+  margin-top: 0.5rem;
+}
+
+.evtDetailLocation {
+  margin-top: 0.75rem;
+}
+
+.evtDetailProse {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.evtDetailProse p {
+  color: var(--t2);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.evtDetailBlock {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--l3);
+}
+
+.evtDetailBlockTitle {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--tc);
+  margin-bottom: 0.75rem;
+}
+
+.evtDetailBlockIntro {
+  color: var(--t2);
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+.evtDetailBlockOutro {
+  color: var(--t2);
+  font-size: 0.95rem;
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+.evtDetailList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-left: 1.1rem;
+}
+
+.evtDetailList li {
+  color: var(--t2);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.evtDetailPriceBlock {
+  background: var(--sl);
+  border: 1px solid var(--l3);
+  border-radius: 4px;
+  padding: 1.75rem 2rem;
+  margin-top: 2.5rem;
+}
+
+.evtDetailPriceList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.evtDetailPriceList li {
+  color: var(--tc);
+  font-size: 0.98rem;
+  font-weight: 500;
+}
+
+.evtDetailClosing {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--tc);
+  line-height: 1.6;
+  margin-top: 2.5rem;
+}
+
+.evtDetailCta {
+  margin-top: 3.5rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--l3);
+  text-align: center;
+}
+
+.evtDetailBookingText {
+  color: var(--t2);
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .evtDetailHero {
+    height: 420px;
+  }
+
+  .evtDetailTitle {
+    font-size: 3rem;
+  }
+}
+
+/* ── END Event Detail Page ── */
+
 /* ── END Events Page ── */
 
 .mnuPdf .bt {
