@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { PageHeader, Photo } from "../components/shared";
-import { BookingLink } from "../components/BookingLink";
 import { events_data, formatEventDate, pick } from "../lib/constants";
 
 // This page is Icelandic-only by design (there is no /en/vidburdir route),
@@ -81,7 +80,6 @@ export default function EventsPage() {
           <p className="evtCtaText">
             Viltu tryggja þér gistingu fyrir næsta viðburð?
           </p>
-          <BookingLink className="bp">Bóka gistingu</BookingLink>
         </div>
       </section>
     </>

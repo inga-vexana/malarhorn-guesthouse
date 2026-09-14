@@ -120,10 +120,7 @@ export default function EventDetailPage({
         <div className="evtDetailCta">
           {d?.bookingEmail ? (
             <p className="evtDetailBookingText evtDetailBookingTextLg">
-              Bókanir og frekari upplýsingar:{" "}
-              <a href={`mailto:${d.bookingEmail}`} className="evtEmptyLink">
-                {d.bookingEmail}
-              </a>
+              Bókanir og frekari upplýsingar: {d.bookingEmail}
             </p>
           ) : null}
         </div>
