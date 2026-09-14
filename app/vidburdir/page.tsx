@@ -75,12 +75,6 @@ export default function EventsPage() {
             })}
           </div>
         )}
-
-        <div className="evtCta">
-          <p className="evtCtaText">
-            Viltu tryggja þér gistingu fyrir næsta viðburð?
-          </p>
-        </div>
       </section>
     </>
   );
