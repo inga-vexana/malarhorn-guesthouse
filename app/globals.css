@@ -31,7 +31,7 @@ body {
   background: var(--l);
   color: var(--tx);
   font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
-  font-size: 18px;
+  font-size: 24px;
   overflow-x: hidden;
 }
 
