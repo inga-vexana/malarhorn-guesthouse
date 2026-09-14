@@ -2002,11 +2002,36 @@ footer {
   }
 
   .him {
-    display: none;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 1.2rem 1.5rem;
+  }
+
+  .himg {
+    border-radius: 14px;
+    min-height: 190px;
+    overflow: hidden;
+    width: 62%;
+  }
+
+  .hbg {
+    bottom: 0.7rem;
+    left: 0.7rem;
+    padding: 0.6rem 0.85rem;
+  }
+
+  .hbt {
+    font-size: 0.78rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .hbs {
+    font-size: 0.52rem;
+    letter-spacing: 0.22em;
   }
 
   .ht {
-    padding: 2.5rem 1.2rem 2rem;
+    padding: 2.5rem 1.2rem 0;
   }
 
   .hero h1 {
