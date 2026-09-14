@@ -2963,7 +2963,7 @@ footer {
 .evtDetailHero {
   position: relative;
   width: 100%;
-  height: 320px;
+  aspect-ratio: 1920 / 440;
 }
 
 .evtDetailImage {
@@ -3126,10 +3126,6 @@ footer {
   }
 
 @media (min-width: 640px) {
-  .evtDetailHero {
-    height: 420px;
-  }
-
   .evtDetailTitle {
     font-size: 3rem;
   }
