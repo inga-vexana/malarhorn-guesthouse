@@ -2855,11 +2855,13 @@ footer {
 
 .evtImage {
   width: 100%;
-  height: 220px;
+  aspect-ratio: 1 / 1;
+  height: auto;
   flex-shrink: 0;
   background-color: var(--l3);
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .evtCardBody {
