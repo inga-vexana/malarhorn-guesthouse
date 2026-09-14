@@ -4,7 +4,6 @@ import { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Photo } from "../../components/shared";
-import { BookingLink } from "../../components/BookingLink";
 import { events_data, formatEventDate, pick } from "../../lib/constants";
 
 // This route is Icelandic-only (there is no /en/vidburdir equivalent), so the
@@ -120,14 +119,13 @@ export default function EventDetailPage({
 
         <div className="evtDetailCta">
           {d?.bookingEmail ? (
-            <p className="evtDetailBookingText">
+            <p className="evtDetailBookingText evtDetailBookingTextLg">
               Bókanir og frekari upplýsingar:{" "}
               <a href={`mailto:${d.bookingEmail}`} className="evtEmptyLink">
                 {d.bookingEmail}
               </a>
             </p>
           ) : null}
-          <BookingLink className="bp">Bóka gistingu</BookingLink>
         </div>
       </section>
     </>

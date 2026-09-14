@@ -3119,6 +3119,11 @@ footer {
   margin-bottom: 1.25rem;
 }
 
+.evtDetailBookingTextLg {
+  font-size: 1.25rem;
+  margin-bottom: 0;
+}
+
 @media (min-width: 640px) {
   .evtDetailHero {
     height: 420px;
