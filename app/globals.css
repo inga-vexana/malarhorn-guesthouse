@@ -3031,7 +3031,7 @@ footer {
 
 .evtDetailProse p {
   color: var(--t2);
-  font-size: 1rem;
+  font-size: 1.35rem;
   line-height: 1.7;
 }
 
@@ -3051,13 +3051,13 @@ footer {
 
 .evtDetailBlockIntro {
   color: var(--t2);
-  font-size: 0.95rem;
+  font-size: 1.3rem;
   margin-bottom: 0.75rem;
 }
 
 .evtDetailBlockOutro {
   color: var(--t2);
-  font-size: 0.95rem;
+  font-size: 1.3rem;
   margin-top: 1rem;
   line-height: 1.6;
 }
@@ -3071,7 +3071,7 @@ footer {
 
 .evtDetailList li {
   color: var(--t2);
-  font-size: 0.95rem;
+  font-size: 1.3rem;
   line-height: 1.6;
 }
 
@@ -3093,7 +3093,7 @@ footer {
 
 .evtDetailPriceList li {
   color: var(--tc);
-  font-size: 0.98rem;
+  font-size: 1.3rem;
   font-weight: 500;
 }
 
