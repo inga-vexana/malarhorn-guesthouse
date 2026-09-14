@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/sailing", priority: 0.8, changeFrequency: "monthly" as const },
     { path: "/about", priority: 0.7, changeFrequency: "yearly" as const },
     { path: "/giftcard", priority: 0.7, changeFrequency: "monthly" as const },
+    { path: "/vidburdir", priority: 0.7, changeFrequency: "weekly" as const },
   ];
 
   return routes.flatMap(({ path, priority, changeFrequency }) => {

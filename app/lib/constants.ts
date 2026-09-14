@@ -1,4 +1,4 @@
-import type { Lang, Page } from "./types";
+import type { EventItem, Lang, Page } from "./types";
 
 export const BV = "https://images.bookvisit.com/img/";
 export const LOGO = "/Untitled-200-x-200-px.png";
@@ -21,6 +21,7 @@ export const translations = {
     find: "Find Us",
     contact: "Get in Touch",
     guest: "Guest Info",
+    events: "Events",
     nav: [
       ["home", "Home"],
       ["accommodation", "Accommodation"],
@@ -36,6 +37,7 @@ export const translations = {
     find: "Hvar erum við",
     contact: "Hafðu samband",
     guest: "Gestaupplýsingar",
+    events: "Viðburðir",
     nav: [
       ["home", "Heim"],
       ["accommodation", "Gisting"],
@@ -46,6 +48,20 @@ export const translations = {
     ] as [Page, string][],
   },
 };
+
+// Populate this list with real, confirmed events. Each event only needs to be
+// added once — it automatically appears in both the Icelandic (/vidburdir)
+// and English (/en/vidburdir) pages, sorted by date.
+export const events_data: EventItem[] = [];
+
+export function formatEventDate(dateStr: string, lang: Lang): string {
+  const date = new Date(`${dateStr}T00:00:00`);
+  return date.toLocaleDateString(lang === "is" ? "is-IS" : "en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
 export const rooms_data = {
   en: [

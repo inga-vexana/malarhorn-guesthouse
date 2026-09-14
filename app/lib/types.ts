@@ -1,5 +1,16 @@
 export type Lang = "en" | "is";
-export type Page = "home" | "accommodation" | "restaurant" | "sailing" | "about" | "guest" | "booking" | "giftcard";
+export type Page = "home" | "accommodation" | "restaurant" | "sailing" | "about" | "guest" | "booking" | "giftcard" | "events";
+
+export type EventItem = {
+  id: string;
+  title: string;
+  startDate: string;
+  endDate?: string;
+  time?: string;
+  location?: string;
+  description: string;
+  image?: string;
+};
 
 export type BookingRoom = {
   id: string;
