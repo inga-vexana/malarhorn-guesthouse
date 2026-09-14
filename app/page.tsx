@@ -24,14 +24,23 @@ export default function HomePage() {
     <>
       <section className="hero">
         <div className="ht">
-          <span className="htag">{is ? "Vestfirðir, Ísland" : "Westfjords, Iceland"}</span>
-          <h1>
-            {is ? "Velkomin á" : "Welcome to"}
-            <br />
-            <em>Malarhorn</em>
-            <br />
-            Guesthouse
-          </h1>
+          <div className="hrow">
+            <div className="hhead">
+              <span className="htag">{is ? "Vestfirðir, Ísland" : "Westfjords, Iceland"}</span>
+              <h1>
+                {is ? "Velkomin á" : "Welcome to"}
+                <br />
+                <em>Malarhorn</em>
+                <br />
+                Guesthouse
+              </h1>
+            </div>
+            <img
+              className="hmob"
+              src="/IMG_0132.jpg"
+              alt={is ? "Malarhorn Guesthouse við sjóinn" : "Malarhorn Guesthouse by the sea"}
+            />
+          </div>
           <p className="hd">
             {is
               ? "Friðsæll staður þar sem hafið, fjöllin og náttúran skapa einstaka upplifun í hjarta Strandanna."
