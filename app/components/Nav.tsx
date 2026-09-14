@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSafeLang } from "./LangContext";
 import { translations } from "../lib/constants";
+import { localizePath, stripLocalePrefix } from "../lib/i18n";
 import { BookingLink } from "./BookingLink";
 
 const LOGO = "/Untitled-200-x-200-px.png";
@@ -25,17 +26,20 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const t = translations[mounted ? lang : "en"];
+  const canonicalPathname = stripLocalePrefix(pathname);
 
   const isActive = (key: string) => {
     const path = pageToPath[key];
-    if (key === "home") return pathname === "/";
-    return pathname.startsWith(path);
+    if (key === "home") return canonicalPathname === "/";
+    return canonicalPathname.startsWith(path);
   };
+
+  const href = (key: string) => localizePath(pageToPath[key], lang);
 
   return (
     <>
       <nav className="nav">
-        <Link className="logo" href="/" aria-label="Malarhorn home">
+        <Link className="logo" href={href("home")} aria-label="Malarhorn home">
           <img src={LOGO} alt="Malarhorn" />
         </Link>
         <ul className="nl">
@@ -44,7 +48,7 @@ export default function Nav() {
               {key === "restaurant" ? (
                 <Link
                   className={`navLinkButton ${isActive(key) ? "on" : ""}`}
-                  href={pageToPath[key]}
+                  href={href(key)}
                 >
                   {label}
                 </Link>
@@ -52,19 +56,19 @@ export default function Nav() {
                 <>
                   <Link
                     className={`navLinkButton ${isActive(key) ? "on" : ""}`}
-                    href={pageToPath[key]}
+                    href={href(key)}
                   >
                     {label}
                   </Link>
                   <div className="drop">
-                    <Link href="/about">{label}</Link>
-                    <Link href="/guest">{t.guest}</Link>
+                    <Link href={href("about")}>{label}</Link>
+                    <Link href={href("guest")}>{t.guest}</Link>
                   </div>
                 </>
               ) : (
                 <Link
                   className={`navLinkButton ${isActive(key) ? "on" : ""}`}
-                  href={pageToPath[key]}
+                  href={href(key)}
                   onClick={() => setMenuOpen(false)}
                 >
                   {label}
@@ -86,7 +90,15 @@ export default function Nav() {
           <button
             className="hamburger"
             onClick={() => setMenuOpen((o) => !o)}
-            aria-label={menuOpen ? "Loka valmynd" : "Opna valmynd"}
+            aria-label={
+              menuOpen
+                ? lang === "en"
+                  ? "Close menu"
+                  : "Loka valmynd"
+                : lang === "en"
+                  ? "Open menu"
+                  : "Opna valmynd"
+            }
             aria-expanded={menuOpen}
           >
             <span className={`hbar ${menuOpen ? "hbar1-open" : ""}`} />
@@ -113,7 +125,7 @@ export default function Nav() {
             <li key={key}>
               <Link
                 className={`mobileMenuLink ${isActive(key) ? "on" : ""}`}
-                href={pageToPath[key]}
+                href={href(key)}
                 onClick={() => setMenuOpen(false)}
               >
                 {label}
@@ -123,7 +135,7 @@ export default function Nav() {
           <li>
             <Link
               className="mobileMenuLink"
-              href="/guest"
+              href={href("guest")}
               onClick={() => setMenuOpen(false)}
             >
               {t.guest}

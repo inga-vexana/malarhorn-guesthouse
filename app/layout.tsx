@@ -27,51 +27,57 @@ const BASE_URL = "https://www.malarhorn.is";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Malarhorn Guesthouse — Drangsnes, Westfjords, Iceland",
+    default: "Malarhorn Guesthouse — Drangsnes, Vestfirðir, Ísland",
     template: "%s | Malarhorn Guesthouse",
   },
   description:
-    "A peaceful seaside guesthouse in Drangsnes, Westfjords Iceland. Ocean views, hot pots, restaurant, and sailing tours to Grímsey island.",
+    "Friðsælt gistiheimili við sjávarsíðuna á Drangsnesi, Vestfjörðum. Sjávarútsýni, heitir pottar, veitingastaður og siglingar til Grímseyjar.",
   keywords: [
     "Malarhorn Guesthouse",
     "Drangsnes",
-    "Westfjords Iceland",
+    "Vestfirðir",
     "Strandir",
-    "Iceland accommodation",
-    "Grímsey sailing",
-    "Icelandic guesthouse",
-    "hot pots Iceland",
+    "Gisting á Íslandi",
+    "Sigling til Grímseyjar",
+    "Íslenskt gistiheimili",
+    "Heitir pottar á Íslandi",
   ],
   authors: [{ name: "Malarhorn Guesthouse" }],
   creator: "Malarhorn Guesthouse",
   alternates: {
     canonical: BASE_URL,
+    languages: {
+      is: BASE_URL,
+      en: `${BASE_URL}/en`,
+      "x-default": BASE_URL,
+    },
   },
   verification: {
     google: "oC1HXMCcfoaJNMuRsaiwT3cFB29Sx4KKf3DNuCpPSvw",
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "is_IS",
+    alternateLocale: ["en_US"],
     url: BASE_URL,
     siteName: "Malarhorn Guesthouse",
-    title: "Malarhorn Guesthouse — Drangsnes, Westfjords, Iceland",
+    title: "Malarhorn Guesthouse — Drangsnes, Vestfirðir, Ísland",
     description:
-      "A peaceful seaside guesthouse in Drangsnes, Westfjords Iceland. Ocean views, hot pots, restaurant, and sailing tours to Grímsey island.",
+      "Friðsælt gistiheimili við sjávarsíðuna á Drangsnesi, Vestfjörðum. Sjávarútsýni, heitir pottar, veitingastaður og siglingar til Grímseyjar.",
     images: [
       {
         url: "/Malarhorn-Guesthouse-Arjan-Wilmsen-72-scaled.jpg",
         width: 1200,
         height: 630,
-        alt: "Malarhorn Guesthouse — Drangsnes, Westfjords, Iceland",
+        alt: "Malarhorn Guesthouse — Drangsnes, Vestfirðir, Ísland",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Malarhorn Guesthouse — Drangsnes, Westfjords, Iceland",
+    title: "Malarhorn Guesthouse — Drangsnes, Vestfirðir, Ísland",
     description:
-      "A peaceful seaside guesthouse in Drangsnes, Westfjords Iceland. Ocean views, hot pots, restaurant, and sailing tours to Grímsey island.",
+      "Friðsælt gistiheimili við sjávarsíðuna á Drangsnesi, Vestfjörðum. Sjávarútsýni, heitir pottar, veitingastaður og siglingar til Grímseyjar.",
     images: ["/Malarhorn-Guesthouse-Arjan-Wilmsen-72-scaled.jpg"],
   },
   robots: {
@@ -97,7 +103,7 @@ const jsonLd = {
       logo: `${BASE_URL}/Untitled-200-x-200-px.png`,
       image: `${BASE_URL}/Malarhorn-Guesthouse-Arjan-Wilmsen-72-scaled.jpg`,
       description:
-        "A peaceful seaside guesthouse in Drangsnes, Westfjords Iceland, offering ocean view rooms, a restaurant, hot pots, and sailing tours to Grímsey island.",
+        "Friðsælt gistiheimili við sjávarsíðuna á Drangsnesi, Vestfjörðum, með sjávarútsýni, veitingastað, heitum pottum og siglingum til Grímseyjar.",
       telephone: "",
       email: "malarhorn@malarhornguesthouse.is",
       address: {
@@ -147,7 +153,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable} bg-[#f4f0e8]`}>
+    <html lang="is" className={`${cormorant.variable} ${jost.variable} bg-[#f4f0e8]`}>
       <head>
         {/* Structured Data — JSON-LD */}
         <script

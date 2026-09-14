@@ -12,10 +12,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/giftcard", priority: 0.7, changeFrequency: "monthly" as const },
   ];
 
-  return routes.map(({ path, priority, changeFrequency }) => ({
-    url: `${BASE_URL}${path}`,
-    lastModified: new Date(),
-    changeFrequency,
-    priority,
-  }));
+  return routes.flatMap(({ path, priority, changeFrequency }) => {
+    const isUrl = `${BASE_URL}${path}`;
+    const enUrl = `${BASE_URL}/en${path}`;
+    const alternates = {
+      languages: {
+        is: isUrl,
+        en: enUrl,
+        "x-default": isUrl,
+      },
+    };
+
+    return [
+      {
+        url: isUrl,
+        lastModified: new Date(),
+        changeFrequency,
+        priority,
+        alternates,
+      },
+      {
+        url: enUrl,
+        lastModified: new Date(),
+        changeFrequency,
+        priority,
+        alternates,
+      },
+    ];
+  });
 }

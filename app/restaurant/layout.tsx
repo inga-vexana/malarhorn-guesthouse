@@ -3,31 +3,37 @@ import type { Metadata } from "next";
 const BASE_URL = "https://www.malarhorn.is";
 
 export const metadata: Metadata = {
-  title: "Restaurant",
+  title: "Veitingastaður",
   description:
-    "Malarkaffi restaurant at Malarhorn Guesthouse — fresh Icelandic cuisine with ocean views in Drangsnes, Westfjords. Open daily during summer for lunch and dinner.",
+    "Malarkaffi veitingastaður á Malarhorn Guesthouse — ferskt íslenskt hráefni með sjávarútsýni á Drangsnesi, Vestfjörðum. Opið daglega á sumrin, í hádegi og á kvöldin.",
   alternates: {
     canonical: `${BASE_URL}/restaurant`,
+    languages: {
+      is: `${BASE_URL}/restaurant`,
+      en: `${BASE_URL}/en/restaurant`,
+      "x-default": `${BASE_URL}/restaurant`,
+    },
   },
   openGraph: {
-    title: "Restaurant — Malarhorn Guesthouse",
+    locale: "is_IS",
+    alternateLocale: ["en_US"],
+    title: "Veitingastaður — Malarhorn Guesthouse",
     description:
-      "Malarkaffi restaurant — fresh Icelandic cuisine with ocean views in Drangsnes, Westfjords. Open daily during summer for lunch and dinner.",
+      "Malarkaffi veitingastaður — ferskt íslenskt hráefni með sjávarútsýni á Drangsnesi, Vestfjörðum. Opið daglega á sumrin.",
     url: `${BASE_URL}/restaurant`,
     images: [
       {
         url: "/Malarhorn-Guesthouse-Arjan-Wilmsen-68-scaled.jpg",
         width: 1200,
         height: 630,
-        alt: "Malarkaffi restaurant at Malarhorn Guesthouse, Drangsnes Iceland",
+        alt: "Malarkaffi veitingastaður á Malarhorn Guesthouse, Drangsnesi",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Restaurant — Malarhorn Guesthouse",
-    description:
-      "Malarkaffi — fresh Icelandic cuisine with ocean views in Drangsnes, Westfjords. Open daily during summer.",
+    title: "Veitingastaður — Malarhorn Guesthouse",
+    description: "Malarkaffi — ferskt íslenskt hráefni með sjávarútsýni á Drangsnesi, Vestfjörðum.",
     images: ["/Malarhorn-Guesthouse-Arjan-Wilmsen-68-scaled.jpg"],
   },
 };

@@ -1,7 +1,9 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import type { Lang } from "../lib/types";
+import { getLangFromPathname, localizePath, stripLocalePrefix } from "../lib/i18n";
 
 type LangContextType = {
   lang: Lang;
@@ -10,35 +12,40 @@ type LangContextType = {
 };
 
 const LangContext = createContext<LangContextType>({
-  lang: "en",
+  lang: "is",
   setLang: () => {},
-  mounted: false,
+  mounted: true,
 });
 
+/**
+ * The language is derived entirely from the URL (/en/... vs unprefixed),
+ * so it is correct on the very first server render — no hydration mismatch
+ * and no flash of the wrong language.
+ */
 export function LangProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
-  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const lang = getLangFromPathname(pathname);
 
   useEffect(() => {
-    const stored = localStorage.getItem("malarhorn-lang") as Lang | null;
-    if (stored === "is" || stored === "en") setLangState(stored);
-    setMounted(true);
-  }, []);
+    document.documentElement.lang = lang;
+  }, [lang]);
 
-  const setLang = (l: Lang) => {
-    setLangState(l);
-    localStorage.setItem("malarhorn-lang", l);
+  const setLang = (target: Lang) => {
+    if (target === lang) return;
+    router.push(localizePath(stripLocalePrefix(pathname), target));
   };
 
-  return <LangContext.Provider value={{ lang, setLang, mounted }}>{children}</LangContext.Provider>;
+  return (
+    <LangContext.Provider value={{ lang, setLang, mounted: true }}>{children}</LangContext.Provider>
+  );
 }
 
 export function useLang() {
   return useContext(LangContext);
 }
 
-/** Skilar alltaf "en" þar til eftir hydration til að koma í veg fyrir mismun milli server og client */
+/** Kept for compatibility with existing call sites; lang is always accurate now, on server and client alike. */
 export function useSafeLang() {
-  const { lang, setLang, mounted } = useContext(LangContext);
-  return { lang: mounted ? lang : "en" as Lang, setLang, mounted };
+  return useContext(LangContext);
 }

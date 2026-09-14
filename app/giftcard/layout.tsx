@@ -3,31 +3,37 @@ import type { Metadata } from "next";
 const BASE_URL = "https://www.malarhorn.is";
 
 export const metadata: Metadata = {
-  title: "Gift Cards",
+  title: "Gjafabréf",
   description:
-    "Give the gift of Iceland — Malarhorn Guesthouse gift cards for stays, breakfast, and sailing tours to Grímsey in the Westfjords. Perfect for any occasion.",
+    "Gefðu Ísland að gjöf — gjafabréf frá Malarhorn Guesthouse fyrir gistingu, morgunmat og siglingar til Grímseyjar á Vestfjörðum. Tilvalið fyrir öll tilefni.",
   alternates: {
     canonical: `${BASE_URL}/giftcard`,
+    languages: {
+      is: `${BASE_URL}/giftcard`,
+      en: `${BASE_URL}/en/giftcard`,
+      "x-default": `${BASE_URL}/giftcard`,
+    },
   },
   openGraph: {
-    title: "Gift Cards — Malarhorn Guesthouse",
+    locale: "is_IS",
+    alternateLocale: ["en_US"],
+    title: "Gjafabréf — Malarhorn Guesthouse",
     description:
-      "Give the gift of Iceland — Malarhorn Guesthouse gift cards for stays, breakfast, and sailing tours to Grímsey in the Westfjords.",
+      "Gefðu Ísland að gjöf — gjafabréf frá Malarhorn Guesthouse fyrir gistingu, morgunmat og siglingar til Grímseyjar á Vestfjörðum.",
     url: `${BASE_URL}/giftcard`,
     images: [
       {
         url: "/Malarhorn-Guesthouse-Arjan-Wilmsen-72-scaled.jpg",
         width: 1200,
         height: 630,
-        alt: "Malarhorn Guesthouse gift cards — Westfjords Iceland",
+        alt: "Gjafabréf frá Malarhorn Guesthouse — Vestfjörðum, Íslandi",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Gift Cards — Malarhorn Guesthouse",
-    description:
-      "Give the gift of Iceland — Malarhorn Guesthouse gift cards for stays and sailing tours in the Westfjords.",
+    title: "Gjafabréf — Malarhorn Guesthouse",
+    description: "Gefðu Ísland að gjöf — gjafabréf frá Malarhorn Guesthouse fyrir gistingu og siglingar.",
     images: ["/Malarhorn-Guesthouse-Arjan-Wilmsen-72-scaled.jpg"],
   },
 };
