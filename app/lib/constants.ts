@@ -138,13 +138,23 @@ export const events_data: EventItem[] = [
   },
 ];
 
+// Month names are hardcoded rather than using Intl/toLocaleDateString because
+// Node's SSR ICU data for "is-IS" can be incomplete and silently fall back to
+// English month names, while the browser's full ICU renders Icelandic
+// correctly — causing a server/client hydration mismatch for the same locale.
+const IS_MONTHS = [
+  "janúar", "febrúar", "mars", "apríl", "maí", "júní",
+  "júlí", "ágúst", "september", "október", "nóvember", "desember",
+];
+const EN_MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
 export function formatEventDate(dateStr: string, lang: Lang): string {
-  const date = new Date(`${dateStr}T00:00:00`);
-  return date.toLocaleDateString(lang === "is" ? "is-IS" : "en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const monthName = (lang === "is" ? IS_MONTHS : EN_MONTHS)[month - 1];
+  return lang === "is" ? `${day}. ${monthName} ${year}` : `${day} ${monthName} ${year}`;
 }
 
 export const rooms_data = {
