@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Comfortable rooms and apartments at Malarhorn Guesthouse in Drangsnes, Westfjords Iceland. Ocean views, private bathrooms, and family rooms. Book your stay today.",
   alternates: {
-    canonical: `${BASE_URL}/accommodation`,
+    canonical: `${BASE_URL}/en/accommodation`,
     languages: {
       "is-IS": `${BASE_URL}/accommodation`,
       en: `${BASE_URL}/en/accommodation`,
@@ -18,7 +18,8 @@ export const metadata: Metadata = {
     title: "Accommodation — Malarhorn Guesthouse",
     description:
       "Comfortable rooms and apartments at Malarhorn Guesthouse in Drangsnes, Westfjords Iceland. Ocean views, private bathrooms, and family rooms.",
-    url: `${BASE_URL}/accommodation`,
+    url: `${BASE_URL}/en/accommodation`,
+    locale: "en_US",
     images: [
       {
         url: "/IMG_0529-1-scaled.jpg",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AccommodationLayout({
+export default function AccommodationEnLayout({
   children,
 }: {
   children: React.ReactNode;

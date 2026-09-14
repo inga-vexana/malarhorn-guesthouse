@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
+import { headers } from "next/headers";
 import Script from "next/script";
 import { LangProvider } from "./components/LangContext";
 import Nav from "./components/Nav";
@@ -46,6 +47,11 @@ export const metadata: Metadata = {
   creator: "Malarhorn Guesthouse",
   alternates: {
     canonical: BASE_URL,
+    languages: {
+      "is-IS": BASE_URL,
+      en: `${BASE_URL}/en`,
+      "x-default": BASE_URL,
+    },
   },
   verification: {
     google: "oC1HXMCcfoaJNMuRsaiwT3cFB29Sx4KKf3DNuCpPSvw",
@@ -141,13 +147,16 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = (await headers()).get("x-pathname") ?? "";
+  const htmlLang = pathname.startsWith("/en") ? "en" : "is";
+
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable} bg-[#f4f0e8]`}>
+    <html lang={htmlLang} className={`${cormorant.variable} ${jost.variable} bg-[#f4f0e8]`}>
       <head>
         {/* Structured Data — JSON-LD */}
         <script

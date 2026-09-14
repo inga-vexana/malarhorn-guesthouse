@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Learn about Malarhorn Guesthouse — a family-run seaside retreat in Drangsnes, Westfjords Iceland, founded in 2008 by Valgerður Magnúsdóttir and Ásbjörn Magnússon.",
   alternates: {
-    canonical: `${BASE_URL}/about`,
+    canonical: `${BASE_URL}/en/about`,
     languages: {
       "is-IS": `${BASE_URL}/about`,
       en: `${BASE_URL}/en/about`,
@@ -18,7 +18,8 @@ export const metadata: Metadata = {
     title: "About Malarhorn — Malarhorn Guesthouse",
     description:
       "A family-run seaside retreat in Drangsnes, Westfjords Iceland, founded in 2008. Ocean views, fresh coastal air, and warm Icelandic hospitality.",
-    url: `${BASE_URL}/about`,
+    url: `${BASE_URL}/en/about`,
+    locale: "en_US",
     images: [
       {
         url: "/Malarhorn-Guesthouse-Arjan-Wilmsen-72-scaled.jpg",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutLayout({
+export default function AboutEnLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import type { Lang } from "../lib/types";
 
 type LangContextType = {
@@ -9,36 +10,42 @@ type LangContextType = {
   mounted: boolean;
 };
 
-const LangContext = createContext<LangContextType>({
-  lang: "en",
-  setLang: () => {},
-  mounted: false,
-});
+const LangContext = createContext<LangContextType | null>(null);
+
+/** Strips a leading "/en" segment from a pathname, e.g. "/en/about" -> "/about". */
+function stripEnPrefix(pathname: string): string {
+  if (pathname === "/en") return "/";
+  if (pathname.startsWith("/en/")) return pathname.slice(3);
+  return pathname;
+}
 
 export function LangProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
-  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
-  useEffect(() => {
-    const stored = localStorage.getItem("malarhorn-lang") as Lang | null;
-    if (stored === "is" || stored === "en") setLangState(stored);
-    setMounted(true);
-  }, []);
+  const lang: Lang = pathname.startsWith("/en") ? "en" : "is";
 
   const setLang = (l: Lang) => {
-    setLangState(l);
-    localStorage.setItem("malarhorn-lang", l);
+    const base = stripEnPrefix(pathname);
+    const query = typeof window !== "undefined" ? window.location.search : "";
+    const nextPath = l === "en" ? (base === "/" ? "/en" : `/en${base}`) : base;
+    router.push(`${nextPath}${query}`);
   };
 
-  return <LangContext.Provider value={{ lang, setLang, mounted }}>{children}</LangContext.Provider>;
+  return (
+    <LangContext.Provider value={{ lang, setLang, mounted: true }}>
+      {children}
+    </LangContext.Provider>
+  );
 }
 
 export function useLang() {
-  return useContext(LangContext);
+  const ctx = useContext(LangContext);
+  if (!ctx) throw new Error("useLang must be used within a LangProvider");
+  return ctx;
 }
 
-/** Skilar alltaf "en" þar til eftir hydration til að koma í veg fyrir mismun milli server og client */
+/** Lang is derived from the URL, so it is always correct on both server and client — no hydration guard needed. */
 export function useSafeLang() {
-  const { lang, setLang, mounted } = useContext(LangContext);
-  return { lang: mounted ? lang : "en" as Lang, setLang, mounted };
+  return useLang();
 }
