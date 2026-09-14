@@ -383,7 +383,8 @@ button {
   background: var(--tc);
 }
 
-.himg-photo {
+.himg-photo,
+.show-mobile {
   display: none;
 }
 
@@ -2027,11 +2028,11 @@ footer {
     width: 62%;
   }
 
-  .himg-video {
+  .hide-mobile {
     display: none;
   }
 
-  .himg-photo {
+  .show-mobile {
     display: block;
   }
 

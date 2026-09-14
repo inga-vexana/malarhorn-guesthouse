@@ -56,12 +56,12 @@ export default function HomePage() {
           </div>
         </div>
         <div className="him">
-          <div className="himg himg-video">
+          <div className="himg himg-video hide-mobile">
             <video autoPlay muted loop playsInline>
               <source src="/hero.mp4" type="video/mp4" />
             </video>
           </div>
-          <div className="himg himg-photo">
+          <div className="himg himg-photo show-mobile">
             <img
               src="/images/hero-mobile.jpg"
               alt={is ? "Malarhorn Guesthouse séð frá klettum" : "Malarhorn Guesthouse seen from the rocks"}
