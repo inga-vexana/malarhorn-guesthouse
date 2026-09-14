@@ -72,7 +72,7 @@ export const events_data: EventItem[] = [
     endDate: "2026-10-04",
     location: "Malarhorn, Grundargötu 17, 520 Drangsnes",
     description: {
-      is: "Gefðu þér helgi til að hægja á, stíga út úr amstri dagsins og finna innri ró í kyrrðinni við sjóinn.",
+      is: "Gefðu þér helgi til að hægja á, stíga út úr amstri dagsins og finna innri ró\u00A0í\u00A0kyrrðinni\u00A0við\u00A0sjóinn.",
       en: "Give yourself a weekend to slow down, step out of the rush of everyday life, and find inner calm by the sea.",
     },
     image: "/hjartad-nordur-a-drangsnes-retreat.png",
