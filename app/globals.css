@@ -383,6 +383,19 @@ button {
   background: var(--tc);
 }
 
+.himg-photo {
+  display: none;
+}
+
+.himg-photo img {
+  height: 100%;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
 .hbg {
   background: rgb(26 24 20 / 72%);
   backdrop-filter: blur(8px);
@@ -2012,6 +2025,14 @@ footer {
     min-height: 190px;
     overflow: hidden;
     width: 62%;
+  }
+
+  .himg-video {
+    display: none;
+  }
+
+  .himg-photo {
+    display: block;
   }
 
   .hbg {
