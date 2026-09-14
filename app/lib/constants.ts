@@ -76,7 +76,7 @@ export const events_data: EventItem[] = [
       en: "Give yourself a weekend to slow down, step out of the rush of everyday life, and find inner calm by the sea.",
     },
     image: "/hjartad-nordur-a-drangsnes-retreat.png",
-    cardImage: "/guesthouse-exterior.jpg",
+    cardImage: "/hjartad-nordur-a-drangsnes-card.png",
     imageAlt: {
       is: "Hjartað norður á Drangsnes — Retreat með Helga Jean á Malarhorni",
       en: "Heart North to Drangsnes — retreat with Helgi Jean at Malarhorn",
