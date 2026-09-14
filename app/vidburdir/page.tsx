@@ -44,9 +44,9 @@ export default function EventsPage() {
               const href = `/vidburdir/${e.slug}`;
               return (
                 <article className="evtCard" key={e.id}>
-                  {e.image ? (
+                  {e.cardImage ?? e.image ? (
                     <Link href={href} className="evtImageLink" aria-label={pick(e.title, LANG)}>
-                      <Photo src={e.image} className="evtImage" />
+                      <Photo src={e.cardImage ?? e.image!} className="evtImage" />
                     </Link>
                   ) : null}
                   <div className="evtCardBody">
@@ -75,12 +75,6 @@ export default function EventsPage() {
             })}
           </div>
         )}
-
-        <div className="evtCta">
-          <p className="evtCtaText">
-            Viltu tryggja þér gistingu fyrir næsta viðburð?
-          </p>
-        </div>
       </section>
     </>
   );
