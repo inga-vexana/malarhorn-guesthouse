@@ -67,7 +67,7 @@ export default function Nav() {
                   <div className="drop">
                     <Link href={localize("/about")}>{label}</Link>
                     <Link href={localize("/guest")}>{t.guest}</Link>
-                    <Link href={localize("/vidburdir")}>{t.events}</Link>
+                    {lang === "is" && <Link href="/vidburdir">{t.events}</Link>}
                   </div>
                 </>
               ) : (
@@ -138,15 +138,17 @@ export default function Nav() {
               {t.guest}
             </Link>
           </li>
-          <li>
-            <Link
-              className="mobileMenuLink"
-              href={localize("/vidburdir")}
-              onClick={() => setMenuOpen(false)}
-            >
-              {t.events}
-            </Link>
-          </li>
+          {lang === "is" && (
+            <li>
+              <Link
+                className="mobileMenuLink"
+                href="/vidburdir"
+                onClick={() => setMenuOpen(false)}
+              >
+                {t.events}
+              </Link>
+            </li>
+          )}
         </ul>
         <div className="mobileMenuFooter">
           <div className="lgt" aria-label="Language">
