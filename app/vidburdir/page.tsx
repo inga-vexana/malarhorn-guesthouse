@@ -21,7 +21,7 @@ export default function EventsPage() {
       <PageHeader
         eyebrow="Á Malarhorni"
         title="Viðburðir"
-        text="Fylgstu með því sem er í gangi á Malarhorni — frá árstíðabundnum viðburðum til sérstakra kvölda í Malarkaffi."
+        text="Fylgstu með því sem er í gangi á Malarhorni."
       />
 
       <section className="evtSection">
