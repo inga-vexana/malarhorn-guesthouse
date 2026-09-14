@@ -28,6 +28,7 @@ export type EventItem = {
   location?: string;
   description: LocalizedText;
   image?: string;
+  cardImage?: string;
   imageAlt?: LocalizedText;
   detail?: EventDetail;
 };
