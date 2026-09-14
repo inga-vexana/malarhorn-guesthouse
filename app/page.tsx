@@ -40,6 +40,15 @@ export default function HomePage() {
           <div className="ctas">
             <BookingLink className="bp">{is ? "Bóka herbergi" : "Book room"}</BookingLink>
           </div>
+          <img
+            className="hmob"
+            src="/IMG_0132.jpg"
+            alt={
+              is
+                ? "Malarhorn Guesthouse séð yfir hlaðinn grjótgarð"
+                : "Malarhorn Guesthouse viewed over a stone wall"
+            }
+          />
           <div className="hst">
             <div>
               <div className="sn">5</div>
