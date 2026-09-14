@@ -25,7 +25,6 @@ export async function generateMetadata({
       canonical: `${BASE_URL}/vidburdir/${slug}`,
       languages: {
         "is-IS": `${BASE_URL}/vidburdir/${slug}`,
-        en: `${BASE_URL}/en/vidburdir/${slug}`,
         "x-default": `${BASE_URL}/vidburdir/${slug}`,
       },
     },

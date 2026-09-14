@@ -10,7 +10,6 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/vidburdir`,
     languages: {
       "is-IS": `${BASE_URL}/vidburdir`,
-      en: `${BASE_URL}/en/vidburdir`,
       "x-default": `${BASE_URL}/vidburdir`,
     },
   },

@@ -3,10 +3,15 @@
 import { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { useSafeLang } from "../../components/LangContext";
 import { Photo } from "../../components/shared";
 import { BookingLink } from "../../components/BookingLink";
 import { events_data, formatEventDate, pick } from "../../lib/constants";
+
+// This route is Icelandic-only (there is no /en/vidburdir equivalent), so the
+// locale is a fixed constant rather than derived from any client-side
+// context. That keeps the server-rendered HTML and the initial client render
+// byte-identical, with no possibility of a hydration mismatch.
+const LANG = "is" as const;
 
 export default function EventDetailPage({
   params,
@@ -14,15 +19,13 @@ export default function EventDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
-  const { lang } = useSafeLang();
-  const is = lang === "is";
   const event = events_data.find((e) => e.slug === slug);
 
   if (!event) {
     notFound();
   }
 
-  const backHref = is ? "/vidburdir" : "/en/vidburdir";
+  const backHref = "/vidburdir";
   const d = event.detail;
 
   return (
@@ -39,20 +42,20 @@ export default function EventDetailPage({
 
       <section className="evtDetailSection">
         <Link href={backHref} className="evtBack">
-          &larr; {is ? "Allir viðburðir" : "All events"}
+          &larr; Allir viðburðir
         </Link>
 
         <p className="evtDate evtDetailDate">
-          {formatEventDate(event.startDate, lang)}
+          {formatEventDate(event.startDate, LANG)}
           {event.endDate && event.endDate !== event.startDate
-            ? ` – ${formatEventDate(event.endDate, lang)}`
+            ? ` – ${formatEventDate(event.endDate, LANG)}`
             : ""}
           {event.time ? ` · ${event.time}` : ""}
         </p>
 
-        <h1 className="evtDetailTitle">{pick(event.title, lang)}</h1>
+        <h1 className="evtDetailTitle">{pick(event.title, LANG)}</h1>
         {event.subtitle ? (
-          <p className="evtDetailSubtitle">{pick(event.subtitle, lang)}</p>
+          <p className="evtDetailSubtitle">{pick(event.subtitle, LANG)}</p>
         ) : null}
         {event.location ? (
           <p className="evtLocation evtDetailLocation">{event.location}</p>
@@ -61,7 +64,7 @@ export default function EventDetailPage({
         {d?.intro ? (
           <div className="evtDetailProse">
             {d.intro.map((p, i) => (
-              <p key={i}>{pick(p, lang)}</p>
+              <p key={i}>{pick(p, LANG)}</p>
             ))}
           </div>
         ) : null}
@@ -69,18 +72,18 @@ export default function EventDetailPage({
         {d?.forWhomList ? (
           <div className="evtDetailBlock">
             {d.forWhomTitle ? (
-              <h2 className="evtDetailBlockTitle">{pick(d.forWhomTitle, lang)}</h2>
+              <h2 className="evtDetailBlockTitle">{pick(d.forWhomTitle, LANG)}</h2>
             ) : null}
             {d.forWhomIntro ? (
-              <p className="evtDetailBlockIntro">{pick(d.forWhomIntro, lang)}</p>
+              <p className="evtDetailBlockIntro">{pick(d.forWhomIntro, LANG)}</p>
             ) : null}
             <ul className="evtDetailList">
               {d.forWhomList.map((item, i) => (
-                <li key={i}>{pick(item, lang)}</li>
+                <li key={i}>{pick(item, LANG)}</li>
               ))}
             </ul>
             {d.forWhomOutro ? (
-              <p className="evtDetailBlockOutro">{pick(d.forWhomOutro, lang)}</p>
+              <p className="evtDetailBlockOutro">{pick(d.forWhomOutro, LANG)}</p>
             ) : null}
           </div>
         ) : null}
@@ -88,11 +91,11 @@ export default function EventDetailPage({
         {d?.includedList ? (
           <div className="evtDetailBlock">
             {d.includedTitle ? (
-              <h2 className="evtDetailBlockTitle">{pick(d.includedTitle, lang)}</h2>
+              <h2 className="evtDetailBlockTitle">{pick(d.includedTitle, LANG)}</h2>
             ) : null}
             <ul className="evtDetailList">
               {d.includedList.map((item, i) => (
-                <li key={i}>{pick(item, lang)}</li>
+                <li key={i}>{pick(item, LANG)}</li>
               ))}
             </ul>
           </div>
@@ -101,32 +104,30 @@ export default function EventDetailPage({
         {d?.priceList ? (
           <div className="evtDetailBlock evtDetailPriceBlock">
             {d.priceTitle ? (
-              <h2 className="evtDetailBlockTitle">{pick(d.priceTitle, lang)}</h2>
+              <h2 className="evtDetailBlockTitle">{pick(d.priceTitle, LANG)}</h2>
             ) : null}
             <ul className="evtDetailPriceList">
               {d.priceList.map((item, i) => (
-                <li key={i}>{pick(item, lang)}</li>
+                <li key={i}>{pick(item, LANG)}</li>
               ))}
             </ul>
           </div>
         ) : null}
 
         {d?.closing ? (
-          <p className="evtDetailClosing">{pick(d.closing, lang)}</p>
+          <p className="evtDetailClosing">{pick(d.closing, LANG)}</p>
         ) : null}
 
         <div className="evtDetailCta">
           {d?.bookingEmail ? (
             <p className="evtDetailBookingText">
-              {is ? "Bókanir og frekari upplýsingar:" : "Bookings and further information:"}{" "}
+              Bókanir og frekari upplýsingar:{" "}
               <a href={`mailto:${d.bookingEmail}`} className="evtEmptyLink">
                 {d.bookingEmail}
               </a>
             </p>
           ) : null}
-          <BookingLink className="bp">
-            {is ? "Bóka gistingu" : "Book your stay"}
-          </BookingLink>
+          <BookingLink className="bp">Bóka gistingu</BookingLink>
         </div>
       </section>
     </>
