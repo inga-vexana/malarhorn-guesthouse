@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 const BASE_URL = "https://www.malarhorn.is";
-const DISALLOW = ["/api/", "/guest/", "/en/guest/", "/upload-video/", "/en/upload-video/"];
+const DISALLOW = ["/api/", "/upload-video/", "/en/upload-video/"];
 
 export default function robots(): MetadataRoute.Robots {
   return {
