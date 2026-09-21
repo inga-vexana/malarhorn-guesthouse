@@ -2,10 +2,15 @@
 
 import { useSafeLang } from "./LangContext";
 import { translations } from "../lib/constants";
+import { OPEN_COOKIE_PREFERENCES_EVENT } from "./CookieConsent";
 
 export default function Footer() {
   const { lang } = useSafeLang();
   const t = translations[lang];
+
+  const openCookiePreferences = () => {
+    window.dispatchEvent(new CustomEvent(OPEN_COOKIE_PREFERENCES_EVENT));
+  };
 
   return (
     <footer>
@@ -39,6 +44,9 @@ export default function Footer() {
       <div className="fb2">
         <p>&copy; 2026 Malarhorn Guesthouse</p>
         <div className="fso">
+          <button type="button" className="cc-footer-link" onClick={openCookiePreferences}>
+            {lang === "en" ? "Cookie settings" : "Stilla vafrakökur"}
+          </button>
           <a
             href="https://www.facebook.com/profile.php?id=100063630351484"
             target="_blank"

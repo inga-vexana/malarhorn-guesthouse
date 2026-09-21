@@ -33,6 +33,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
       changeFrequency: "monthly" as const,
     },
+    {
+      isPath: "/vafrakokur",
+      enPath: "/cookie-policy",
+      priority: 0.3,
+      changeFrequency: "yearly" as const,
+    },
   ];
 
   // The events pages are only available in Icelandic, so they are listed without an English alternate.
