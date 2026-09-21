@@ -6,6 +6,8 @@ import { LangProvider } from "./components/LangContext";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import TrackingCapture from "./components/TrackingCapture";
+import CookieConsent from "./components/CookieConsent";
+import { getConsentInitScript } from "./lib/consent";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -103,34 +105,28 @@ export default async function RootLayout({
   return (
     <html lang={htmlLang} className={`${cormorant.variable} ${jost.variable} bg-[#f4f0e8]`}>
       <head>
-        {/* Google Tag Manager */}
+        {/*
+          Google Consent Mode v2 (Basic Consent Mode): initializes dataLayer
+          and sets consent defaults to "denied" before anything else runs.
+          Google Tag Manager (GTM-5HNKH2TD) is only requested from this
+          script if a stored, unexpired consent choice already granted an
+          optional category — otherwise it stays unloaded until the visitor
+          responds to the cookie banner. This must run before any other
+          script, so it uses strategy="beforeInteractive".
+        */}
         <Script
-          id="gtm-script"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5HNKH2TD');`,
-          }}
+          id="consent-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: getConsentInitScript() }}
         />
       </head>
       <body>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-5HNKH2TD"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
         <TrackingCapture />
         <LangProvider>
           <Nav />
           <main>{children}</main>
           <Footer />
+          <CookieConsent />
         </LangProvider>
       </body>
     </html>
