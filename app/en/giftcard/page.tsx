@@ -1,1 +1,1 @@
-export { default } from "../../giftcard/page";
+export { default } from "../../gjafakort/page";

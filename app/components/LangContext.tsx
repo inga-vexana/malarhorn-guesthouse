@@ -12,6 +12,25 @@ type LangContextType = {
 
 const LangContext = createContext<LangContextType | null>(null);
 
+/**
+ * Icelandic and English pages live at different slugs (e.g. "/gisting" vs
+ * "/accommodation"), so switching languages needs an explicit mapping rather
+ * than a shared path with a "/en" prefix.
+ */
+const IS_TO_EN: Record<string, string> = {
+  "/gisting": "/accommodation",
+  "/veitingastadur": "/restaurant",
+  "/siglingar": "/sailing",
+  "/um-okkur": "/about",
+  "/gestir": "/guest",
+  "/bokun": "/booking",
+  "/gjafakort": "/giftcard",
+};
+
+const EN_TO_IS: Record<string, string> = Object.fromEntries(
+  Object.entries(IS_TO_EN).map(([is, en]) => [en, is])
+);
+
 /** Strips a leading "/en" segment from a pathname, e.g. "/en/about" -> "/about". */
 function stripEnPrefix(pathname: string): string {
   if (pathname === "/en") return "/";
@@ -28,7 +47,15 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
   const setLang = (l: Lang) => {
     const base = stripEnPrefix(pathname);
     const query = typeof window !== "undefined" ? window.location.search : "";
-    const nextPath = l === "en" ? (base === "/" ? "/en" : `/en${base}`) : base;
+
+    let nextBase = base;
+    if (l === "en" && base !== "/") {
+      nextBase = IS_TO_EN[base] ?? base;
+    } else if (l === "is" && base !== "/") {
+      nextBase = EN_TO_IS[base] ?? base;
+    }
+
+    const nextPath = l === "en" ? (nextBase === "/" ? "/en" : `/en${nextBase}`) : nextBase;
     router.push(`${nextPath}${query}`);
   };
 

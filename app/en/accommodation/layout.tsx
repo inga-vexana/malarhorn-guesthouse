@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${BASE_URL}/en/accommodation`,
     languages: {
-      "is-IS": `${BASE_URL}/accommodation`,
+      "is-IS": `${BASE_URL}/gisting`,
       en: `${BASE_URL}/en/accommodation`,
       "x-default": `${BASE_URL}/accommodation`,
     },

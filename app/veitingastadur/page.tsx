@@ -3,7 +3,43 @@
 import { useState } from "react";
 import { useSafeLang } from "../components/LangContext";
 import { PageHeader, Photo } from "../components/shared";
-import { images } from "../lib/constants";
+import { images, MENU } from "../lib/constants";
+
+const BASE_URL = "https://www.malarhorn.is";
+
+const restaurantJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "@id": `${BASE_URL}/#restaurant`,
+  name: "Malarkaffi",
+  url: `${BASE_URL}/veitingastadur`,
+  description:
+    "Malarkaffi is the family-run summer restaurant at Malarhorn Guesthouse in Drangsnes, offering food and drinks in a warm atmosphere with beautiful sea views.",
+  image: [`${BASE_URL}${images.restaurant}`],
+  menu: `${BASE_URL}${MENU}`,
+  telephone: "+3544614345",
+  email: "malarhorn@malarhornguesthouse.is",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Grundargata 17",
+    postalCode: "520",
+    addressLocality: "Drangsnes",
+    addressRegion: "Westfjords",
+    addressCountry: "IS",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 65.689684,
+    longitude: -21.435367,
+  },
+  parentOrganization: {
+    "@id": `${BASE_URL}/#lodging`,
+  },
+  sameAs: [
+    "https://www.facebook.com/profile.php?id=100063630351484",
+    "https://www.instagram.com/malarhornguesthouse/",
+  ],
+};
 
 type MenuItem = {
   nameIs: string;
@@ -184,6 +220,10 @@ export default function RestaurantPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd).replace(/</g, "\\u003c") }}
+      />
       <PageHeader
         eyebrow={is ? "Matur og drykkur" : "Food & drink"}
         title={is ? "Veitingastaður" : "Restaurant"}

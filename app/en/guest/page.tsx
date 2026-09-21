@@ -1,1 +1,1 @@
-export { default } from "../../guest/page";
+export { default } from "../../gestir/page";

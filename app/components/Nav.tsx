@@ -9,16 +9,16 @@ import { BookingLink } from "./BookingLink";
 
 const LOGO = "/Untitled-200-x-200-px.png";
 
-const pageToPath: Record<string, string> = {
-  home: "/",
-  accommodation: "/accommodation",
-  restaurant: "/restaurant",
-  sailing: "/sailing",
-  about: "/about",
-  guest: "/guest",
-  booking: "/booking",
-  giftcard: "/giftcard",
-  events: "/vidburdir",
+const pageToPath: Record<string, { is: string; en: string }> = {
+  home: { is: "/", en: "/" },
+  accommodation: { is: "/gisting", en: "/accommodation" },
+  restaurant: { is: "/veitingastadur", en: "/restaurant" },
+  sailing: { is: "/siglingar", en: "/sailing" },
+  about: { is: "/um-okkur", en: "/about" },
+  guest: { is: "/gestir", en: "/guest" },
+  booking: { is: "/bokun", en: "/booking" },
+  giftcard: { is: "/gjafakort", en: "/giftcard" },
+  events: { is: "/vidburdir", en: "/vidburdir" },
 };
 
 export default function Nav() {
@@ -26,11 +26,16 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const t = translations[mounted ? lang : "en"];
-  const prefix = lang === "en" ? "/en" : "";
-  const localize = (path: string) => (path === "/" ? prefix || "/" : `${prefix}${path}`);
+  const activeLang = mounted ? lang : "en";
+
+  const localize = (key: string) => {
+    const path = pageToPath[key][activeLang];
+    if (activeLang === "en") return path === "/" ? "/en" : `/en${path}`;
+    return path;
+  };
 
   const isActive = (key: string) => {
-    const path = pageToPath[key];
+    const path = pageToPath[key][activeLang];
     const currentPath = pathname.startsWith("/en")
       ? pathname === "/en"
         ? "/"
@@ -43,7 +48,7 @@ export default function Nav() {
   return (
     <>
       <nav className="nav">
-        <Link className="logo" href={localize("/")} aria-label="Malarhorn home">
+        <Link className="logo" href={localize("home")} aria-label="Malarhorn home">
           <img src={LOGO} alt="Malarhorn" />
         </Link>
         <ul className="nl">
@@ -52,7 +57,7 @@ export default function Nav() {
               {key === "restaurant" ? (
                 <Link
                   className={`navLinkButton ${isActive(key) ? "on" : ""}`}
-                  href={localize(pageToPath[key])}
+                  href={localize(key)}
                 >
                   {label}
                 </Link>
@@ -60,20 +65,20 @@ export default function Nav() {
                 <>
                   <Link
                     className={`navLinkButton ${isActive(key) ? "on" : ""}`}
-                    href={localize(pageToPath[key])}
+                    href={localize(key)}
                   >
                     {label}
                   </Link>
                   <div className="drop">
-                    <Link href={localize("/about")}>{label}</Link>
-                    <Link href={localize("/guest")}>{t.guest}</Link>
-                    {lang === "is" && <Link href="/vidburdir">{t.events}</Link>}
+                    <Link href={localize("about")}>{label}</Link>
+                    <Link href={localize("guest")}>{t.guest}</Link>
+                    {lang === "is" && <Link href={localize("events")}>{t.events}</Link>}
                   </div>
                 </>
               ) : (
                 <Link
                   className={`navLinkButton ${isActive(key) ? "on" : ""}`}
-                  href={localize(pageToPath[key])}
+                  href={localize(key)}
                   onClick={() => setMenuOpen(false)}
                 >
                   {label}
@@ -122,7 +127,7 @@ export default function Nav() {
             <li key={key}>
               <Link
                 className={`mobileMenuLink ${isActive(key) ? "on" : ""}`}
-                href={localize(pageToPath[key])}
+                href={localize(key)}
                 onClick={() => setMenuOpen(false)}
               >
                 {label}
@@ -132,7 +137,7 @@ export default function Nav() {
           <li>
             <Link
               className="mobileMenuLink"
-              href={localize("/guest")}
+              href={localize("guest")}
               onClick={() => setMenuOpen(false)}
             >
               {t.guest}
@@ -142,7 +147,7 @@ export default function Nav() {
             <li>
               <Link
                 className="mobileMenuLink"
-                href="/vidburdir"
+                href={localize("events")}
                 onClick={() => setMenuOpen(false)}
               >
                 {t.events}

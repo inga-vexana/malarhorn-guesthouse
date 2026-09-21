@@ -7,18 +7,18 @@ export const metadata: Metadata = {
   description:
     "Give the gift of Iceland — Malarhorn Guesthouse gift cards for stays, breakfast, and sailing tours to Grímsey in the Westfjords. Perfect for any occasion.",
   alternates: {
-    canonical: `${BASE_URL}/giftcard`,
+    canonical: `${BASE_URL}/gjafakort`,
     languages: {
-      "is-IS": `${BASE_URL}/giftcard`,
+      "is-IS": `${BASE_URL}/gjafakort`,
       en: `${BASE_URL}/en/giftcard`,
-      "x-default": `${BASE_URL}/giftcard`,
+      "x-default": `${BASE_URL}/gjafakort`,
     },
   },
   openGraph: {
     title: "Gift Cards — Malarhorn Guesthouse",
     description:
       "Give the gift of Iceland — Malarhorn Guesthouse gift cards for stays, breakfast, and sailing tours to Grímsey in the Westfjords.",
-    url: `${BASE_URL}/giftcard`,
+    url: `${BASE_URL}/gjafakort`,
     images: [
       {
         url: "/Malarhorn-Guesthouse-Arjan-Wilmsen-72-scaled.jpg",

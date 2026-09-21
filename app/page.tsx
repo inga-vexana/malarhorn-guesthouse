@@ -16,12 +16,75 @@ type SearchParams = {
   promoCode: string;
 };
 
+const BASE_URL = "https://www.malarhorn.is";
+
+const lodgingJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  "@id": `${BASE_URL}/#lodging`,
+  name: "Malarhorn Guesthouse",
+  alternateName: "Malarhorn",
+  url: BASE_URL,
+  description:
+    "Malarhorn Guesthouse is nestled in the peaceful fishing village of Drangsnes in the Westfjords, surrounded by breathtaking nature and beautiful sea views. Choose from cosy double and twin rooms, spacious family rooms or fully equipped apartments. During the summer, guests can enjoy breakfast, dine at Malarkaffi and explore the area on scenic boat tours. The geothermal swimming pool and seaside hot tubs are just a short walk away.",
+  image: [
+    `${BASE_URL}${images.stayDine}`,
+    `${BASE_URL}${images.about}`,
+    `${BASE_URL}${images.guesthouse}`,
+    `${BASE_URL}${images.hotPots}`,
+  ],
+  telephone: "+3544614345",
+  email: "malarhorn@malarhornguesthouse.is",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Grundargata 17",
+    postalCode: "520",
+    addressLocality: "Drangsnes",
+    addressRegion: "Westfjords",
+    addressCountry: "IS",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 65.689684,
+    longitude: -21.435367,
+  },
+  checkinTime: "15:00",
+  checkoutTime: "11:00",
+  hasMap: "https://www.google.com/maps/search/?api=1&query=Grundargata+17%2C+520+Drangsnes%2C+Iceland",
+  sameAs: [
+    "https://www.facebook.com/profile.php?id=100063630351484",
+    "https://www.instagram.com/malarhornguesthouse/",
+    "https://www.tiktok.com/@malarhorn",
+    "https://www.youtube.com/@MalarhornGuesthouse",
+    "https://www.rednote.com/user/profile/6a83afdb000000000301d20d",
+  ],
+  potentialAction: {
+    "@type": "ReserveAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://online.bookvisit.com/accommodation?channelId=5780d487-02bc-4988-8121-30c65f421168",
+      actionPlatform: [
+        "https://schema.org/DesktopWebPlatform",
+        "https://schema.org/MobileWebPlatform",
+      ],
+    },
+    result: {
+      "@type": "LodgingReservation",
+      name: "Book accommodation at Malarhorn Guesthouse",
+    },
+  },
+};
+
 export default function HomePage() {
   const { lang } = useSafeLang();
   const is = lang === "is";
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingJsonLd).replace(/</g, "\\u003c") }}
+      />
       <section className="hero">
         <div className="ht">
           <span className="htag">{is ? "Vestfirðir, Ísland" : "Westfjords, Iceland"}</span>
@@ -72,14 +135,14 @@ export default function HomePage() {
         <div className="sg">
           {[
             [
-              "/accommodation",
+              is ? "/gisting" : "/accommodation",
               is ? "Gisting" : "Accommodation",
               is
                 ? "Þægileg herbergi og íbúðir með útsýni yfir hafið."
                 : "Comfortable rooms and apartments with ocean views.",
             ],
             [
-              "/restaurant",
+              is ? "/veitingastadur" : "/restaurant",
               is ? "Veitingastaður" : "Restaurant",
               is
                 ? "Ferskt íslenskt hráefni í hlýu andrúmslofti."
@@ -87,7 +150,7 @@ export default function HomePage() {
               is ? "Aðeins á sumrin, lokar 30. september" : "Summer season only, closes September 30",
             ],
             [
-              "/sailing",
+              is ? "/siglingar" : "/sailing",
               is ? "Siglingar" : "Sailing",
               is
                 ? "Ævintýrasigling út í Grímsey."

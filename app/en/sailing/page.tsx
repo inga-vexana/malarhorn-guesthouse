@@ -1,1 +1,1 @@
-export { default } from "../../sailing/page";
+export { default } from "../../siglingar/page";

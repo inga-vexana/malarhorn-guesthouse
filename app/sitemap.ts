@@ -4,13 +4,35 @@ import { events_data } from "./lib/constants";
 const BASE_URL = "https://www.malarhorn.is";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Icelandic and English pages live at different slugs (e.g. "/gisting" vs
+  // "/accommodation"), so each route lists both paths explicitly.
   const routes = [
-    { path: "", priority: 1.0, changeFrequency: "weekly" as const },
-    { path: "/accommodation", priority: 0.9, changeFrequency: "monthly" as const },
-    { path: "/restaurant", priority: 0.8, changeFrequency: "monthly" as const },
-    { path: "/sailing", priority: 0.8, changeFrequency: "monthly" as const },
-    { path: "/about", priority: 0.7, changeFrequency: "yearly" as const },
-    { path: "/giftcard", priority: 0.7, changeFrequency: "monthly" as const },
+    { isPath: "", enPath: "", priority: 1.0, changeFrequency: "weekly" as const },
+    {
+      isPath: "/gisting",
+      enPath: "/accommodation",
+      priority: 0.9,
+      changeFrequency: "monthly" as const,
+    },
+    {
+      isPath: "/veitingastadur",
+      enPath: "/restaurant",
+      priority: 0.8,
+      changeFrequency: "monthly" as const,
+    },
+    {
+      isPath: "/siglingar",
+      enPath: "/sailing",
+      priority: 0.8,
+      changeFrequency: "monthly" as const,
+    },
+    { isPath: "/um-okkur", enPath: "/about", priority: 0.7, changeFrequency: "yearly" as const },
+    {
+      isPath: "/gjafakort",
+      enPath: "/giftcard",
+      priority: 0.7,
+      changeFrequency: "monthly" as const,
+    },
   ];
 
   // The events pages are only available in Icelandic, so they are listed without an English alternate.
@@ -23,24 +45,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  const localizedEntries = routes.flatMap(({ path, priority, changeFrequency }) => {
+  const localizedEntries = routes.flatMap(({ isPath, enPath, priority, changeFrequency }) => {
     const alternates = {
       languages: {
-        "is-IS": `${BASE_URL}${path}`,
-        en: `${BASE_URL}/en${path}`,
+        "is-IS": `${BASE_URL}${isPath}`,
+        en: `${BASE_URL}/en${enPath}`,
       },
     };
 
     return [
       {
-        url: `${BASE_URL}${path}`,
+        url: `${BASE_URL}${isPath}`,
         lastModified: new Date(),
         changeFrequency,
         priority,
         alternates,
       },
       {
-        url: `${BASE_URL}/en${path}`,
+        url: `${BASE_URL}/en${enPath}`,
         lastModified: new Date(),
         changeFrequency,
         priority,
