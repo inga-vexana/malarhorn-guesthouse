@@ -84,7 +84,7 @@ export default function HomePage() {
               is
                 ? "Ferskt íslenskt hráefni í hlýu andrúmslofti. Opið aðeins á sumrin."
                 : "Fresh local cuisine in a warm atmosphere. Open in summer.",
-              is ? "Lokað 30. september" : "Closes September 30",
+              is ? "Aðeins á sumrin, lokað 30. september" : "Summer season only, closes September 30",
             ],
             [
               "/sailing",
