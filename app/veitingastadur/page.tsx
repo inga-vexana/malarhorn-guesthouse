@@ -12,7 +12,7 @@ const restaurantJsonLd = {
   "@type": "Restaurant",
   "@id": `${BASE_URL}/#restaurant`,
   name: "Malarkaffi",
-  url: `${BASE_URL}/restaurant`,
+  url: `${BASE_URL}/veitingastadur`,
   description:
     "Malarkaffi is the family-run summer restaurant at Malarhorn Guesthouse in Drangsnes, offering food and drinks in a warm atmosphere with beautiful sea views.",
   image: [`${BASE_URL}${images.restaurant}`],

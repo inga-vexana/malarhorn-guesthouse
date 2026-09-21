@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${BASE_URL}/en/giftcard`,
     languages: {
-      "is-IS": `${BASE_URL}/giftcard`,
+      "is-IS": `${BASE_URL}/gjafakort`,
       en: `${BASE_URL}/en/giftcard`,
       "x-default": `${BASE_URL}/giftcard`,
     },

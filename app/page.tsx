@@ -135,14 +135,14 @@ export default function HomePage() {
         <div className="sg">
           {[
             [
-              "/accommodation",
+              is ? "/gisting" : "/accommodation",
               is ? "Gisting" : "Accommodation",
               is
                 ? "Þægileg herbergi og íbúðir með útsýni yfir hafið."
                 : "Comfortable rooms and apartments with ocean views.",
             ],
             [
-              "/restaurant",
+              is ? "/veitingastadur" : "/restaurant",
               is ? "Veitingastaður" : "Restaurant",
               is
                 ? "Ferskt íslenskt hráefni í hlýu andrúmslofti."
@@ -150,7 +150,7 @@ export default function HomePage() {
               is ? "Aðeins á sumrin, lokar 30. september" : "Summer season only, closes September 30",
             ],
             [
-              "/sailing",
+              is ? "/siglingar" : "/sailing",
               is ? "Siglingar" : "Sailing",
               is
                 ? "Ævintýrasigling út í Grímsey."

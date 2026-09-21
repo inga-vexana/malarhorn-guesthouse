@@ -7,18 +7,18 @@ export const metadata: Metadata = {
   description:
     "Comfortable rooms and apartments at Malarhorn Guesthouse in Drangsnes, Westfjords Iceland. Ocean views, private bathrooms, and family rooms. Book your stay today.",
   alternates: {
-    canonical: `${BASE_URL}/accommodation`,
+    canonical: `${BASE_URL}/gisting`,
     languages: {
-      "is-IS": `${BASE_URL}/accommodation`,
+      "is-IS": `${BASE_URL}/gisting`,
       en: `${BASE_URL}/en/accommodation`,
-      "x-default": `${BASE_URL}/accommodation`,
+      "x-default": `${BASE_URL}/gisting`,
     },
   },
   openGraph: {
     title: "Accommodation — Malarhorn Guesthouse",
     description:
       "Comfortable rooms and apartments at Malarhorn Guesthouse in Drangsnes, Westfjords Iceland. Ocean views, private bathrooms, and family rooms.",
-    url: `${BASE_URL}/accommodation`,
+    url: `${BASE_URL}/gisting`,
     images: [
       {
         url: "/IMG_0529-1-scaled.jpg",

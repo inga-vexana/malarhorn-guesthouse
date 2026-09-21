@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${BASE_URL}/en/restaurant`,
     languages: {
-      "is-IS": `${BASE_URL}/restaurant`,
+      "is-IS": `${BASE_URL}/veitingastadur`,
       en: `${BASE_URL}/en/restaurant`,
       "x-default": `${BASE_URL}/restaurant`,
     },

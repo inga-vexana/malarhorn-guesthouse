@@ -7,18 +7,18 @@ export const metadata: Metadata = {
   description:
     "Learn about Malarhorn Guesthouse — a family-run seaside retreat in Drangsnes, Westfjords Iceland, founded in 2008 by Valgerður Magnúsdóttir and Ásbjörn Magnússon.",
   alternates: {
-    canonical: `${BASE_URL}/about`,
+    canonical: `${BASE_URL}/um-okkur`,
     languages: {
-      "is-IS": `${BASE_URL}/about`,
+      "is-IS": `${BASE_URL}/um-okkur`,
       en: `${BASE_URL}/en/about`,
-      "x-default": `${BASE_URL}/about`,
+      "x-default": `${BASE_URL}/um-okkur`,
     },
   },
   openGraph: {
     title: "About Malarhorn — Malarhorn Guesthouse",
     description:
       "A family-run seaside retreat in Drangsnes, Westfjords Iceland, founded in 2008. Ocean views, fresh coastal air, and warm Icelandic hospitality.",
-    url: `${BASE_URL}/about`,
+    url: `${BASE_URL}/um-okkur`,
     images: [
       {
         url: "/Malarhorn-Guesthouse-Arjan-Wilmsen-72-scaled.jpg",

@@ -7,18 +7,18 @@ export const metadata: Metadata = {
   description:
     "Malarkaffi restaurant at Malarhorn Guesthouse — fresh Icelandic cuisine with ocean views in Drangsnes, Westfjords. Open daily during summer for lunch and dinner.",
   alternates: {
-    canonical: `${BASE_URL}/restaurant`,
+    canonical: `${BASE_URL}/veitingastadur`,
     languages: {
-      "is-IS": `${BASE_URL}/restaurant`,
+      "is-IS": `${BASE_URL}/veitingastadur`,
       en: `${BASE_URL}/en/restaurant`,
-      "x-default": `${BASE_URL}/restaurant`,
+      "x-default": `${BASE_URL}/veitingastadur`,
     },
   },
   openGraph: {
     title: "Restaurant — Malarhorn Guesthouse",
     description:
       "Malarkaffi restaurant — fresh Icelandic cuisine with ocean views in Drangsnes, Westfjords. Open daily during summer for lunch and dinner.",
-    url: `${BASE_URL}/restaurant`,
+    url: `${BASE_URL}/veitingastadur`,
     images: [
       {
         url: "/Malarhorn-Guesthouse-Arjan-Wilmsen-68-scaled.jpg",

@@ -7,18 +7,18 @@ export const metadata: Metadata = {
   description:
     "Sailing tours to Grímsey island from Drangsnes — discover Iceland's largest puffin colony in the Westfjords Strandir region. Book with Malarhorn Guesthouse.",
   alternates: {
-    canonical: `${BASE_URL}/sailing`,
+    canonical: `${BASE_URL}/siglingar`,
     languages: {
-      "is-IS": `${BASE_URL}/sailing`,
+      "is-IS": `${BASE_URL}/siglingar`,
       en: `${BASE_URL}/en/sailing`,
-      "x-default": `${BASE_URL}/sailing`,
+      "x-default": `${BASE_URL}/siglingar`,
     },
   },
   openGraph: {
     title: "Sailing to Grímsey — Malarhorn Guesthouse",
     description:
       "Sailing tours to Grímsey island from Drangsnes — discover Iceland's largest puffin colony in the Westfjords Strandir region.",
-    url: `${BASE_URL}/sailing`,
+    url: `${BASE_URL}/siglingar`,
     images: [
       {
         url: "/Untitled-design-14.png",
