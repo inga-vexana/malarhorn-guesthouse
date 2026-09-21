@@ -91,11 +91,13 @@ export default function HomePage() {
               is
                 ? "Ævintýrasigling út í Grímsey."
                 : "Explore the Westfjords on an unforgettable adventure.",
+              is ? "Aðeins á sumrin" : "Summer season only",
             ],
-          ].map(([href, title, text]) => (
+          ].map(([href, title, text, seasonTag]) => (
             <Link className="sc" key={href} href={href}>
               <h3>{title}</h3>
               <p>{text}</p>
+              {seasonTag && <span className="sct">{seasonTag}</span>}
               <span className="scl">{is ? "Frekari upplýsingar →" : "Learn more →"}</span>
             </Link>
           ))}
