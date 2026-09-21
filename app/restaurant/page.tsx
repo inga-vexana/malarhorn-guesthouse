@@ -193,6 +193,18 @@ export default function RestaurantPage() {
             : "Fresh Icelandic flavors in a warm, welcoming atmosphere right by the sea."
         }
       />
+
+      <div className="seasonBanner">
+        <span className="seasonBannerIcon" aria-hidden="true">
+          ☀
+        </span>
+        <p>
+          {is
+                ? "Malarkaffi er aðeins opið yfir sumartímann. Síðasti opnunardagur er 30. september."
+                : "Malarkaffi is only open during the summer season. The last day open is September 30."}
+        </p>
+      </div>
+
       <section className="sec">
         <div className="si2">
           <div className="rg2">
@@ -206,12 +218,15 @@ export default function RestaurantPage() {
                   ? "Malarkaffi er fjölskyldurekinn veitingastaður með ferskan fisk, íslenskt lambakjöt og heimilislegan mat úr staðbundnu hráefni."
                   : "Malarkaffi is a family-run restaurant offering fresh Icelandic ingredients, fresh fish, Icelandic lamb, traditional soups, and homemade bread."}
               </p>
+              <span className="sct" style={{ marginBottom: "1rem" }}>
+                {is ? "Opið til 30. september" : "Open until September 30"}
+              </span>
               <p className="bt">
                 {is ? "Velkomin á Malarkaffi." : "Open daily during summer for breakfast, lunch, and dinner."}
               </p>
               <div className="bq">
                 {is
-                  ? "Velkomin á Malarkaffi, þar sem góður matur, hlýleg gestrisni og hafið mætast."
+                  ? "Velkomin á Malarkaffi, þar sem góður matur, hlýleg gestrisni og hafi�� mætast."
                   : "Welcome to Malarkaffi, where good food, warm hospitality and the ocean come together."}
               </div>
               <p className="bt" style={{ marginTop: "1.25rem" }}>

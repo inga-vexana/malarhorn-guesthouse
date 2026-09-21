@@ -82,8 +82,9 @@ export default function HomePage() {
               "/restaurant",
               is ? "Veitingastaður" : "Restaurant",
               is
-                ? "Ferskt íslenskt hráefni í hlýu andrúmslofti. Opið aðeins á sumrin."
-                : "Fresh local cuisine in a warm atmosphere. Open in summer.",
+                ? "Ferskt íslenskt hráefni í hlýu andrúmslofti."
+                : "Fresh local cuisine in a warm atmosphere.",
+              is ? "Aðeins á sumrin, lokar 30. september" : "Summer season only, closes September 30",
             ],
             [
               "/sailing",
@@ -91,11 +92,13 @@ export default function HomePage() {
               is
                 ? "Ævintýrasigling út í Grímsey."
                 : "Explore the Westfjords on an unforgettable adventure.",
+              is ? "Aðeins á sumrin" : "Summer season only",
             ],
-          ].map(([href, title, text]) => (
+          ].map(([href, title, text, seasonTag]) => (
             <Link className="sc" key={href} href={href}>
               <h3>{title}</h3>
               <p>{text}</p>
+              {seasonTag && <span className="sct">{seasonTag}</span>}
               <span className="scl">{is ? "Frekari upplýsingar →" : "Learn more →"}</span>
             </Link>
           ))}

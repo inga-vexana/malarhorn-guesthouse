@@ -12,6 +12,7 @@
   --sg: #9e8b6e;
   --sd: #7a6a52;
   --sl: #e8e2d6;
+  --season-banner: #d4cec0;
   --tc: #1a1814;
   --tl: #b8a888;
   --br: #1a1814;
@@ -552,6 +553,22 @@ button {
 .scl {
   color: var(--gold);
   margin-top: 1.2rem;
+}
+
+.sct {
+  align-items: center;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  color: var(--gold);
+  display: flex;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  margin-top: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  text-transform: uppercase;
+  width: fit-content;
 }
 
 .ab,
@@ -2378,6 +2395,38 @@ footer {
   line-height: 1.6;
   margin-top: 1rem;
   padding: 0.6rem 0.9rem;
+}
+
+.seasonBanner {
+  align-items: center;
+  background: var(--season-banner);
+  color: var(--tx);
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+  padding: 0.9rem 5vw;
+  text-align: center;
+}
+
+.seasonBanner p {
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+.seasonBannerIcon {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .seasonBanner {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
 }
 
 @media (max-width: 768px) {

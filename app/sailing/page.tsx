@@ -43,6 +43,7 @@ const tours = [
       "Small-group experience away from the crowds",
     ],
     infoIs: [
+      ["Tímabil", "Aðeins yfir sumartímann (júní–ágúst)"],
       ["Lengd", "3 klukkustundir"],
       ["Brottför", "09:00"],
       ["Heimkoma", "12:00"],
@@ -52,6 +53,7 @@ const tours = [
       ["Mælt er með að taka með", "Hlý föt, góða gönguskó, myndavél og vatn"],
     ] as [string, string][],
     infoEn: [
+      ["Season", "Summer only (June–August)"],
       ["Duration", "3 hours"],
       ["Departure", "09:00"],
       ["Return", "12:00"],
@@ -99,6 +101,7 @@ const tours = [
       "Ideal middle option between the Sea Safari and Puffin Walk",
     ],
     infoIs: [
+      ["Tímabil", "Aðeins yfir sumartímann (júní–ágúst)"],
       ["Lengd", "2 klukkustundir"],
       ["Brottför", "15:30"],
       ["Heimkoma", "17:30"],
@@ -108,6 +111,7 @@ const tours = [
       ["Mælt er með að taka með", "Hlý föt, góða gönguskó, myndavél og vatn"],
     ] as [string, string][],
     infoEn: [
+      ["Season", "Summer only (June–August)"],
       ["Duration", "2 hours"],
       ["Departure", "15:30"],
       ["Return", "17:30"],
@@ -155,6 +159,7 @@ const tours = [
       "Possible short sea-angling experience if conditions allow",
     ],
     infoIs: [
+      ["Tímabil", "Aðeins yfir sumartímann (júní–ágúst)"],
       ["Lengd", "1 klukkustund"],
       ["Brottför", "13:30"],
       ["Heimkoma", "14:30"],
@@ -164,6 +169,7 @@ const tours = [
       ["Mælt er með að taka með", "Hlý föt, myndavél og sólgleraugu ef sólríkt"],
     ] as [string, string][],
     infoEn: [
+      ["Season", "Summer only (June–August)"],
       ["Duration", "1 hour"],
       ["Departure", "13:30"],
       ["Return", "14:30"],
@@ -194,6 +200,17 @@ export default function SailingPage() {
             : "A hidden gem in the Strandir region, explore Iceland's largest puffin colony by boat."
         }
       />
+
+      <div className="seasonBanner">
+        <span className="seasonBannerIcon" aria-hidden="true">
+          ☀
+        </span>
+        <p>
+          {is
+            ? "Bátsferðirnar út í Grímsey eru aðeins í boði yfir sumartímann (júní–ágúst). Ekki er siglt utan þess tímabils."
+            : "Boat tours to Grímsey are only available during the summer season (June–August). No sailings take place outside this period."}
+        </p>
+      </div>
 
       <div style={{ background: "var(--bg)", padding: "3rem 5vw" }}>
         <div className="grimsey-split">
