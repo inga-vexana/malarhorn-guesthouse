@@ -2398,7 +2398,7 @@ footer {
 
 .seasonBanner {
   align-items: center;
-  background: var(--gold);
+  background: #9f8f81;
   color: var(--bg);
   display: flex;
   gap: 0.7rem;
