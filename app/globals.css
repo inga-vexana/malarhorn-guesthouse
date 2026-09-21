@@ -12,6 +12,7 @@
   --sg: #9e8b6e;
   --sd: #7a6a52;
   --sl: #e8e2d6;
+  --season-banner: #d4cec0;
   --tc: #1a1814;
   --tl: #b8a888;
   --br: #1a1814;
@@ -2398,8 +2399,8 @@ footer {
 
 .seasonBanner {
   align-items: center;
-  background: #9f8f81;
-  color: var(--bg);
+  background: var(--season-banner);
+  color: var(--tx);
   display: flex;
   gap: 0.7rem;
   justify-content: center;
