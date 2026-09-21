@@ -82,8 +82,8 @@ export default function HomePage() {
               "/restaurant",
               is ? "Veitingastaður" : "Restaurant",
               is
-                ? "Ferskt íslenskt hráefni í hlýu andrúmslofti. Opið aðeins á sumrin."
-                : "Fresh local cuisine in a warm atmosphere. Open in summer.",
+                ? "Ferskt íslenskt hráefni í hlýu andrúmslofti."
+                : "Fresh local cuisine in a warm atmosphere.",
               is ? "Aðeins á sumrin, lokar 30. september" : "Summer season only, closes September 30",
             ],
             [
