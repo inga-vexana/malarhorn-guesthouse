@@ -200,8 +200,8 @@ export default function RestaurantPage() {
         </span>
         <p>
           {is
-            ? "Malarkaffi er aðeins opið yfir sumartímann. Síðasti opnunardagur er 20. september."
-            : "Malarkaffi is only open during the summer season. The last day open is September 20."}
+                ? "Malarkaffi er aðeins opið yfir sumartímann. Síðasti opnunardagur er 30. september."
+                : "Malarkaffi is only open during the summer season. The last day open is September 30."}
         </p>
       </div>
 
@@ -219,7 +219,7 @@ export default function RestaurantPage() {
                   : "Malarkaffi is a family-run restaurant offering fresh Icelandic ingredients, fresh fish, Icelandic lamb, traditional soups, and homemade bread."}
               </p>
               <span className="sct" style={{ marginBottom: "1rem" }}>
-                {is ? "Opið til 20. september" : "Open until September 20"}
+                {is ? "Opið til 30. september" : "Open until September 30"}
               </span>
               <p className="bt">
                 {is ? "Velkomin á Malarkaffi." : "Open daily during summer for breakfast, lunch, and dinner."}
