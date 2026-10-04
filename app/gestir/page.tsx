@@ -97,7 +97,7 @@ export default function GuestPage() {
             ],
             [
               is ? "Mætingarstaður" : "Meeting point",
-              is ? "Drangsneshöfn" : "Drangsnes harbour",
+              is ? "Bryggjan á Drangsnesi" : "Drangsnes harbour",
             ],
           ]}
         />
