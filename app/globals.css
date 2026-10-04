@@ -1895,7 +1895,7 @@ footer {
   transform: translateY(-6.5px) rotate(-45deg);
 }
 
-/* ���─ Mobile drawer ── */
+/* ����─ Mobile drawer ── */
 .mobileMenuOverlay {
   background: rgb(0 0 0 / 40%);
   bottom: 0;
@@ -3066,11 +3066,10 @@ footer {
 .grimsey-lead {
   color: var(--br);
   font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
-  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
   font-weight: 300;
   line-height: 1.6;
-  max-width: 820px;
-  margin-bottom: 2rem;
+  margin-top: 1.5rem;
   text-wrap: pretty;
 }
 

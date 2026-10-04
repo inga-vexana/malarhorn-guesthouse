@@ -184,12 +184,10 @@ const tours = [
 ];
 
 function GrimseyBody({ paragraphs }: { paragraphs: string[] }) {
-  const [lead, ...rest] = paragraphs;
   return (
     <div className="grimsey-body">
-      <p className="grimsey-lead">{lead}</p>
       <div className="grimsey-cols">
-        {rest.map((p, i) => (
+        {paragraphs.map((p, i) => (
           <p key={i} className="bt">
             {p}
           </p>
@@ -254,17 +252,20 @@ export default function SailingPage() {
             <p className="ey">{is ? "Um Grímsey" : "About Grímsey"}</p>
             <h2 className="st">{is ? "Sannkölluð náttúruperla" : "A true natural gem"}</h2>
             <div className="dv" />
+            <p className="grimsey-lead">
+              {is
+                ? "Grímsey í Steingrímsfirði er falleg náttúruperla skammt undan Drangsnesi á Ströndum. Þar mætast fjölbreytt fuglalíf, stórbrotið landslag og fallegt útsýni yfir Steingrímsfjörð og fjöllin í kring."
+                : "Grímsey in Steingrímsfjörður is a beautiful natural gem just off Drangsnes in the Westfjords. Diverse birdlife, dramatic landscapes and lovely views over Steingrímsfjörður and the surrounding mountains meet here."}
+            </p>
           </div>
         </div>
         <GrimseyBody paragraphs={(is
             ? [
-                "Grímsey í Steingrímsfirði er falleg náttúruperla skammt undan Drangsnesi á Ströndum. Þar mætast fjölbreytt fuglalíf, stórbrotið landslag og fallegt útsýni yfir Steingrímsfjörð og fjöllin í kring.",
                 "Grímsey er sérstaklega þekkt fyrir ríkulegt fuglalíf og er vinsæll áfangastaður fuglaáhugafólks. Á sumrin iðar eyjan af lífi þegar fjölmargir sjófuglar verpa þar. Lundinn er einna mest áberandi og þar gefst gott tækifæri til að fylgjast með honum í sínu náttúrulega umhverfi. Auk lundans má sjá fjölmargar aðrar tegundir sjófugla í og við eyjuna.",
                 "En Grímsey hefur upp á fleira að bjóða en náttúru og fuglalíf. Þar var áður búið og sjósókn gegndi mikilvægu hlutverki í lífi íbúanna. Enn má finna ummerki um fyrri búsetu sem minna á sögu eyjarinnar. Grímseyjarviti er eitt helsta kennileiti hennar og setur fallegan svip á landslagið.",
                 "Siglingin frá Drangsnesi út í Grímsey er stutt og gefur gestum tækifæri til að upplifa Steingrímsfjörð og náttúru Strandanna frá nýju sjónarhorni. Þegar komið er í land er hægt að ganga um eyjuna, fylgjast með fuglalífinu, njóta kyrrðarinnar og virða fyrir sér stórbrotið útsýnið yfir fjörðinn og nærliggjandi fjöll.",
               ]
             : [
-                "Grímsey in Steingrímsfjörður is a beautiful natural gem just off Drangsnes in the Westfjords. Diverse birdlife, dramatic landscapes and lovely views over Steingrímsfjörður and the surrounding mountains meet here.",
                 "Grímsey is especially known for its rich birdlife and is a popular destination for bird enthusiasts. In summer the island teems with life as large numbers of seabirds nest there. The puffin is among the most prominent, and there is a great chance to watch it in its natural habitat. Besides puffins, many other seabird species can be seen on and around the island.",
                 "But Grímsey has more to offer than nature and birdlife. The island was once inhabited, and fishing played an important role in the lives of its residents. Traces of past settlement can still be found, recalling the island's history. The Grímsey lighthouse is one of its best-known landmarks and adds a lovely touch to the landscape.",
                 "The sailing from Drangsnes to Grímsey is short and gives visitors the chance to experience Steingrímsfjörður and the nature of the Westfjords from a new perspective. Once ashore, you can walk around the island, watch the birdlife, enjoy the tranquility and take in the magnificent views over the fjord and nearby mountains.",
