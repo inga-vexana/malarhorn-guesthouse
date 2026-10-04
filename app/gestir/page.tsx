@@ -58,7 +58,30 @@ export default function GuestPage() {
         />
         <GuestSection
           title={is ? "Sundlaug" : "Swimming Pool"}
-          rows={[[is ? "Opnunartími" : "Open", "11:00 - 18:00"]]}
+          rows={[
+            [
+              is ? "Vetraropnun" : "Winter hours",
+              is
+                ? "Þriðjudaga, miðvikudaga og föstudaga 15:00 - 18:00"
+                : "Tuesdays, Wednesdays and Fridays 15:00 - 18:00",
+            ],
+            [
+              is ? "Helgaropnun (vetur)" : "Weekends (winter)",
+              is
+                ? "Laugardaga og sunnudaga 13:00 - 17:00"
+                : "Saturdays and Sundays 13:00 - 17:00",
+            ],
+            [
+              is ? "Sumartími" : "Summer season",
+              is
+                ? "Hefst í byrjun júní og er til miðjan eða lok ágúst"
+                : "Starts in early June and runs until mid or late August",
+            ],
+            [
+              is ? "Sumaropnun" : "Summer hours",
+              is ? "Alla daga 11:00 - 18:00" : "Every day 11:00 - 18:00",
+            ],
+          ]}
         />
         <GuestSection
           title={is ? "Siglingar til Grímsey" : "Sailing to Grímsey"}
