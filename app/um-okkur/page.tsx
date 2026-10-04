@@ -44,7 +44,7 @@ export default function AboutPage() {
             <p className="bt">
               {is
                 ? "Við bjóðum upp á hlýleg herbergi og rúmgóðar íbúðir við sjávarsíðuna á Drangsnesi, þar sem kyrrðin og falleg náttúra er allt um kring. Á sumrin er Malarkaffi opið og þar er boðið upp á góðan mat úr fersku íslensku hráefni. Hvort sem þú ert á ferð um Vestfirði eða vilt njóta rólegra daga á Ströndum er Malarhorn notalegur staður til að dvelja á og njóta þess sem svæðið hefur upp á að bjóða."
-                : "We offer cosy rooms and spacious apartments by the sea in Drangsnes, surrounded by peace and beautiful nature. In summer, Malarkaffi is open, serving good food made from fresh Icelandic ingredients. Whether you are travelling through the Westfjords or want to enjoy a few quiet days in Strandir, Malarhorn is a welcoming place to stay and enjoy everything the area has to offer."}
+                : "We offer cosy rooms and spacious apartments by the sea in Drangsnes, surrounded by the peaceful and beautiful nature of Strandir. During the summer, Malarkaffi is open, serving delicious food made with fresh Icelandic ingredients. Whether you are travelling through the Westfjords or looking to spend a few peaceful days in Strandir, Malarhorn is a welcoming place to stay, relax and enjoy everything the area has to offer."}
             </p>
           </div>
           <Photo src={images.stayDine} />
