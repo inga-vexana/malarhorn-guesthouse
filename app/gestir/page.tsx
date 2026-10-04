@@ -92,18 +92,6 @@ export default function GuestPage() {
           }
           rows={[
             [
-              is ? "Sjóævintýrið" : "Sea Safari",
-              is ? "1 klukkustund" : "1 hour",
-            ],
-            [
-              is ? "Grímseyjarupplifun" : "Wildlife Tour",
-              is ? "2 klukkustundir" : "2 hours",
-            ],
-            [
-              is ? "Lundaganga" : "Puffin Walk",
-              is ? "3 klukkustundir" : "3 hours",
-            ],
-            [
               is ? "Tímabil" : "Season",
               is ? "15. júní til miðjan ágúst" : "June 15 to mid August",
             ],
