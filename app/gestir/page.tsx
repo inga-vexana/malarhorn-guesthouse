@@ -121,10 +121,33 @@ export default function GuestPage() {
               : "A small local mini market in Drangsnes."
           }
           rows={[
-            [is ? "Sumar" : "Summer", "09:00 - 18:00"],
             [
-              is ? "Vetur" : "Winter",
-              `09:30 - 10:30 ${is ? "og" : "and"} 13:00 - 17:00`,
+              is ? "Vetraropnun" : "Winter hours",
+              is
+                ? "Alla virka daga 09:30 - 10:30 og 13:00 - 18:00"
+                : "Weekdays 09:30 - 10:30 and 13:00 - 18:00",
+            ],
+            [
+              is ? "Helgar (vetur)" : "Weekends (winter)",
+              is ? "Lokað" : "Closed",
+            ],
+            [
+              is ? "Sumaropnun" : "Summer hours",
+              is
+                ? "Mánudaga - fimmtudaga 09:00 - 18:00"
+                : "Monday - Thursday 09:00 - 18:00",
+            ],
+            [
+              is ? "Föstudagar (sumar)" : "Fridays (summer)",
+              "09:00 - 19:00",
+            ],
+            [
+              is ? "Laugardagar (sumar)" : "Saturdays (summer)",
+              "11:00 - 15:00",
+            ],
+            [
+              is ? "Sunnudagar (sumar)" : "Sundays (summer)",
+              is ? "Lokað" : "Closed",
             ],
           ]}
         />
