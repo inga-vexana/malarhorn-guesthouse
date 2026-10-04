@@ -238,16 +238,6 @@ export default function SailingPage() {
             <p className="ey">{is ? "Um Grímsey" : "About Grímsey"}</p>
             <h2 className="st">{is ? "Sannkölluð náttúruperla" : "A true natural gem"}</h2>
             <div className="dv" />
-            <p className="bt">
-              {is
-                ? "Grímsey í Steingrímsfirði er ein stærsta lundabyggð landsins, áætlað 25 til 30 þúsund pör á hverju sumri."
-                : "Grímsey in Steingrímsfjörður is home to one of Iceland's largest puffin colonies, with an estimated 25,000 to 30,000 breeding pairs each summer."}
-            </p>
-            <p className="bt">
-              {is
-                ? "Malarhorn býður upp á fallegar siglingar til Grímseyjar á sumrin."
-                : "Malarhorn offers regular scenic sailings to Grímsey during summer."}
-            </p>
           </div>
         </div>
         <div style={{ maxWidth: "820px", margin: "2.5rem auto 0" }}>
