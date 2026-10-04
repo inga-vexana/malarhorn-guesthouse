@@ -28,15 +28,19 @@ export default function GuestPage() {
         />
         <GuestSection
           title={is ? "Morgunmatur" : "Breakfast"}
+          note={
+            is
+              ? "Morgunverður er ekki í boði eins og er og er aðeins í boði yfir sumartímann."
+              : "Breakfast is currently unavailable and is only offered during the summer season."
+          }
           rows={[
-            [is ? "Tími" : "Time", "08:00 - 10:00"],
             [
-              is ? "Staður" : "Location",
-              is ? "Malarkaffi, sama bygging" : "Malarkaffi, same building",
+              is ? "Staða" : "Status",
+              is ? "Ekki í boði eins og er" : "Currently unavailable",
             ],
             [
-              is ? "Innifalið" : "Included",
-              is ? "Já, innifalið í gistingu" : "Yes, included in your stay",
+              is ? "Tímabil" : "Season",
+              is ? "Aðeins yfir sumartímann" : "Summer only",
             ],
           ]}
         />
