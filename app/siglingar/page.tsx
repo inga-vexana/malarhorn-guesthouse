@@ -262,7 +262,7 @@ export default function SailingPage() {
         <GrimseyBody paragraphs={(is
             ? [
                 "Grímsey er sérstaklega þekkt fyrir ríkulegt fuglalíf og er vinsæll áfangastaður fuglaáhugafólks. Á sumrin iðar eyjan af lífi þegar fjölmargir sjófuglar verpa þar. Lundinn er einna mest áberandi og þar gefst gott tækifæri til að fylgjast með honum í sínu náttúrulega umhverfi. Auk lundans má sjá fjölmargar aðrar tegundir sjófugla í og við eyjuna.",
-                "En Grímsey hefur upp á fleira að bjóða en náttúru og fuglalíf. Þar var áður búið og sjósókn gegndi mikilvægu hlutverki í lífi íbúanna. Enn má finna ummerki um fyrri búsetu sem minna á sögu eyjarinnar. Grímseyjarviti er eitt helsta kennileiti hennar og setur fallegan svip á landslagið.",
+                "En Grímsey hefur upp á fleira að bjóða en náttúru og fuglalíf. Þar var áður búið og sjósókn gegndi mikilvægu hlutverki í lífi íbúanna. Enn\u00A0má finna ummerki um fyrri búsetu sem minna á sögu eyjarinnar. Grímseyjarviti er eitt helsta kennileiti hennar og setur fallegan svip á landslagið.",
                 "Siglingin frá Drangsnesi út í Grímsey er stutt og gefur gestum tækifæri til að upplifa Steingrímsfjörð og náttúru Strandanna frá nýju sjónarhorni. Þegar komið er í land er hægt að ganga um eyjuna, fylgjast með fuglalífinu, njóta kyrrðarinnar og virða fyrir sér stórbrotið útsýnið yfir fjörðinn og nærliggjandi fjöll.",
               ]
             : [
