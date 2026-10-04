@@ -183,6 +183,22 @@ const tours = [
   },
 ];
 
+function GrimseyBody({ paragraphs }: { paragraphs: string[] }) {
+  const [lead, ...rest] = paragraphs;
+  return (
+    <div className="grimsey-body">
+      <p className="grimsey-lead">{lead}</p>
+      <div className="grimsey-cols">
+        {rest.map((p, i) => (
+          <p key={i} className="bt">
+            {p}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function SailingPage() {
   const { lang } = useSafeLang();
   const is = lang === "is";
@@ -240,8 +256,7 @@ export default function SailingPage() {
             <div className="dv" />
           </div>
         </div>
-        <div style={{ maxWidth: "820px", margin: "2.5rem auto 0" }}>
-          {(is
+        <GrimseyBody paragraphs={(is
             ? [
                 "Grímsey í Steingrímsfirði er falleg náttúruperla skammt undan Drangsnesi á Ströndum. Þar mætast fjölbreytt fuglalíf, stórbrotið landslag og fallegt útsýni yfir Steingrímsfjörð og fjöllin í kring.",
                 "Grímsey er sérstaklega þekkt fyrir ríkulegt fuglalíf og er vinsæll áfangastaður fuglaáhugafólks. Á sumrin iðar eyjan af lífi þegar fjölmargir sjófuglar verpa þar. Lundinn er einna mest áberandi og þar gefst gott tækifæri til að fylgjast með honum í sínu náttúrulega umhverfi. Auk lundans má sjá fjölmargar aðrar tegundir sjófugla í og við eyjuna.",
@@ -254,12 +269,7 @@ export default function SailingPage() {
                 "But Grímsey has more to offer than nature and birdlife. The island was once inhabited, and fishing played an important role in the lives of its residents. Traces of past settlement can still be found, recalling the island's history. The Grímsey lighthouse is one of its best-known landmarks and adds a lovely touch to the landscape.",
                 "The sailing from Drangsnes to Grímsey is short and gives visitors the chance to experience Steingrímsfjörður and the nature of the Westfjords from a new perspective. Once ashore, you can walk around the island, watch the birdlife, enjoy the tranquility and take in the magnificent views over the fjord and nearby mountains.",
               ]
-          ).map((p, i) => (
-            <p key={i} className="bt" style={{ marginBottom: "1rem" }}>
-              {p}
-            </p>
-          ))}
-        </div>
+          )} />
       </div>
 
 
