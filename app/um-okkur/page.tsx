@@ -60,7 +60,7 @@ export default function AboutPage() {
             <p className="bt">
               {is
                 ? "Hvort sem þú slakar á í heitu pottunum, nýtur kyrrðarinnar á veröndinni eða kannar náttúruna við Steingrímsfjörð, þá býður Malarhorn upp á notalegt umhverfi þar sem gott er að hægja á sér. Hér getur þú tekið þér tíma, notið útsýnisins og upplifað kyrrðina sem einkennir Strandir."
-                : "Whether you relax in the hot tubs, enjoy the stillness of the terrace, or explore the nature around Steingrímsfjörður, Malarhorn offers a welcoming setting where it is easy to slow down. Here you can take your time, enjoy the view, and experience the tranquillity that defines Strandir."}
+                : "Whether you are relaxing in the hot tubs, enjoying the peaceful atmosphere on the terrace or exploring the nature around Steingrímsfjörður, Malarhorn is a place where it is easy to slow down. Take your time, enjoy the views and experience the tranquillity that makes Strandir so special."}
             </p>
             <BookingLink className="bp">{is ? "Bóka gistingu" : "Book your stay"}</BookingLink>
           </div>
