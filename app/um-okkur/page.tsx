@@ -44,7 +44,7 @@ export default function AboutPage() {
             <p className="bt">
               {is
                 ? "Við bjóðum upp á hlýleg herbergi og rúmgóðar íbúðir við sjávarsíðuna á Drangsnesi, þar sem kyrrðin og falleg náttúra er allt um kring. Á sumrin er Malarkaffi opið og þar er boðið upp á góðan mat úr fersku íslensku hráefni. Hvort sem þú ert á ferð um Vestfirði eða vilt njóta rólegra daga á Ströndum er Malarhorn notalegur staður til að dvelja á og njóta þess sem svæðið hefur upp á að bjóða."
-                : "Cozy rooms and spacious apartments for couples, families, and groups. Malarkaffi restaurant is open in summer."}
+                : "We offer cosy rooms and spacious apartments by the sea in Drangsnes, surrounded by peace and beautiful nature. In summer, Malarkaffi is open, serving good food made from fresh Icelandic ingredients. Whether you are travelling through the Westfjords or want to enjoy a few quiet days in Strandir, Malarhorn is a welcoming place to stay and enjoy everything the area has to offer."}
             </p>
           </div>
           <Photo src={images.stayDine} />
@@ -60,7 +60,7 @@ export default function AboutPage() {
             <p className="bt">
               {is
                 ? "Hvort sem þú slakar á í heitu pottunum, nýtur kyrrðarinnar á veröndinni eða kannar náttúruna við Steingrímsfjörð, þá býður Malarhorn upp á notalegt umhverfi þar sem gott er að hægja á sér. Hér getur þú tekið þér tíma, notið útsýnisins og upplifað kyrrðina sem einkennir Strandir."
-                : "Malarhorn is a place to truly slow down and enjoy the natural surroundings."}
+                : "Whether you relax in the hot tubs, enjoy the stillness of the terrace, or explore the nature around Steingrímsfjörður, Malarhorn offers a welcoming setting where it is easy to slow down. Here you can take your time, enjoy the view, and experience the tranquillity that defines Strandir."}
             </p>
             <BookingLink className="bp">{is ? "Bóka gistingu" : "Book your stay"}</BookingLink>
           </div>
