@@ -24,7 +24,7 @@ export default function Footer() {
           <p>Grundargata 17</p>
           <p>520 Drangsnes, Iceland</p>
           <h4 className="fc-sub">Malarkaffi</h4>
-          <p>14:00 – 21:00</p>
+          <p>Closed</p>
         </div>
         <div className="fc">
           <h4>{t.contact}</h4>
