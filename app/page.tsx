@@ -147,7 +147,7 @@ export default function HomePage() {
               is
                 ? "Ferskt íslenskt hráefni í hlýu andrúmslofti."
                 : "Fresh local cuisine in a warm atmosphere.",
-              is ? "Aðeins á sumrin, lokar 30. september" : "Summer season only, closes September 30",
+              is ? "Aðeins á sumrin" : "Summer only",
             ],
             [
               is ? "/siglingar" : "/sailing",
