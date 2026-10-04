@@ -266,7 +266,7 @@ export default function RestaurantPage() {
               </p>
               <div className="bq">
                 {is
-                  ? "Velkomin á Malarkaffi, þar sem góður matur, hlýleg gestrisni og hafi�� mætast."
+                  ? "Velkomin á Malarkaffi, þar sem góður matur, hlýleg gestrisni og hafið mætast."
                   : "Welcome to Malarkaffi, where good food, warm hospitality and the ocean come together."}
               </div>
               <p className="bt" style={{ marginTop: "1.25rem" }}>
