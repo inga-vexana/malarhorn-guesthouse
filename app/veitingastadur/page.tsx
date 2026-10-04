@@ -259,7 +259,7 @@ export default function RestaurantPage() {
                   : "Malarkaffi is a family-run restaurant offering fresh Icelandic ingredients, fresh fish, Icelandic lamb, traditional soups, and homemade bread."}
               </p>
               <span className="sct" style={{ marginBottom: "1rem" }}>
-                {is ? "Opið til 30. september" : "Open until September 30"}
+                {is ? "Lokað" : "Closed"}
               </span>
               <p className="bt">
                 {is ? "Velkomin á Malarkaffi." : "Open daily during summer for breakfast, lunch, and dinner."}
