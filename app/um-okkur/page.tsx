@@ -43,7 +43,7 @@ export default function AboutPage() {
             <div className="dv" />
             <p className="bt">
               {is
-                ? "Við bjóðum upp á hlýleg herbergi, rúmgóðar íbúðir og Malarkaffi er opið á sumrin með ferskt íslenskt hráefni."
+                ? "Við bjóðum upp á hlýleg herbergi og rúmgóðar íbúðir við sjávarsíðuna á Drangsnesi, þar sem kyrrðin og falleg náttúra er allt um kring. Á sumrin er Malarkaffi opið og þar er boðið upp á góðan mat úr fersku íslensku hráefni. Hvort sem þú ert á ferð um Vestfirði eða vilt njóta rólegra daga á Ströndum er Malarhorn notalegur staður til að dvelja á og njóta þess sem svæðið hefur upp á að bjóða."
                 : "Cozy rooms and spacious apartments for couples, families, and groups. Malarkaffi restaurant is open in summer."}
             </p>
           </div>
