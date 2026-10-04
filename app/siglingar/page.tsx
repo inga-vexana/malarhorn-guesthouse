@@ -48,7 +48,7 @@ const tours = [
       ["Brottför", "09:00"],
       ["Heimkoma", "12:00"],
       ["Verð", "18.900 kr. á fullorðinn"],
-      ["Mætingarstaður", "Drangsneshöfn / móttaka Malarhorns"],
+      ["Mætingarstaður", "Bryggjan á Drangsnesi / móttaka Malarhorns"],
       ["Erfiðleikastig", "Létt til miðlungs ganga á náttúrulegum gönguleiðum"],
       ["Mælt er með að taka með", "Hlý föt, góða gönguskó, myndavél og vatn"],
     ] as [string, string][],
@@ -106,7 +106,7 @@ const tours = [
       ["Brottför", "15:30"],
       ["Heimkoma", "17:30"],
       ["Verð", "13.900 kr. á fullorðinn"],
-      ["Mætingarstaður", "Drangsneshöfn / móttaka Malarhorns"],
+      ["Mætingarstaður", "Bryggjan á Drangsnesi / móttaka Malarhorns"],
       ["Erfiðleikastig", "Létt til miðlungs ganga á náttúrulegum gönguleiðum"],
       ["Mælt er með að taka með", "Hlý föt, góða gönguskó, myndavél og vatn"],
     ] as [string, string][],
@@ -131,7 +131,7 @@ const tours = [
     price: 8900,
     img: "/Untitled-design-14.png",
     descIs: [
-      "Njóttu stuttrar og fallegrar bátsferðar í kringum Grímseyjareyju frá Drangsneshöfn.",
+      "Njóttu stuttrar og fallegrar bátsferðar í kringum Grímseyjareyju frá Bryggjunni á Drangsnesi.",
       "Þetta eins tíma sjóævintýri er tilvalið fyrir gesti sem vilja upplifa Grímsey frá sjónum án þess að ganga í land. Við siglum í kringum eyjuna og leitum að lundum, sjófuglum og öðru dýralífi meðfram ströndinni. Útsýnið til eyjarinnar, strandlengjunnar og Steingrímsfjörðar gerir þetta að fallegri og aðgengilegri náttúruupplifun.",
       "Alltaf er möguleiki á að sjá seli eða hval á svæðinu, þótt ekki sé hægt að ábyrgjast slíkt. Ef aðstæður leyfa gætu gestir einnig fengið tækifæri til að reyna sig í einfaldri stangveiði í ferðinni.",
       "Þetta er frábær kostur fyrir fjölskyldur, börn, gesti með takmarkaðan tíma eða þá sem vilja njóta léttar og eftirminnilegrar bátsferðar frá Drangsnesi.",
@@ -164,7 +164,7 @@ const tours = [
       ["Brottför", "13:30"],
       ["Heimkoma", "14:30"],
       ["Verð", "8.900 kr. á fullorðinn"],
-      ["Mætingarstaður", "Drangsneshöfn / móttaka Malarhorns"],
+      ["Mætingarstaður", "Bryggjan á Drangsnesi / móttaka Malarhorns"],
       ["Erfiðleikastig", "Auðvelt"],
       ["Mælt er með að taka með", "Hlý föt, myndavél og sólgleraugu ef sólríkt"],
     ] as [string, string][],
@@ -182,6 +182,20 @@ const tours = [
     cancellation: "Bookings are non-refundable. All sales are final.",
   },
 ];
+
+function GrimseyBody({ paragraphs }: { paragraphs: string[] }) {
+  return (
+    <div className="grimsey-body">
+      <div className="grimsey-cols">
+        {paragraphs.map((p, i) => (
+          <p key={i} className="bt">
+            {p}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function SailingPage() {
   const { lang } = useSafeLang();
@@ -238,18 +252,25 @@ export default function SailingPage() {
             <p className="ey">{is ? "Um Grímsey" : "About Grímsey"}</p>
             <h2 className="st">{is ? "Sannkölluð náttúruperla" : "A true natural gem"}</h2>
             <div className="dv" />
-            <p className="bt">
+            <p className="grimsey-lead">
               {is
-                ? "Grímsey í Steingrímsfirði er ein stærsta lundabyggð landsins, áætlað 25 til 30 þúsund pör á hverju sumri."
-                : "Grímsey in Steingrímsfjörður is home to one of Iceland's largest puffin colonies, with an estimated 25,000 to 30,000 breeding pairs each summer."}
-            </p>
-            <p className="bt">
-              {is
-                ? "Malarhorn býður upp á fallegar siglingar til Grímseyjar á sumrin."
-                : "Malarhorn offers regular scenic sailings to Grímsey during summer."}
+                ? "Grímsey í Steingrímsfirði er falleg náttúruperla skammt undan Drangsnesi á Ströndum. Þar mætast fjölbreytt fuglalíf, stórbrotið landslag og fallegt útsýni yfir Steingrímsfjörð og fjöllin í kring."
+                : "Grímsey in Steingrímsfjörður is a beautiful natural gem just off Drangsnes in the Westfjords. Diverse birdlife, dramatic landscapes and lovely views over Steingrímsfjörður and the surrounding mountains meet here."}
             </p>
           </div>
         </div>
+        <GrimseyBody paragraphs={(is
+            ? [
+                "Grímsey er sérstaklega þekkt fyrir ríkulegt fuglalíf og er vinsæll áfangastaður fuglaáhugafólks. Á sumrin iðar eyjan af lífi þegar fjölmargir sjófuglar verpa þar. Lundinn er einna mest áberandi og þar gefst gott tækifæri til að fylgjast með honum í sínu náttúrulega umhverfi. Auk lundans má sjá fjölmargar aðrar tegundir sjófugla í og við eyjuna.",
+                "En Grímsey hefur upp á fleira að bjóða en náttúru og fuglalíf. Þar var áður búið og sjósókn gegndi mikilvægu hlutverki í lífi íbúanna. Enn\u00A0má finna ummerki um fyrri búsetu sem minna á sögu eyjarinnar. Grímseyjarviti er eitt helsta kennileiti hennar og setur fallegan svip á landslagið.",
+                "Siglingin frá Drangsnesi út í Grímsey er stutt og gefur gestum tækifæri til að upplifa Steingrímsfjörð og náttúru Strandanna frá nýju sjónarhorni. Þegar komið er í land er hægt að ganga um eyjuna, fylgjast með fuglalífinu, njóta kyrrðarinnar og virða fyrir sér stórbrotið útsýnið yfir fjörðinn og nærliggjandi fjöll.",
+              ]
+            : [
+ "Grímsey is especially known for its rich birdlife and is a popular destination for birdwatchers. During the summer months, the island comes alive as large numbers of seabirds gather to nest. Puffins are among the island’s most iconic residents, offering visitors a wonderful opportunity to observe them in their natural habitat. Many other species of seabirds can also be spotted on and around the island.",
+ "But there is more to Grímsey than its nature and birdlife. The island was once inhabited, and fishing played an important role in the lives of those who called it home. Traces of former settlement can still be found, recalling the island’s history. The Grímsey lighthouse is one of the island’s most recognisable landmarks and has become a distinctive part of its landscape.",
+ "The boat ride from Drangsnes to Grímsey is short and offers a unique perspective of Steingrímsfjörður and the surrounding Westfjords landscape. Once on the island, visitors can explore on foot, observe the birdlife, enjoy the peaceful surroundings and take in beautiful views across the fjord and the nearby mountains.",
+              ]
+          )} />
       </div>
 
 

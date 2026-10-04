@@ -28,15 +28,19 @@ export default function GuestPage() {
         />
         <GuestSection
           title={is ? "Morgunmatur" : "Breakfast"}
+          note={
+            is
+              ? "Morgunverður er ekki í boði eins og er og er aðeins í boði yfir sumartímann."
+              : "Breakfast is currently unavailable and is only offered during the summer season."
+          }
           rows={[
-            [is ? "Tími" : "Time", "08:00 - 10:00"],
             [
-              is ? "Staður" : "Location",
-              is ? "Malarkaffi, sama bygging" : "Malarkaffi, same building",
+              is ? "Staða" : "Status",
+              is ? "Ekki í boði eins og er" : "Currently unavailable",
             ],
             [
-              is ? "Innifalið" : "Included",
-              is ? "Já, innifalið í gistingu" : "Yes, included in your stay",
+              is ? "Tímabil" : "Season",
+              is ? "Aðeins yfir sumartímann" : "Summer only",
             ],
           ]}
         />
@@ -54,35 +58,46 @@ export default function GuestPage() {
         />
         <GuestSection
           title={is ? "Sundlaug" : "Swimming Pool"}
-          rows={[[is ? "Opnunartími" : "Open", "11:00 - 18:00"]]}
+          rows={[
+            [
+              is ? "Vetraropnun" : "Winter hours",
+              is
+                ? "Þriðjudaga, miðvikudaga og föstudaga 15:00 - 18:00"
+                : "Tuesdays, Wednesdays and Fridays 15:00 - 18:00",
+            ],
+            [
+              is ? "Helgaropnun (vetur)" : "Weekends (winter)",
+              is
+                ? "Laugardaga og sunnudaga 13:00 - 17:00"
+                : "Saturdays and Sundays 13:00 - 17:00",
+            ],
+            [
+              is ? "Sumartími" : "Summer season",
+              is
+                ? "Hefst í byrjun júní og er til miðjan eða lok ágúst"
+                : "Starts in early June and runs until mid or late August",
+            ],
+            [
+              is ? "Sumaropnun" : "Summer hours",
+              is ? "Alla daga 11:00 - 18:00" : "Every day 11:00 - 18:00",
+            ],
+          ]}
         />
         <GuestSection
           title={is ? "Siglingar til Grímsey" : "Sailing to Grímsey"}
           note={
             is
-              ? "Við bjóðum upp á þrjár leiðsagðar ferðir til Grímsey. Bókaðu beint við móttökuna eða sendu okkur tölvupóst."
-              : "We offer three guided tours to Grímsey island. Book directly at reception or get in touch."
+              ? "Bátsferðirnar út í Grímsey eru aðeins í boði yfir sumartímann (júní–ágúst). Ekki er siglt utan þess tímabils."
+              : "Boat trips to Grímsey are only available during the summer season (June–August). There are no sailings outside this period."
           }
           rows={[
-            [
-              is ? "Sjóævintýrið" : "Sea Safari",
-              is ? "1 klukkustund" : "1 hour",
-            ],
-            [
-              is ? "Grímseyjarupplifun" : "Wildlife Tour",
-              is ? "2 klukkustundir" : "2 hours",
-            ],
-            [
-              is ? "Lundaganga" : "Puffin Walk",
-              is ? "3 klukkustundir" : "3 hours",
-            ],
             [
               is ? "Tímabil" : "Season",
               is ? "15. júní til miðjan ágúst" : "June 15 to mid August",
             ],
             [
               is ? "Mætingarstaður" : "Meeting point",
-              is ? "Drangsneshöfn" : "Drangsnes harbour",
+              is ? "Bryggjan á Drangsnesi" : "Drangsnes harbour",
             ],
           ]}
         />
@@ -94,10 +109,33 @@ export default function GuestPage() {
               : "A small local mini market in Drangsnes."
           }
           rows={[
-            [is ? "Sumar" : "Summer", "09:00 - 18:00"],
             [
-              is ? "Vetur" : "Winter",
-              `09:30 - 10:30 ${is ? "og" : "and"} 13:00 - 17:00`,
+              is ? "Vetraropnun" : "Winter hours",
+              is
+                ? "Alla virka daga 09:30 - 10:30 og 13:00 - 18:00"
+                : "Weekdays 09:30 - 10:30 and 13:00 - 18:00",
+            ],
+            [
+              is ? "Helgar (vetur)" : "Weekends (winter)",
+              is ? "Lokað" : "Closed",
+            ],
+            [
+              is ? "Sumaropnun" : "Summer hours",
+              is
+                ? "Mánudaga - fimmtudaga 09:00 - 18:00"
+                : "Monday - Thursday 09:00 - 18:00",
+            ],
+            [
+              is ? "Föstudagar (sumar)" : "Fridays (summer)",
+              "09:00 - 19:00",
+            ],
+            [
+              is ? "Laugardagar (sumar)" : "Saturdays (summer)",
+              "11:00 - 15:00",
+            ],
+            [
+              is ? "Sunnudagar (sumar)" : "Sundays (summer)",
+              is ? "Lokað" : "Closed",
             ],
           ]}
         />

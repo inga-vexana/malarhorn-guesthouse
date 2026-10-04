@@ -43,8 +43,8 @@ export default function AboutPage() {
             <div className="dv" />
             <p className="bt">
               {is
-                ? "Við bjóðum upp á hlýleg herbergi, rúmgóðar íbúðir og Malarkaffi er opið á sumrin með ferskt íslenskt hráefni."
-                : "Cozy rooms and spacious apartments for couples, families, and groups. Malarkaffi restaurant is open in summer."}
+                ? "Við bjóðum upp á hlýleg herbergi og rúmgóðar íbúðir við sjávarsíðuna á Drangsnesi, þar sem kyrrðin og falleg náttúra er allt um kring. Á sumrin er Malarkaffi opið og þar er boðið upp á góðan mat úr fersku íslensku hráefni. Hvort sem þú ert á ferð um Vestfirði eða vilt njóta rólegra daga á Ströndum er Malarhorn notalegur staður til að dvelja á og njóta þess sem svæðið hefur upp á að bjóða."
+                : "We offer cosy rooms and spacious apartments by the sea in Drangsnes, surrounded by the peaceful and beautiful nature of Strandir. During the summer, Malarkaffi is open, serving delicious food made with fresh Icelandic ingredients. Whether you are travelling through the Westfjords or looking to spend a few peaceful days in Strandir, Malarhorn is a welcoming place to stay, relax and enjoy everything the area has to offer."}
             </p>
           </div>
           <Photo src={images.stayDine} />
@@ -59,8 +59,8 @@ export default function AboutPage() {
             <div className="dv" />
             <p className="bt">
               {is
-                ? "Hvort sem það er í heitu pottunum, á veröndinni eða í göngu um Steingrímsfjörð, Malarhorn er staður til að hægja á sér."
-                : "Malarhorn is a place to truly slow down and enjoy the natural surroundings."}
+                ? "Hvort sem þú slakar á í heitu pottunum, nýtur kyrrðarinnar á veröndinni eða kannar náttúruna við Steingrímsfjörð, þá býður Malarhorn upp á notalegt umhverfi þar sem gott er að hægja á sér. Hér getur þú tekið þér tíma, notið útsýnisins og upplifað kyrrðina sem einkennir Strandir."
+                : "Whether you are relaxing in the hot tubs, enjoying the peaceful atmosphere on the terrace or exploring the nature around Steingrímsfjörður, Malarhorn is a place where it is easy to slow down. Take your time, enjoy the views and experience the tranquillity that makes Strandir so special."}
             </p>
             <BookingLink className="bp">{is ? "Bóka gistingu" : "Book your stay"}</BookingLink>
           </div>
