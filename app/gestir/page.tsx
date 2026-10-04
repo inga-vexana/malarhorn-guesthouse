@@ -87,8 +87,8 @@ export default function GuestPage() {
           title={is ? "Siglingar til Grímsey" : "Sailing to Grímsey"}
           note={
             is
-              ? "Við bjóðum upp á þrjár leiðsagðar ferðir til Grímsey. Bókaðu beint við móttökuna eða sendu okkur tölvupóst."
-              : "We offer three guided tours to Grímsey island. Book directly at reception or get in touch."
+              ? "Bátsferðirnar út í Grímsey eru aðeins í boði yfir sumartímann (júní–ágúst). Ekki er siglt utan þess tímabils."
+              : "Boat trips to Grímsey are only available during the summer season (June–August). There are no sailings outside this period."
           }
           rows={[
             [
