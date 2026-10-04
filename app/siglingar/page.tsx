@@ -267,7 +267,7 @@ export default function SailingPage() {
               ]
             : [
  "Grímsey is especially known for its rich birdlife and is a popular destination for birdwatchers. During the summer months, the island comes alive as large numbers of seabirds gather to nest. Puffins are among the island’s most iconic residents, offering visitors a wonderful opportunity to observe them in their natural habitat. Many other species of seabirds can also be spotted on and around the island.",
- "But there is more to Grímsey than its nature and birdlife. The island was once inhabited, and fishing played an important role in the lives of those who called it home. Traces of the former settlement can still be found today, offering a glimpse into the island’s past. The Grímsey lighthouse is one of the island’s most recognisable landmarks and has become a distinctive part of its landscape.",
+ "But there is more to Grímsey than its nature and birdlife. The island was once inhabited, and fishing played an important role in the lives of those who called it home. Traces of former settlement can still be found, recalling the island’s history. The Grímsey lighthouse is one of the island’s most recognisable landmarks and has become a distinctive part of its landscape.",
  "The boat ride from Drangsnes to Grímsey is short and offers a unique perspective of Steingrímsfjörður and the surrounding Westfjords landscape. Once on the island, visitors can explore on foot, observe the birdlife, enjoy the peaceful surroundings and take in beautiful views across the fjord and the nearby mountains.",
               ]
           )} />
