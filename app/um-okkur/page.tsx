@@ -59,7 +59,7 @@ export default function AboutPage() {
             <div className="dv" />
             <p className="bt">
               {is
-                ? "Hvort sem þú slakar á í heitu pottunum, nýtur kyrrðarinnar á veröndinni eða kannar náttúruna við Steingrímsfjörð, þá býður Malarhorn upp á notalegt umhverfi þar sem gott er að hægja á sér. Hér getur þú tekið þér tíma, notið útsýnisins og upplifað kyrrðina sem einkennir Strandir"
+                ? "Hvort sem þú slakar á í heitu pottunum, nýtur kyrrðarinnar á veröndinni eða kannar náttúruna við Steingrímsfjörð, þá býður Malarhorn upp á notalegt umhverfi þar sem gott er að hægja á sér. Hér getur þú tekið þér tíma, notið útsýnisins og upplifað kyrrðina sem einkennir Strandir."
                 : "Malarhorn is a place to truly slow down and enjoy the natural surroundings."}
             </p>
             <BookingLink className="bp">{is ? "Bóka gistingu" : "Book your stay"}</BookingLink>
