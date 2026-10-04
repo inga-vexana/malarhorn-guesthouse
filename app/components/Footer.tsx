@@ -24,13 +24,10 @@ export default function Footer() {
           <p>Grundargata 17</p>
           <p>520 Drangsnes, Iceland</p>
           <h4 className="fc-sub">Malarkaffi</h4>
-          <p>14:00 – 21:00</p>
+          <p>Closed</p>
         </div>
         <div className="fc">
           <h4>{t.contact}</h4>
-          <p className="ft-label">
-            {lang === "en" ? "Reception (08:00–21:00)" : "Móttaka (08:00–21:00)"}
-          </p>
           <a href="tel:+3544614345">+354 461 4345</a>
           <p className="ft-label">
             {lang === "en" ? "24/7 Assistance" : "Aðstoð utan opnunartíma"}

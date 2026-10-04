@@ -46,7 +46,7 @@ export const translations = {
       ["home", "Heim"],
       ["accommodation", "Gisting"],
       ["restaurant", "Veitingastaður"],
-      ["sailing", "Sigling til Grímsey"],
+      ["sailing", "Sigling"],
       ["about", "Malarhorn"],
       ["giftcard", "Gjafabréf"],
     ] as [Page, string][],
