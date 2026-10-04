@@ -89,6 +89,24 @@ export default function AccommodationPage() {
           </div>
         </div>
       </section>
+
+      <section className="sec" style={{ paddingTop: 0 }}>
+        <div className="si2" style={{ maxWidth: "720px" }}>
+          <h2 className="st">
+            {is ? "Morgunverður og eldunaraðstaða" : "Breakfast and cooking facilities"}
+          </h2>
+          <p className="rd" style={{ marginBottom: "1.2rem" }}>
+            {is
+              ? "Morgunverður er ekki í boði frá 1. október og fram að næsta sumri."
+              : "Breakfast is not available from October 1 until next summer."}
+          </p>
+          <p className="rd">
+            {is
+              ? "Gestir Malarhorns hafa aðgang að sameiginlegri eldunaraðstöðu þar sem hægt er að útbúa eigin máltíðir. Eldunaraðstaðan er staðsett á fyrstu hæð í Malarkaffi og er aðgengileg öllum gestum."
+              : "Guests of Malarhorn have access to a shared cooking facility where you can prepare your own meals. The kitchen is located on the first floor of Malarkaffi and is available to all guests."}
+          </p>
+        </div>
+      </section>
     </>
   );
 }
