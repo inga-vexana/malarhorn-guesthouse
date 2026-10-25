@@ -180,7 +180,6 @@ export default function HomePage() {
           <div className="at">
             <p className="ey">{is ? "Staður fyrir þig" : "A place for you"}</p>
             <h2 className="st">{is ? "Meira en bara gisting" : "More than a place to stay"}</h2>
-            <div className="dv" />
             <p>
               {is
                 ? "Á Malarhorni færðu rólega dvöl í einstöku umhverfi, persónulega þjónustu og aðgang að náttúrulífi sem fæst varla annars staðar."
@@ -218,7 +217,6 @@ export default function HomePage() {
             <h2 className="st">
               {is ? "Upplifðu heitu pottana á Drangsnesi" : "Drangsnes hot pots by the ocean"}
             </h2>
-            <div className="dv" />
             <p>
               {is
                 ? "Heitu pottarnir á Drangsnesi bjóða upp á einstaka slökun við sjávarsíðuna með útsýni yfir hafið og Grímsey."

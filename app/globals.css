@@ -274,19 +274,6 @@ button {
   margin-bottom: 2rem;
 }
 
-.htag::before {
-  background: currentColor;
-  content: "";
-  display: inline-block;
-  flex-shrink: 0;
-  height: 1px;
-  width: 28px;
-}
-
-.ey::before {
-  content: none;
-}
-
 .hero h1 {
   color: var(--br);
   font-size: clamp(2.8rem, 4.5vw, 5rem);
@@ -674,16 +661,6 @@ button {
   padding: 0.65rem 0;
 }
 
-.cl li::before {
-  background: var(--gold);
-  border-radius: 0;
-  content: "";
-  display: inline-block;
-  flex-shrink: 0;
-  height: 1px;
-  width: 16px;
-}
-
 .st {
   color: var(--br);
   font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
@@ -692,13 +669,6 @@ button {
   letter-spacing: -0.01em;
   line-height: 1.15;
   margin-bottom: 1.4rem;
-}
-
-.dv {
-  background: var(--gold);
-  height: 1px;
-  margin: 1.4rem 0;
-  width: 48px;
 }
 
 .ph {
