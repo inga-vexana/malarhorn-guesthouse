@@ -616,34 +616,6 @@ button {
   width: 100%;
 }
 
-.af {
-  background: var(--tc);
-  border: 0;
-  border-radius: 0;
-  bottom: -1.5rem;
-  box-shadow: 0 4px 24px rgb(26 24 20 / 18%);
-  padding: 1.4rem 2rem;
-  position: absolute;
-  right: -1.5rem;
-}
-
-.afn {
-  color: var(--w);
-  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
-  font-size: 2.6rem;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-}
-
-.afl {
-  color: var(--gold-light);
-  font-family: var(--font-sans, Jost, Arial, sans-serif);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
 .cl {
   list-style: none;
   margin: 1.4rem 0;
@@ -2085,17 +2057,6 @@ footer {
   .rdetInner {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-  }
-
-  /* Accommodation photo badge — prevent overflow */
-  .af {
-    bottom: -1rem;
-    right: -0.5rem;
-    padding: 1rem 1.4rem;
-  }
-
-  .afn {
-    font-size: 2rem;
   }
 
   /* Booking form */

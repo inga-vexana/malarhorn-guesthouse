@@ -172,10 +172,6 @@ export default function HomePage() {
         <div className="ai">
           <div className="aw">
             <Photo src={images.about} />
-            <div className="af">
-              <div className="afn">2008</div>
-              <div className="afl">{is ? "Stofnað" : "Est."}</div>
-            </div>
           </div>
           <div className="at">
             <p className="ey">{is ? "Staður fyrir þig" : "A place for you"}</p>
