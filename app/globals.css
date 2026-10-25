@@ -3475,3 +3475,49 @@ footer {
 .mnuPdf .bt {
   margin-bottom: 1.5rem;
 }
+
+/* Corner radius system: images 8px, buttons / badges / tags 6px */
+.photo,
+.rp,
+.rdetImg,
+.bookingRoomImage,
+.bkRoomImg,
+.bkSummaryImg,
+.tourCardImg,
+.tourDetailImg,
+.gcImage,
+.grimsey-img-wrap,
+.evtImage,
+.founders-photo {
+  border-radius: 8px;
+}
+
+.bkbtn,
+.bp,
+.bpsm,
+.bs,
+.gst-bk,
+.bkSubmit,
+.bkBack,
+.bkPayOverlayBack,
+.gst-mapcard-btn,
+.gst-action-btn,
+.gcBtn,
+.gcAllBtn,
+.evtMore,
+.evtEmptyLink,
+.cc-btn,
+.rdetClose,
+.rcarBtn,
+.lgt,
+.lb,
+.sct,
+.veganBadge,
+.gcBadge,
+.hbg {
+  border-radius: 6px;
+}
+
+.lgt .lb {
+  border-radius: 0;
+}
