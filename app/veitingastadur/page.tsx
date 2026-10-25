@@ -252,7 +252,6 @@ export default function RestaurantPage() {
             <div>
               <p className="ey">Malarkaffi</p>
               <h2 className="st">{is ? "Njóttu góðs matar og drykkja með einstöku útsýni yfir hafið" : "Enjoy lunch, dinner and drinks with beautiful ocean views"}</h2>
-              <div className="dv" />
               <p className="bt">
                 {is
                   ? "Malarkaffi er fjölskyldurekinn veitingastaður með ferskan fisk, íslenskt lambakjöt og heimilislegan mat úr staðbundnu hráefni."

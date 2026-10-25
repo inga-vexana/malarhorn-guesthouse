@@ -55,7 +55,6 @@ function BookingSearchStep({
       <div className="bkInner">
         <p className="ey">{is ? "Bóka gistingu" : "Book your stay"}</p>
         <h1 className="st">{is ? "Veldu dagsetningar" : "Choose your dates"}</h1>
-        <div className="dv" />
         <form
           className="bkSearchForm"
           onSubmit={(e) => {
@@ -176,7 +175,6 @@ function BookingRoomsStep({
             : ""}
         </p>
         <h1 className="st">{is ? "Veldu herbergi" : "Choose your room"}</h1>
-        <div className="dv" />
 
         {rooms.length === 0 ? (
           <div className="bkEmpty">
@@ -325,7 +323,6 @@ function BookingGuestStep({
         <h1 className="st" style={{ marginTop: "2rem" }}>
           {is ? "Upplýsingar um gesti" : "Guest details"}
         </h1>
-        <div className="dv" />
 
         <form
           className="bkGuestForm"

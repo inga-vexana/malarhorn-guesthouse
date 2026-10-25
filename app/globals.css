@@ -274,19 +274,6 @@ button {
   margin-bottom: 2rem;
 }
 
-.htag::before {
-  background: currentColor;
-  content: "";
-  display: inline-block;
-  flex-shrink: 0;
-  height: 1px;
-  width: 28px;
-}
-
-.ey::before {
-  content: none;
-}
-
 .hero h1 {
   color: var(--br);
   font-size: clamp(2.8rem, 4.5vw, 5rem);
@@ -629,34 +616,6 @@ button {
   width: 100%;
 }
 
-.af {
-  background: var(--tc);
-  border: 0;
-  border-radius: 0;
-  bottom: -1.5rem;
-  box-shadow: 0 4px 24px rgb(26 24 20 / 18%);
-  padding: 1.4rem 2rem;
-  position: absolute;
-  right: -1.5rem;
-}
-
-.afn {
-  color: var(--w);
-  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
-  font-size: 2.6rem;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-}
-
-.afl {
-  color: var(--gold-light);
-  font-family: var(--font-sans, Jost, Arial, sans-serif);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
 .cl {
   list-style: none;
   margin: 1.4rem 0;
@@ -674,16 +633,6 @@ button {
   padding: 0.65rem 0;
 }
 
-.cl li::before {
-  background: var(--gold);
-  border-radius: 0;
-  content: "";
-  display: inline-block;
-  flex-shrink: 0;
-  height: 1px;
-  width: 16px;
-}
-
 .st {
   color: var(--br);
   font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
@@ -692,13 +641,6 @@ button {
   letter-spacing: -0.01em;
   line-height: 1.15;
   margin-bottom: 1.4rem;
-}
-
-.dv {
-  background: var(--gold);
-  height: 1px;
-  margin: 1.4rem 0;
-  width: 48px;
 }
 
 .ph {
@@ -2117,17 +2059,6 @@ footer {
     gap: 1.5rem;
   }
 
-  /* Accommodation photo badge — prevent overflow */
-  .af {
-    bottom: -1rem;
-    right: -0.5rem;
-    padding: 1rem 1.4rem;
-  }
-
-  .afn {
-    font-size: 2rem;
-  }
-
   /* Booking form */
   .bookingForm {
     grid-template-columns: 1fr;
@@ -3504,4 +3435,50 @@ footer {
 
 .mnuPdf .bt {
   margin-bottom: 1.5rem;
+}
+
+/* Corner radius system: images 8px, buttons / badges / tags 6px */
+.photo,
+.rp,
+.rdetImg,
+.bookingRoomImage,
+.bkRoomImg,
+.bkSummaryImg,
+.tourCardImg,
+.tourDetailImg,
+.gcImage,
+.grimsey-img-wrap,
+.evtImage,
+.founders-photo {
+  border-radius: 8px;
+}
+
+.bkbtn,
+.bp,
+.bpsm,
+.bs,
+.gst-bk,
+.bkSubmit,
+.bkBack,
+.bkPayOverlayBack,
+.gst-mapcard-btn,
+.gst-action-btn,
+.gcBtn,
+.gcAllBtn,
+.evtMore,
+.evtEmptyLink,
+.cc-btn,
+.rdetClose,
+.rcarBtn,
+.lgt,
+.lb,
+.sct,
+.veganBadge,
+.gcBadge,
+.hbg {
+  border-radius: 6px;
+}
+
+.lgt .lb {
+  border-radius: 0;
 }

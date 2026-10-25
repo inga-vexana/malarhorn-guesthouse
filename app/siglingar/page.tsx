@@ -251,7 +251,6 @@ export default function SailingPage() {
           <div className="grimsey-text">
             <p className="ey">{is ? "Um Grímsey" : "About Grímsey"}</p>
             <h2 className="st">{is ? "Sannkölluð náttúruperla" : "A true natural gem"}</h2>
-            <div className="dv" />
             <p className="grimsey-lead">
               {is
                 ? "Grímsey í Steingrímsfirði er falleg náttúruperla skammt undan Drangsnesi á Ströndum. Þar mætast fjölbreytt fuglalíf, stórbrotið landslag og fallegt útsýni yfir Steingrímsfjörð og fjöllin í kring."
@@ -286,7 +285,6 @@ export default function SailingPage() {
               <h3 className="st" style={{ fontSize: "1.6rem" }}>
                 {is ? sel.nameIs : sel.nameEn}
               </h3>
-              <div className="dv" />
               {(is ? sel.descIs : sel.descEn).map((p, i) => (
                 <p key={i} className="bt" style={{ marginBottom: "0.7rem" }}>
                   {p}

@@ -19,7 +19,6 @@ export default function AboutPage() {
                 {is ? "Slakaðu á við sjóinn á Ströndum" : "Relax by the sea in the Westfjords"}
               </p>
               <h2 className="st">{is ? "Malarhorn" : "Our guesthouse"}</h2>
-              <div className="dv" />
               <p className="bt">
                 {is
                   ? "Malarhorn Guesthouse var stofnað árið 2008 af hjónunum Valgerði Magnúsdóttur og Ásbirni Magnússon, og hefur frá upphafi verið rekið af fjölskyldu sem brennur fyrir gestrisni, góðri þjónustu og því að miðla fegurð Stranda til gesta hvaðanæva að úr heiminum."
@@ -40,7 +39,6 @@ export default function AboutPage() {
           <div>
             <p className="ey">{is ? "Gisting og matur" : "Stay & dine"}</p>
             <h2 className="st">{is ? "Gisting & Malarkaffi" : "Accommodation & restaurant"}</h2>
-            <div className="dv" />
             <p className="bt">
               {is
                 ? "Við bjóðum upp á hlýleg herbergi og rúmgóðar íbúðir við sjávarsíðuna á Drangsnesi, þar sem kyrrðin og falleg náttúra er allt um kring. Á sumrin er Malarkaffi opið og þar er boðið upp á góðan mat úr fersku íslensku hráefni. Hvort sem þú ert á ferð um Vestfirði eða vilt njóta rólegra daga á Ströndum er Malarhorn notalegur staður til að dvelja á og njóta þess sem svæðið hefur upp á að bjóða."
@@ -56,7 +54,6 @@ export default function AboutPage() {
           <div>
             <p className="ey">{is ? "Tími til að slaka á" : "Time to unwind"}</p>
             <h2 className="st">{is ? "Staður til að hægja á sér" : "A place to slow down"}</h2>
-            <div className="dv" />
             <p className="bt">
               {is
                 ? "Hvort sem þú slakar á í heitu pottunum, nýtur kyrrðarinnar á veröndinni eða kannar náttúruna við Steingrímsfjörð, þá býður Malarhorn upp á notalegt umhverfi þar sem gott er að hægja á sér. Hér getur þú tekið þér tíma, notið útsýnisins og upplifað kyrrðina sem einkennir Strandir."
