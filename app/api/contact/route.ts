@@ -17,7 +17,6 @@ const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const INQUIRY_LABELS: Record<InquiryType, string> = {
   group_quote: "Request a group quote / Óska eftir tilboði fyrir hóp",
   accommodation: "Accommodation / Gisting",
-  boat_tour: "Grímsey Island boat tour / Sigling til Grímseyjar",
   other: "Other / Annað",
 };
 

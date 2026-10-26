@@ -1,4 +1,4 @@
-export const INQUIRY_TYPES = ["group_quote", "accommodation", "boat_tour", "other"] as const;
+export const INQUIRY_TYPES = ["group_quote", "accommodation", "other"] as const;
 export type InquiryType = (typeof INQUIRY_TYPES)[number];
 
 export type ContactPayload = {

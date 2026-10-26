@@ -23,7 +23,6 @@ const copy = {
     inquiries: {
       group_quote: "Óska eftir tilboði fyrir hóp",
       accommodation: "Gisting",
-      boat_tour: "Sigling til Grímseyjar",
       other: "Annað",
     } as Record<InquiryType, string>,
     guests: "Fjöldi gesta",
@@ -57,7 +56,6 @@ const copy = {
     inquiries: {
       group_quote: "Request a group quote",
       accommodation: "Accommodation",
-      boat_tour: "Grímsey Island boat tour",
       other: "Other",
     } as Record<InquiryType, string>,
     guests: "Number of guests",
