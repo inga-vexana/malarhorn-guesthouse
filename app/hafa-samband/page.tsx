@@ -2,6 +2,7 @@
 
 import { useSafeLang } from "../components/LangContext";
 import ContactForm from "../components/ContactForm";
+import { CONTACT_EMAIL, CONTACT_FORM_ENABLED } from "../lib/contact-config";
 import ContactHero from "../components/contact/ContactHero";
 import ContactInfo from "../components/contact/ContactInfo";
 import ContactStory from "../components/contact/ContactStory";
@@ -17,6 +18,11 @@ const copy = {
     form: {
       title: "Sendu okkur línu",
       text: "Segðu okkur hvað þér liggur á hjarta og við svörum eins fljótt og auðið er.",
+    },
+    mail: {
+      title: "Sendu okkur tölvupóst",
+      before: "Við tökum vel á móti fyrirspurnum! Hafðu samband við okkur í tölvupósti á ",
+      after: " og við svörum eins fljótt og auðið er.",
     },
     info: {
       heading: "Eða hafðu beint samband",
@@ -43,6 +49,11 @@ const copy = {
     form: {
       title: "Send us a message",
       text: "Tell us what is on your mind and we will get back to you as soon as possible.",
+    },
+    mail: {
+      title: "Send us an email",
+      before: "We'd love to hear from you! Send us an email at ",
+      after: " and we'll get back to you as soon as possible.",
     },
     info: {
       heading: "Or reach us directly",
@@ -71,11 +82,24 @@ export default function ContactPage() {
 
       <section className="ct-main">
         <div className="ct-main-in">
-          <div className="ct-form-panel" id="cf-form">
-            <h2 className="ct-form-title">{t.form.title}</h2>
-            <p className="ct-form-text">{t.form.text}</p>
-            <ContactForm />
-          </div>
+          {CONTACT_FORM_ENABLED ? (
+            <div className="ct-form-panel" id="cf-form">
+              <h2 className="ct-form-title">{t.form.title}</h2>
+              <p className="ct-form-text">{t.form.text}</p>
+              <ContactForm />
+            </div>
+          ) : (
+            <div className="ct-form-panel ct-mail-panel" id="cf-form">
+              <h2 className="ct-form-title">{t.mail.title}</h2>
+              <p className="ct-mail-text">
+                {t.mail.before}
+                <a href={`mailto:${CONTACT_EMAIL}`} className="ct-mail-link">
+                  {CONTACT_EMAIL}
+                </a>
+                {t.mail.after}
+              </p>
+            </div>
+          )}
           <ContactInfo
             heading={t.info.heading}
             imageAlt={t.info.imageAlt}

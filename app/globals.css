@@ -3614,6 +3614,30 @@ footer {
   margin-bottom: 2.2rem;
 }
 
+.ct-mail-text {
+  color: var(--t2);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1.15rem;
+  font-weight: 300;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+.ct-mail-link {
+  border-bottom: 1px solid var(--g);
+  color: var(--br);
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.ct-mail-link:hover,
+.ct-mail-link:focus-visible {
+  border-color: var(--br);
+  color: var(--tc);
+}
+
 .ct-info {
   position: sticky;
   top: 100px;
