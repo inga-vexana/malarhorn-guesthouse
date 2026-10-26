@@ -19,6 +19,7 @@ const pageToPath: Record<string, { is: string; en: string }> = {
   booking: { is: "/bokun", en: "/booking" },
   giftcard: { is: "/gjafakort", en: "/giftcard" },
   events: { is: "/vidburdir", en: "/vidburdir" },
+  contact: { is: "/hafa-samband", en: "/contact" },
 };
 
 export default function Nav() {
@@ -73,6 +74,7 @@ export default function Nav() {
                     <Link href={localize("about")}>{label}</Link>
                     <Link href={localize("guest")}>{t.guest}</Link>
                     {lang === "is" && <Link href={localize("events")}>{t.events}</Link>}
+                    <Link href={localize("contact")}>{t.contact}</Link>
                   </div>
                 </>
               ) : (
@@ -154,6 +156,15 @@ export default function Nav() {
               </Link>
             </li>
           )}
+          <li>
+            <Link
+              className={`mobileMenuLink ${isActive("contact") ? "on" : ""}`}
+              href={localize("contact")}
+              onClick={() => setMenuOpen(false)}
+            >
+              {t.contact}
+            </Link>
+          </li>
         </ul>
         <div className="mobileMenuFooter">
           <div className="lgt" aria-label="Language">
