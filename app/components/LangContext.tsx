@@ -26,6 +26,7 @@ const IS_TO_EN: Record<string, string> = {
   "/bokun": "/booking",
   "/gjafakort": "/giftcard",
   "/vafrakokur": "/cookie-policy",
+  "/hafa-samband": "/contact",
 };
 
 const EN_TO_IS: Record<string, string> = Object.fromEntries(

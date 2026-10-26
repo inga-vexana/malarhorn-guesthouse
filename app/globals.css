@@ -3482,3 +3482,189 @@ footer {
 .lgt .lb {
   border-radius: 0;
 }
+
+/* Contact form */
+.cf-wrap {
+  max-width: 720px;
+}
+
+.cf {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.cf-row {
+  display: grid;
+  gap: 1.6rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.cf-field {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 0;
+}
+
+.cf-field label,
+.cf-field legend {
+  color: var(--bm);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cf-field legend {
+  margin-bottom: 0.7rem;
+  padding: 0;
+}
+
+.cf-opt {
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--bl);
+}
+
+.cf-field input[type="text"],
+.cf-field input[type="email"],
+.cf-field input[type="tel"],
+.cf-field textarea {
+  background: var(--w);
+  border: 1px solid var(--l3);
+  border-radius: 6px;
+  color: var(--tx);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 0.85rem 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.cf-field textarea {
+  min-height: 10rem;
+  resize: vertical;
+}
+
+.cf-field input::placeholder {
+  color: var(--bl);
+}
+
+.cf-field input:focus-visible,
+.cf-field textarea:focus-visible {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgb(160 136 88 / 18%);
+  outline: none;
+}
+
+.cf-field [aria-invalid="true"] {
+  border-color: #9a3b2e;
+}
+
+.cf-field input:disabled,
+.cf-field textarea:disabled {
+  opacity: 0.6;
+}
+
+.cf-checks {
+  gap: 0.2rem;
+}
+
+.cf-check {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.45rem 0;
+}
+
+.cf-check input {
+  accent-color: var(--tc);
+  flex-shrink: 0;
+  height: 1.05rem;
+  margin: 0;
+  width: 1.05rem;
+}
+
+.cf-field .cf-check span {
+  color: var(--t2);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.cf-error,
+.cf-alert {
+  color: #9a3b2e;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.cf-alert {
+  background: var(--w);
+  border: 1px solid #9a3b2e;
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+}
+
+.cf-hp {
+  height: 0;
+  left: -9999px;
+  overflow: hidden;
+  position: absolute;
+  width: 0;
+}
+
+.cf-submit {
+  align-self: flex-start;
+  border: 0;
+}
+
+.cf-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.cf-success {
+  background: var(--w);
+  border: 1px solid var(--l3);
+  border-radius: 6px;
+  padding: 2.5rem 2rem;
+}
+
+.cf-success h3 {
+  color: var(--br);
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: 0.8rem;
+}
+
+.cf-success p {
+  color: var(--t2);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .cf-row {
+    grid-template-columns: 1fr;
+  }
+
+  .cf-submit {
+    align-self: stretch;
+    text-align: center;
+  }
+}
