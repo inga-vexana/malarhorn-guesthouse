@@ -74,7 +74,6 @@ export default function Nav() {
                     <Link href={localize("about")}>{label}</Link>
                     <Link href={localize("guest")}>{t.guest}</Link>
                     {lang === "is" && <Link href={localize("events")}>{t.events}</Link>}
-                    <Link href={localize("contact")}>{t.contact}</Link>
                   </div>
                 </>
               ) : (
@@ -156,15 +155,6 @@ export default function Nav() {
               </Link>
             </li>
           )}
-          <li>
-            <Link
-              className={`mobileMenuLink ${isActive("contact") ? "on" : ""}`}
-              href={localize("contact")}
-              onClick={() => setMenuOpen(false)}
-            >
-              {t.contact}
-            </Link>
-          </li>
         </ul>
         <div className="mobileMenuFooter">
           <div className="lgt" aria-label="Language">

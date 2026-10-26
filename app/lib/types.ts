@@ -1,5 +1,5 @@
 export type Lang = "en" | "is";
-export type Page = "home" | "accommodation" | "restaurant" | "sailing" | "about" | "guest" | "booking" | "giftcard" | "events";
+export type Page = "home" | "accommodation" | "restaurant" | "sailing" | "about" | "guest" | "booking" | "giftcard" | "events" | "contact";
 
 export type LocalizedText = string | { is: string; en: string };
 
