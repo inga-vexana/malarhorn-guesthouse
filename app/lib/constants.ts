@@ -33,6 +33,7 @@ export const translations = {
       ["sailing", "Sailing"],
       ["about", "Malarhorn"],
       ["giftcard", "Gift Cards"],
+      ["contact", "Contact"],
     ] as [Page, string][],
   },
   is: {
@@ -49,6 +50,7 @@ export const translations = {
       ["sailing", "Sigling"],
       ["about", "Malarhorn"],
       ["giftcard", "Gjafabréf"],
+      ["contact", "Hafðu samband"],
     ] as [Page, string][],
   },
 };

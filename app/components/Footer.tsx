@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSafeLang } from "./LangContext";
 import { translations } from "../lib/constants";
 import { OPEN_COOKIE_PREFERENCES_EVENT } from "./CookieConsent";
@@ -36,6 +37,9 @@ export default function Footer() {
           <a href="mailto:malarhorn@malarhornguesthouse.is">
             malarhorn@malarhornguesthouse.is
           </a>
+          <Link href={lang === "en" ? "/en/contact" : "/hafa-samband"}>
+            {lang === "en" ? "Send an inquiry" : "Senda fyrirspurn"}
+          </Link>
         </div>
       </div>
       <div className="fb2">

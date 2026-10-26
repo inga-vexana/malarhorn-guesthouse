@@ -34,6 +34,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
     },
     {
+      isPath: "/hafa-samband",
+      enPath: "/contact",
+      priority: 0.6,
+      changeFrequency: "yearly" as const,
+    },
+    {
       isPath: "/vafrakokur",
       enPath: "/cookie-policy",
       priority: 0.3,

@@ -19,6 +19,7 @@ const pageToPath: Record<string, { is: string; en: string }> = {
   booking: { is: "/bokun", en: "/booking" },
   giftcard: { is: "/gjafakort", en: "/giftcard" },
   events: { is: "/vidburdir", en: "/vidburdir" },
+  contact: { is: "/hafa-samband", en: "/contact" },
 };
 
 export default function Nav() {
