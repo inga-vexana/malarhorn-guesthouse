@@ -82,6 +82,10 @@ const copy = {
   },
 };
 
+const focusOnMount = (node: HTMLElement | null) => {
+  node?.focus({ preventScroll: false });
+};
+
 export default function ContactForm() {
   const { lang } = useSafeLang();
   const t = copy[lang];
@@ -161,7 +165,7 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="cf-success" role="status">
+      <div className="cf-success" role="status" tabIndex={-1} ref={focusOnMount}>
         <h3>{t.successTitle}</h3>
         <p>{t.success}</p>
       </div>
@@ -234,22 +238,24 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <fieldset className="cf-field cf-checks" disabled={submitting}>
+      <fieldset className="cf-field" disabled={submitting}>
         <legend>{t.help}</legend>
-        {INQUIRY_TYPES.map((type) => (
-          <label className="cf-check" key={type}>
-            <input
-              type="checkbox"
-              checked={inquiries.includes(type)}
-              onChange={() => toggleInquiry(type)}
-            />
-            <span>{t.inquiries[type]}</span>
-          </label>
-        ))}
+        <div className="cf-checks-list">
+          {INQUIRY_TYPES.map((type) => (
+            <label className="cf-check" key={type}>
+              <input
+                type="checkbox"
+                checked={inquiries.includes(type)}
+                onChange={() => toggleInquiry(type)}
+              />
+              <span>{t.inquiries[type]}</span>
+            </label>
+          ))}
+        </div>
       </fieldset>
 
       {showGroupFields && (
-        <div className="cf-row">
+        <div className="cf-row cf-group">
           <div className="cf-field">
             <label htmlFor="cf-guests">{t.guests}</label>
             <input

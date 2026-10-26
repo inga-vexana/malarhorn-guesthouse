@@ -3483,15 +3483,249 @@ footer {
   border-radius: 0;
 }
 
-/* Contact form */
-.cf-wrap {
-  max-width: 720px;
+/* Contact page */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
+.ct-hero {
+  align-items: flex-end;
+  background: var(--tc);
+  display: flex;
+  min-height: clamp(440px, 64vh, 660px);
+  overflow: hidden;
+  position: relative;
+}
+
+.ct-hero-img {
+  object-fit: cover;
+  object-position: 70% 50%;
+}
+
+.ct-hero-shade {
+  background:
+    linear-gradient(to right, rgb(26 24 20 / 55%) 0%, rgb(26 24 20 / 0%) 70%),
+    linear-gradient(to top, rgb(26 24 20 / 78%) 0%, rgb(26 24 20 / 38%) 48%, rgb(26 24 20 / 8%) 100%);
+  inset: 0;
+  position: absolute;
+}
+
+.ct-hero-in {
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 4rem 2.5rem 3.75rem;
+  position: relative;
+  width: 100%;
+}
+
+.ct-hero-ey {
+  color: var(--w);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  margin-bottom: 1.1rem;
+  text-transform: uppercase;
+}
+
+.ct-hero h1 {
+  color: var(--w);
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(3rem, 6.4vw, 5.2rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  margin-bottom: 1.3rem;
+  text-wrap: balance;
+}
+
+.ct-hero-text {
+  color: var(--l);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1.15rem;
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 36rem;
+  text-wrap: pretty;
+}
+
+.ct-hero-cta {
+  border: 1px solid rgb(250 247 242 / 70%);
+  border-radius: 6px;
+  color: var(--w);
+  display: inline-block;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  margin-top: 2rem;
+  padding: 1rem 2.2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+
+.ct-hero-cta:hover,
+.ct-hero-cta:focus-visible {
+  background: var(--w);
+  border-color: var(--w);
+  color: var(--tc);
+}
+
+.ct-main {
+  background: var(--l);
+  padding: 5rem 2.5rem;
+}
+
+.ct-main-in {
+  align-items: start;
+  display: grid;
+  gap: 4rem;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.ct-form-panel {
+  background: var(--w);
+  border: 1px solid var(--l3);
+  border-radius: 10px;
+  padding: 3rem;
+  scroll-margin-top: 100px;
+}
+
+.ct-form-title {
+  color: var(--br);
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 0.6rem;
+}
+
+.ct-form-text {
+  color: var(--t2);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 2.2rem;
+}
+
+.ct-info {
+  position: sticky;
+  top: 100px;
+}
+
+.ct-info-photo,
+.ct-story-photo {
+  background: var(--l2);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ct-info-photo {
+  aspect-ratio: 4 / 3;
+  margin-bottom: 2rem;
+}
+
+.ct-cover {
+  object-fit: cover;
+}
+
+.ct-info-title {
+  color: var(--br);
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 1.9rem;
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+}
+
+.ct-info-list > div {
+  border-bottom: 1px solid var(--l3);
+  padding: 1.1rem 0;
+}
+
+.ct-info-list > div:last-child {
+  border-bottom: 0;
+}
+
+.ct-info-list dt {
+  color: var(--gold);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.ct-info-list dd {
+  color: var(--tx);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-top: 0.35rem;
+  overflow-wrap: anywhere;
+}
+
+.ct-info-list a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.ct-info-list a:hover,
+.ct-info-list a:focus-visible {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ct-story {
+  background: var(--l2);
+  border-top: 1px solid var(--l3);
+  padding: 5rem 2.5rem;
+}
+
+.ct-story-in {
+  align-items: center;
+  display: grid;
+  gap: 4rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.ct-story-text p:not(.ey) {
+  color: var(--t2);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.85;
+  max-width: 34rem;
+  text-wrap: pretty;
+}
+
+.ct-story-photo {
+  aspect-ratio: 4 / 3;
+}
+
+/* Contact form */
 .cf {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+  margin-top: 0;
+  padding: 0;
 }
 
 .cf-row {
@@ -3520,7 +3754,7 @@ footer {
 }
 
 .cf-field legend {
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.8rem;
   padding: 0;
 }
 
@@ -3534,7 +3768,7 @@ footer {
 .cf-field input[type="email"],
 .cf-field input[type="tel"],
 .cf-field textarea {
-  background: var(--w);
+  background: var(--l);
   border: 1px solid var(--l3);
   border-radius: 6px;
   color: var(--tx);
@@ -3542,8 +3776,8 @@ footer {
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.5;
-  padding: 0.85rem 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  padding: 0.9rem 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
   width: 100%;
 }
 
@@ -3558,6 +3792,7 @@ footer {
 
 .cf-field input:focus-visible,
 .cf-field textarea:focus-visible {
+  background: var(--w);
   border-color: var(--gold);
   box-shadow: 0 0 0 3px rgb(160 136 88 / 18%);
   outline: none;
@@ -3572,16 +3807,35 @@ footer {
   opacity: 0.6;
 }
 
-.cf-checks {
-  gap: 0.2rem;
+.cf-checks-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
 }
 
 .cf-check {
   align-items: center;
+  background: var(--l);
+  border: 1px solid var(--l3);
+  border-radius: 6px;
   cursor: pointer;
-  display: flex;
-  gap: 0.75rem;
-  padding: 0.45rem 0;
+  display: inline-flex;
+  gap: 0.65rem;
+  padding: 0.7rem 1rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.cf-check:hover {
+  border-color: var(--gold);
+}
+
+.cf-check:has(input:checked) {
+  background: var(--l2);
+  border-color: var(--tc);
+}
+
+.cf-check:has(input:focus-visible) {
+  box-shadow: 0 0 0 3px rgb(160 136 88 / 28%);
 }
 
 .cf-check input {
@@ -3595,10 +3849,21 @@ footer {
 .cf-field .cf-check span {
   color: var(--t2);
   font-family: var(--font-sans, Jost, Arial, sans-serif);
-  font-size: 1rem;
+  font-size: 0.98rem;
   font-weight: 300;
   letter-spacing: 0;
   text-transform: none;
+}
+
+.cf-group {
+  background: var(--l);
+  border: 1px solid var(--l3);
+  border-radius: 8px;
+  padding: 1.4rem;
+}
+
+.cf-group input[type="text"] {
+  background: var(--w);
 }
 
 .cf-error,
@@ -3628,6 +3893,12 @@ footer {
 .cf-submit {
   align-self: flex-start;
   border: 0;
+  border-radius: 6px;
+  margin-top: 0.4rem;
+}
+
+.cf-submit:hover:not(:disabled) {
+  background: var(--sd);
 }
 
 .cf-submit:disabled {
@@ -3636,9 +3907,10 @@ footer {
 }
 
 .cf-success {
-  background: var(--w);
+  background: var(--l);
   border: 1px solid var(--l3);
-  border-radius: 6px;
+  border-radius: 8px;
+  outline: none;
   padding: 2.5rem 2rem;
 }
 
@@ -3658,13 +3930,55 @@ footer {
   line-height: 1.7;
 }
 
+@media (max-width: 900px) {
+  .ct-main,
+  .ct-story {
+    padding: 3.5rem 1.5rem;
+  }
+
+  .ct-main-in,
+  .ct-story-in {
+    gap: 2.5rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ct-info {
+    position: static;
+  }
+
+  .ct-hero-in {
+    padding: 3rem 1.5rem 2.75rem;
+  }
+}
+
 @media (max-width: 640px) {
+  .ct-main {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .ct-form-panel {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .ct-form-text {
+    margin-bottom: 1.6rem;
+  }
+
   .cf-row {
     grid-template-columns: 1fr;
+  }
+
+  .cf-group {
+    padding: 1.1rem;
   }
 
   .cf-submit {
     align-self: stretch;
     text-align: center;
+  }
+
+  .ct-hero-cta {
+    text-align: center;
+    width: 100%;
   }
 }
