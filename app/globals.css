@@ -4006,3 +4006,203 @@ footer {
     width: 100%;
   }
 }
+
+/* Groups page (/hopar) */
+.gp-hero .ct-hero-img {
+  object-position: 50% 25%;
+}
+
+.gp-sec {
+  background: var(--l);
+  padding: 6rem 2.5rem;
+}
+
+.gp-sec-alt {
+  background: var(--l2);
+  border-bottom: 1px solid var(--l3);
+  border-top: 1px solid var(--l3);
+}
+
+.gp-in {
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.gp-split {
+  align-items: center;
+  display: grid;
+  gap: 5rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+}
+
+.gp-split-reverse {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+}
+
+.gp-photo {
+  background: var(--l2);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.gp-photo-tall {
+  aspect-ratio: 4 / 5;
+}
+
+.gp-photo-wide {
+  aspect-ratio: 4 / 3;
+}
+
+.gp-body .st {
+  margin-bottom: 1.4rem;
+  text-wrap: balance;
+}
+
+.gp-lead {
+  color: var(--t2);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.85;
+  max-width: 36rem;
+  text-wrap: pretty;
+}
+
+.gp-list {
+  list-style: none;
+  margin-top: 2.5rem;
+}
+
+.gp-list li {
+  border-top: 1px solid var(--l3);
+  padding: 1.5rem 0;
+}
+
+.gp-list h3,
+.gp-occasions h3 {
+  color: var(--br);
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: 1.7rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.gp-list p,
+.gp-occasions p {
+  color: var(--t2);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.75;
+  text-wrap: pretty;
+}
+
+.gp-note {
+  border-top: 1px solid var(--l3);
+  color: var(--bl);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.7;
+  padding-top: 1.25rem;
+}
+
+.gp-occasions {
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin-top: 5rem;
+}
+
+.gp-occasions li {
+  border-top: 1px solid var(--gold);
+  padding-top: 1.5rem;
+}
+
+.gp-figure figcaption {
+  color: var(--bl);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  margin-top: 0.9rem;
+}
+
+.gp-cta {
+  background: var(--tc);
+  padding: 6rem 2.5rem;
+  text-align: center;
+}
+
+.gp-cta-in {
+  margin: 0 auto;
+  max-width: 44rem;
+}
+
+.gp-cta h2 {
+  color: var(--w);
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.12;
+  margin-bottom: 1.6rem;
+  text-wrap: balance;
+}
+
+.gp-cta p {
+  color: var(--l3);
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  text-wrap: pretty;
+}
+
+.gp-cta-btn {
+  background: var(--w);
+  border-radius: 6px;
+  color: var(--tc);
+  display: inline-block;
+  font-family: var(--font-sans, Jost, Arial, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  margin-top: 1.5rem;
+  padding: 1.1rem 2.8rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 0.25s, color 0.25s;
+}
+
+.gp-cta-btn:hover,
+.gp-cta-btn:focus-visible {
+  background: var(--gold);
+  color: var(--w);
+}
+
+@media (max-width: 900px) {
+  .gp-sec,
+  .gp-cta {
+    padding: 4rem 1.5rem;
+  }
+
+  .gp-split,
+  .gp-split-reverse {
+    gap: 2.5rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gp-photo-tall {
+    aspect-ratio: 4 / 3;
+  }
+
+  .gp-occasions {
+    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 3rem;
+  }
+}

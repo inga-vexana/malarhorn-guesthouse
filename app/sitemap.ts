@@ -47,8 +47,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // The events pages are only available in Icelandic, so they are listed without an English alternate.
+  // The events and groups pages are only available in Icelandic, so they are listed without an English alternate.
   const eventRoutes = [
+    { path: "/hopar", priority: 0.7, changeFrequency: "monthly" as const },
     { path: "/vidburdir", priority: 0.7, changeFrequency: "weekly" as const },
     ...events_data.map((e) => ({
       path: `/vidburdir/${e.slug}`,

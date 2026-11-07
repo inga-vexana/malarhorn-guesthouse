@@ -26,6 +26,7 @@ export const translations = {
     contact: "Get in Touch",
     guest: "Guest Info",
     events: "Events",
+    groups: "Groups",
     nav: [
       ["home", "Home"],
       ["accommodation", "Accommodation"],
@@ -43,6 +44,7 @@ export const translations = {
     contact: "Hafðu samband",
     guest: "Gestaupplýsingar",
     events: "Viðburðir",
+    groups: "Hópar",
     nav: [
       ["home", "Heim"],
       ["accommodation", "Gisting"],
