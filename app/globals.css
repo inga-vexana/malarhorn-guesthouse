@@ -4162,21 +4162,6 @@ footer {
   text-wrap: pretty;
 }
 
-.gp-cta-btn {
-  background: var(--w);
-  border-radius: 6px;
-  color: var(--tc);
-  display: inline-block;
-  font-family: var(--font-sans, Jost, Arial, sans-serif);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  margin-top: 1.5rem;
-  padding: 1.1rem 2.8rem;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: background 0.25s, color 0.25s;
-}
 
 .gp-form-card {
   background: var(--w);
@@ -4191,11 +4176,6 @@ footer {
   padding: 0;
 }
 
-.gp-cta-btn:hover,
-.gp-cta-btn:focus-visible {
-  background: var(--gold);
-  color: var(--w);
-}
 
 @media (max-width: 900px) {
   .gp-sec,
