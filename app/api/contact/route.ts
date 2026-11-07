@@ -8,8 +8,8 @@ import {
   type ContactPayload,
   type InquiryType,
 } from "../../lib/contact";
+import { CONTACT_EMAIL, GROUPS_EMAIL } from "../../lib/contact-config";
 
-const RECIPIENT = "malarhorn@malarhornguesthouse.is";
 const MIN_FILL_TIME_MS = 3000;
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
@@ -89,7 +89,9 @@ function parsePayload(body: unknown): ContactPayload | null {
 
   const openedAt = typeof b.openedAt === "number" ? b.openedAt : 0;
 
-  return { name, email, phone, inquiries, guests, dates, message, website, openedAt, submissionId };
+  const form = b.form === "groups" ? "groups" : "general";
+
+  return { name, email, phone, inquiries, guests, dates, message, website, openedAt, submissionId, form };
 }
 
 export async function POST(request: Request) {
@@ -131,7 +133,8 @@ export async function POST(request: Request) {
   const guests = singleLine(payload.guests);
   const dates = singleLine(payload.dates);
   const message = payload.message.trim();
-  const includesGroup = payload.inquiries.includes("group_quote");
+  const isGroupsForm = payload.form === "groups";
+  const includesGroup = isGroupsForm || payload.inquiries.includes("group_quote");
   const inquiryLabels = payload.inquiries.map((type) => INQUIRY_LABELS[type]);
 
   const rows: [string, string][] = [
@@ -154,7 +157,7 @@ export async function POST(request: Request) {
 
   const html = `
     <div style="font-family:Arial,sans-serif;color:#1a1814;max-width:600px">
-      <h2 style="font-weight:400;margin:0 0 16px">New website inquiry</h2>
+      <h2 style="font-weight:400;margin:0 0 16px">${isGroupsForm ? "Ný hópafyrirspurn" : "New website inquiry"}</h2>
       <table style="border-collapse:collapse;width:100%">
         ${rows
           .map(
@@ -171,13 +174,15 @@ export async function POST(request: Request) {
   const { error } = await resend.emails.send(
     {
       from: `Malarhorn Website <contact@${domain}>`,
-      to: [RECIPIENT],
+      to: [isGroupsForm ? GROUPS_EMAIL : CONTACT_EMAIL],
       replyTo: email,
-      subject: `New Website Inquiry – ${name}`,
+      subject: isGroupsForm
+        ? `Hópafyrirspurn – ${name}${guests ? ` (${guests} gestir)` : ""}`
+        : `New Website Inquiry – ${name}`,
       text: plain,
       html,
     },
-    payload.submissionId ? { idempotencyKey: `contact-form/${payload.submissionId}` } : undefined,
+    payload.submissionId ? { idempotencyKey: `contact-form/${payload.form}/${payload.submissionId}` } : undefined,
   );
 
   if (error) {

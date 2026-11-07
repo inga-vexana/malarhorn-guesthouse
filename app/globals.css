@@ -4178,6 +4178,19 @@ footer {
   transition: background 0.25s, color 0.25s;
 }
 
+.gp-form-card {
+  background: var(--w);
+  border-radius: 8px;
+  margin-top: 2.5rem;
+  padding: 2.5rem;
+  text-align: left;
+}
+
+.gp-form-card .cf-success {
+  border: 0;
+  padding: 0;
+}
+
 .gp-cta-btn:hover,
 .gp-cta-btn:focus-visible {
   background: var(--gold);
@@ -4204,5 +4217,15 @@ footer {
     gap: 2rem;
     grid-template-columns: minmax(0, 1fr);
     margin-top: 3rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .gp-form-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .gp-form-card .cf-row {
+    grid-template-columns: 1fr;
   }
 }

@@ -9,6 +9,8 @@ export type ContactPayload = {
   guests: string;
   dates: string;
   message: string;
+  /** Which form sent it: "groups" routes to the groups inbox. */
+  form?: "general" | "groups";
   /** Honeypot: real visitors never see or fill this field. */
   website: string;
   /** Epoch ms when the form was first shown; used to reject instant bot submissions. */

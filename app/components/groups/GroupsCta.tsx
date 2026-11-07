@@ -1,8 +1,9 @@
-import Link from "next/link";
+import ContactForm from "../ContactForm";
+import { CONTACT_FORM_ENABLED, GROUPS_EMAIL } from "../../lib/contact-config";
 
 export default function GroupsCta() {
   return (
-    <section className="gp-cta" aria-labelledby="gp-cta-title">
+    <section className="gp-cta" id="fyrirspurn" aria-labelledby="gp-cta-title">
       <div className="gp-cta-in">
         <h2 id="gp-cta-title">Ertu að skipuleggja ferð fyrir hóp?</h2>
         <p>
@@ -10,12 +11,17 @@ export default function GroupsCta() {
           möguleikar henta best fyrir ykkar tilefni.
         </p>
         <p>
-          Hafðu samband og segðu okkur aðeins frá hópnum, fyrirhugaðri dagsetningu og því sem þið
-          hafið í huga.
+          Segðu okkur aðeins frá hópnum, fyrirhugaðri dagsetningu og því sem þið hafið í huga.
         </p>
-        <Link href="/hafa-samband" className="gp-cta-btn">
-          Sendu okkur fyrirspurn
-        </Link>
+        {CONTACT_FORM_ENABLED ? (
+          <div className="gp-form-card">
+            <ContactForm variant="groups" />
+          </div>
+        ) : (
+          <a href={`mailto:${GROUPS_EMAIL}?subject=${encodeURIComponent("Hópafyrirspurn")}`} className="gp-cta-btn">
+            Sendu okkur fyrirspurn
+          </a>
+        )}
       </div>
     </section>
   );

@@ -10,6 +10,7 @@ import {
   type FieldErrors,
   type InquiryType,
 } from "../lib/contact";
+import { CONTACT_EMAIL, GROUPS_EMAIL } from "../lib/contact-config";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -43,8 +44,7 @@ const copy = {
       too_long: "Textinn er of langur.",
       invalid_request: "Ekki tókst að senda fyrirspurnina. Vinsamlegast athugaðu upplýsingarnar og reyndu aftur.",
       rate_limited: "Of margar tilraunir. Vinsamlegast reyndu aftur eftir nokkrar mínútur.",
-      send_failed:
-        "Ekki tókst að senda fyrirspurnina. Vinsamlegast reyndu aftur eða sendu okkur tölvupóst á malarhorn@malarhornguesthouse.is.",
+      send_failed: "Ekki tókst að senda fyrirspurnina. Vinsamlegast reyndu aftur eða sendu okkur tölvupóst á {email}.",
     } as Record<ContactErrorCode, string>,
   },
   en: {
@@ -76,8 +76,7 @@ const copy = {
       too_long: "This text is too long.",
       invalid_request: "We couldn't send your inquiry. Please check your details and try again.",
       rate_limited: "Too many attempts. Please try again in a few minutes.",
-      send_failed:
-        "We couldn't send your inquiry. Please try again or email us at malarhorn@malarhornguesthouse.is.",
+      send_failed: "We couldn't send your inquiry. Please try again or email us at {email}.",
     } as Record<ContactErrorCode, string>,
   },
 };
@@ -86,9 +85,11 @@ const focusOnMount = (node: HTMLElement | null) => {
   node?.focus({ preventScroll: false });
 };
 
-export default function ContactForm() {
+export default function ContactForm({ variant = "general" }: { variant?: "general" | "groups" }) {
   const { lang } = useSafeLang();
   const t = copy[lang];
+  const isGroups = variant === "groups";
+  const fallbackEmail = isGroups ? GROUPS_EMAIL : CONTACT_EMAIL;
 
   const [status, setStatus] = useState<Status>("idle");
   const [formError, setFormError] = useState<ContactErrorCode | null>(null);
@@ -97,7 +98,7 @@ export default function ContactForm() {
   const openedAt = useRef(Date.now());
   const submissionId = useRef(crypto.randomUUID());
 
-  const showGroupFields = inquiries.includes("group_quote");
+  const showGroupFields = isGroups || inquiries.includes("group_quote");
   const submitting = status === "submitting";
 
   const toggleInquiry = (type: InquiryType) => {
@@ -136,7 +137,8 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...values,
-          inquiries,
+          form: variant,
+          inquiries: isGroups ? ["group_quote"] : inquiries,
           guests: showGroupFields ? read("guests") : "",
           dates: showGroupFields ? read("dates") : "",
           website: read("website"),
@@ -175,7 +177,7 @@ export default function ContactForm() {
   const fieldError = (key: keyof FieldErrors) =>
     fieldErrors[key] ? (
       <p className="cf-error" id={`cf-${key}-error`}>
-        {t.errors[fieldErrors[key] as ContactErrorCode]}
+        {t.errors[fieldErrors[key] as ContactErrorCode].replace("{email}", fallbackEmail)}
       </p>
     ) : null;
 
@@ -238,6 +240,7 @@ export default function ContactForm() {
         </div>
       </div>
 
+      {!isGroups && (
       <fieldset className="cf-field" disabled={submitting}>
         <legend>{t.help}</legend>
         <div className="cf-checks-list">
@@ -253,6 +256,7 @@ export default function ContactForm() {
           ))}
         </div>
       </fieldset>
+      )}
 
       {showGroupFields && (
         <div className="cf-row cf-group">
@@ -305,7 +309,7 @@ export default function ContactForm() {
 
       {formError && (
         <p className="cf-alert" role="alert">
-          {t.errors[formError]}
+          {t.errors[formError].replace("{email}", fallbackEmail)}
         </p>
       )}
 
