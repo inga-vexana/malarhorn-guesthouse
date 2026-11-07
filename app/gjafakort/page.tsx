@@ -57,19 +57,6 @@ const giftCards = [
     price: 45560,
     originalPrice: 56950,
   },
-  {
-    id: 5,
-    url: "https://gjafabref.reserva.is/malarhornguesthouse/1379",
-    image: "/images/giftcards/gc5.jpg",
-    name_is: "Einnar nætur gisting ásamt siglingu út í Grímsey",
-    name_en: "One Night Stay with Sailing to Grímsey",
-    desc_is:
-      "Gisting fyrir tvo í eina nótt í standard herbergi á Malarhorni á Drangsnesi, ásamt morgunverði og siglingu út í Grímsey.",
-    desc_en:
-      "Accommodation for two for one night in a standard room at Malarhorn in Drangsnes, including breakfast and a sailing trip to Grímsey.",
-    price: 46360,
-    originalPrice: 57950,
-  },
 ];
 
 
