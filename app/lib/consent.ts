@@ -80,6 +80,8 @@ function pushToDataLayer(...args: unknown[]): void {
 export function loadGTM(): void {
   if (typeof document === "undefined") return;
   if (document.getElementById(GTM_SCRIPT_ELEMENT_ID)) return;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
   const first = document.getElementsByTagName("script")[0];
   const script = document.createElement("script");
   script.id = GTM_SCRIPT_ELEMENT_ID;
@@ -194,6 +196,7 @@ export function getConsentInitScript(): string {
     consent_version: '${CONSENT_VERSION}'
   });
   if (stored && (analytics || marketing) && !document.getElementById('${GTM_SCRIPT_ELEMENT_ID}')) {
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
     var f = document.getElementsByTagName('script')[0];
     var j = document.createElement('script');
     j.id = '${GTM_SCRIPT_ELEMENT_ID}';
